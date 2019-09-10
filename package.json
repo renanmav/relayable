@@ -1,0 +1,21 @@
+{
+  "name": "@yotta/relayable",
+  "version": "1.0.0",
+  "description": "Yotta's social network created with Relay and GraphQL",
+  "main": "index.js",
+  "author": "yottadev",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build:server": "yarn workspace @yotta/server build"
+  },
+  "devDependencies": {
+    "sucrase": "^3.10.1",
+    "typescript": "3.5.x"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}

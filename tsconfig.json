@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@yotta/server": ["server/src"],
+      "@yotta/web": ["web/src"]
+    }
+  }
+}

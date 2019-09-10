@@ -1,0 +1,13 @@
+{
+  "name": "@yotta/server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
+    "start": "nodemon src/index.ts"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
