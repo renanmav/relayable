@@ -6,7 +6,7 @@ module.exports = {
     jest: true
   },
   extends: [
-    'standard'
+    'standard', 'plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint'
   ],
   globals: {
     Atomics: 'readonly',
@@ -22,8 +22,18 @@ module.exports = {
   },
   plugins: [
     'react',
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'import'
   ],
   rules: {
+    '@typescript-eslint/explicit-function-return-type': 'off'
+  },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx']
+    },
+    'import/resolver': {
+      typescript: {}
+    }
   }
 }

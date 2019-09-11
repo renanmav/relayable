@@ -7,20 +7,22 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build:server": "yarn workspace @yotta/server build"
+    "build:server": "yarn workspace @yotta/server build",
+    "start:server": "yarn workspace @yotta/server start"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
     "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-config-standard": "^14.1.0",
+    "eslint-import-resolver-typescript": "^1.1.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-standard": "^4.0.1",
-    "sucrase": "^3.10.1",
-    "typescript": "3.5.x"
+    "eslint-plugin-standard": "^4.0.1"
   },
   "workspaces": {
     "packages": [
