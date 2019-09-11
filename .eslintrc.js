@@ -26,6 +26,7 @@ module.exports = {
     'import'
   ],
   rules: {
+    'max-len': ['error', { 'code': 80 }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/interface-name-prefix': 'off'
   },
