@@ -5,9 +5,17 @@ services:
     build: ./packages/server
     ports:
       - "5000:5000"
-    env_file:
-      - ./packages/server/.env.local
     volumes:
       - "./packages/server/src:/usr/api/src"
     command: yarn start:dev
     container_name: yotta-api
+    links:
+      - database
+    environment:
+      - IS_FROM_DOCKER=true
+
+  database:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: yotta-mongo
