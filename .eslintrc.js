@@ -26,7 +26,8 @@ module.exports = {
     'import'
   ],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'off'
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off'
   },
   settings: {
     'import/parsers': {
