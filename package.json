@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "build:server": "yarn workspace @yotta/server build",
-    "start:server": "yarn workspace @yotta/server start"
+    "start:server": "yarn workspace @yotta/server start:dev"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.2.0",

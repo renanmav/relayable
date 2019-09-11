@@ -4,8 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
-    "start": "nodemon src/index.ts"
+    "clean": "rimraf ./dist",
+    "build": "yarn clean && sucrase ./src -d ./dist --transforms typescript,imports",
+    "start:prod": "node dist/index.js",
+    "start:dev": "nodemon src/index.ts"
   },
   "dependencies": {
     "dotenv": "^8.1.0",
@@ -23,6 +25,7 @@
     "@types/node": "^12.7.4",
     "nodemon": "^1.19.2",
     "sucrase": "^3.10.1",
-    "typescript": "3.5.x"
+    "typescript": "3.5.x",
+    "rimraf": "^3.0.0"
   }
 }

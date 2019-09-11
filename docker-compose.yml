@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  api:
+    build: ./packages/server
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./packages/server/.env.local
+    volumes:
+      - "./packages/server/src:/usr/api/src"
+    command: yarn start:dev
+    container_name: yotta-api
