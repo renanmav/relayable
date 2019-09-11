@@ -1,8 +1,8 @@
 import { mutationWithClientMutationId } from 'graphql-relay'
 import { GraphQLNonNull, GraphQLString } from 'graphql'
 
-import { authenticateFacebook } from 'server/src/passport'
-import { GraphQLContext } from 'server/src/TypeDefinitions'
+import { authenticateFacebook } from '../../../passport'
+import { GraphQLContext } from '../../../TypeDefinitions'
 
 export default mutationWithClientMutationId({
   name: 'LoginWithFacebook',

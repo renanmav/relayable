@@ -13,6 +13,8 @@ services:
       - database
     environment:
       - IS_FROM_DOCKER=true
+    env_file:
+      - ./packages/server/.env
 
   database:
     image: mongo
