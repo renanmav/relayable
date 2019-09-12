@@ -26,7 +26,12 @@ module.exports = {
     'import'
   ],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'off'
+    'max-len': ['error', { 'code': 120 }],
+    '@typescript-eslint/camelcase': ['error', { properties: 'never', 'ignoreDestructuring': true }],
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off'
   },
   settings: {
     'import/parsers': {
