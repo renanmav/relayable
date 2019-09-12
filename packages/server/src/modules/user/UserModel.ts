@@ -1,20 +1,22 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
 
 const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
+  github_id: {
     type: String,
     required: true,
     unique: true
   },
-  social: {
-    facebookProvider: {
-      id: String,
-      token: String
-    }
+  name: {
+    type: String,
+    required: true
+  },
+  login: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  avatar_url: {
+    type: String
   }
 }, {
   timestamps: {
@@ -25,14 +27,10 @@ const userSchema = new Schema({
 })
 
 export interface IUser extends Document {
+  github_id: string
   name: string
-  email: string
-  social: {
-    facebookProvider: {
-      id: string,
-      token: string
-    }
-  }
+  login: string
+  avatar_url?: string
 }
 
 const UserModel: Model<IUser> = mongoose.model('User', userSchema)
