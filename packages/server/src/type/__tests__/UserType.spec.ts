@@ -25,21 +25,74 @@ const meQuery = `
 `
 const rootValue = {}
 
-it('should retrieve the logged user when logged in', async () => {
-  const user = await createRows.createUser()
+describe('for the me query', () => {
+  it('should retrieve the logged user when logged in', async () => {
+    const user = await createRows.createUser()
 
-  const context = getContext({ user })
+    const context = getContext({ user })
 
-  const result = await graphql(schema, meQuery, rootValue, context)
+    const result = await graphql(schema, meQuery, rootValue, context)
 
-  expect(result.data!.me.name).toBe(user.name)
-  expect(result.data!.me.avatar_url).toBe(user.avatar_url)
+    expect(result.data!.me.name).toBe(user.name)
+    expect(result.data!.me.avatar_url).toBe(user.avatar_url)
+  })
+
+  it('should not retrieve the logged user when logged out', async () => {
+    const context = getContext()
+
+    const result = await graphql(schema, meQuery, rootValue, context)
+
+    expect(result.data!.me).toBeNull()
+  })
 })
 
-it('should not retrieve the logged user when logged out', async () => {
-  const context = getContext()
+const userQuery = `
+  query M(
+    $login: String!
+  ) {
+    user(login: $login) {
+      github_id
+    }
+  }
+`
 
-  const result = await graphql(schema, meQuery, rootValue, context)
+describe('for the user query', () => {
+  it('should retrieve github id if consulting its own info', async () => {
+    const user = await createRows.createUser()
 
-  expect(result.data!.me).toBeNull()
+    const context = getContext({ user })
+    const variables = {
+      login: user.login
+    }
+
+    const result = await graphql(
+      schema,
+      userQuery,
+      rootValue,
+      context,
+      variables
+    )
+
+    expect(result.data!.user.github_id).toBe(user.github_id)
+  })
+
+  it('should not retrieve github id if consulting other user info', async () => {
+    const userA = await createRows.createUser()
+    const userB = await createRows.createUser()
+
+    const context = getContext({ user: userA })
+    const variables = {
+      login: userB.login
+    }
+
+    const result = await graphql(
+      schema,
+      userQuery,
+      rootValue,
+      context,
+      variables
+    )
+
+    expect(result.data!.user.github_id).toBeNull()
+  })
 })

@@ -26,7 +26,7 @@ module.exports = {
     'import'
   ],
   rules: {
-    'max-len': ['error', { 'code': 80 }],
+    'max-len': ['error', { 'code': 120 }],
     '@typescript-eslint/camelcase': ['error', { properties: 'never', 'ignoreDestructuring': true }],
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

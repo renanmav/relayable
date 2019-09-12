@@ -1,33 +1,36 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
 
-const userSchema = new Schema({
-  github_id: {
-    type: String,
-    required: true,
-    unique: true
+const userSchema = new Schema(
+  {
+    github_id: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    login: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    avatar_url: {
+      type: String
+    }
   },
-  name: {
-    type: String,
-    required: true
-  },
-  login: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  avatar_url: {
-    type: String
+  {
+    timestamps: {
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt'
+    },
+    collection: 'user'
   }
-}, {
-  timestamps: {
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  },
-  collection: 'user'
-})
+)
 
 export interface IUser extends Document {
-  github_id: string
+  github_id: string | undefined
   name: string
   login: string
   avatar_url?: string
