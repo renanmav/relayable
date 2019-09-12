@@ -1,7 +1,7 @@
 import { mutationWithClientMutationId } from 'graphql-relay'
 import { GraphQLNonNull, GraphQLString } from 'graphql'
 
-import { requestGithubUser, GithubUserResponse } from './helpers'
+import { requestGithubUser } from './helpers'
 import UserModel from '../UserModel'
 
 export default mutationWithClientMutationId({

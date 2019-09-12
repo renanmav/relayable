@@ -7,17 +7,30 @@ import koaPlayground from 'graphql-playground-middleware-koa'
 import graphqlHttp, { Options } from 'koa-graphql'
 
 import { schema } from './schema'
+import { Loaders } from './interface/NodeInterface'
+import * as loaders from './loader'
 
 const app = new Koa()
 const router = new Router()
 
 const graphqlSettingsPerReq = async (req: Request, res: Response) => {
+  const AllLoaders: Loaders = loaders
+
+  const dataloaders = Object.keys(AllLoaders).reduce(
+    (acc, loaderKey) => ({
+      ...acc,
+      [loaderKey]: AllLoaders[loaderKey].getLoader()
+    }),
+    {}
+  )
+
   const options: Options = {
     graphiql: process.env.NODE_ENV !== 'production',
     schema,
     context: {
       req,
-      res
+      res,
+      dataloaders
     }
   }
   return options
