@@ -11,5 +11,6 @@ export type Dataloaders = {
 export type GraphQLContext = {
   req: Request,
   res: Response,
-  dataloaders: Dataloaders
+  dataloaders: Dataloaders,
+  user?: IUser
 }

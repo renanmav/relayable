@@ -28,7 +28,6 @@ export type Loaders = {
 export const { nodeField, nodeInterface } = nodeDefinitions(
   (globalId, ctx: GraphQLContext) => {
     const { type, id } = fromGlobalId(globalId)
-    console.log(type, id)
     const loader: Loader = (loaders as Loaders)[`${type}Loader`]
 
     return (loader && loader.load(ctx, id)) || null

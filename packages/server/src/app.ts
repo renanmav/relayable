@@ -9,11 +9,14 @@ import graphqlHttp, { Options } from 'koa-graphql'
 import { schema } from './schema'
 import { Loaders } from './interface/NodeInterface'
 import * as loaders from './loader'
+import { getUser } from './auth'
 
 const app = new Koa()
 const router = new Router()
 
 const graphqlSettingsPerReq = async (req: Request, res: Response) => {
+  const { user } = await getUser(req.header.authorization)
+
   const AllLoaders: Loaders = loaders
 
   const dataloaders = Object.keys(AllLoaders).reduce(
@@ -30,7 +33,8 @@ const graphqlSettingsPerReq = async (req: Request, res: Response) => {
     context: {
       req,
       res,
-      dataloaders
+      dataloaders,
+      user
     }
   }
   return options

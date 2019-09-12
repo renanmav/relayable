@@ -3,6 +3,7 @@ import UserType from '../modules/user/UserType'
 import { UserLoader } from '../loader'
 import { fromGlobalId } from 'graphql-relay'
 import { nodeField } from '../interface/NodeInterface'
+import { GraphQLContext } from '../TypeDefinitions'
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -16,6 +17,10 @@ export default new GraphQLObjectType({
         }&scope=user`
     },
     node: nodeField,
+    me: {
+      type: UserType,
+      resolve: (_, __, { user }: GraphQLContext) => user
+    },
     user: {
       type: UserType,
       args: {
@@ -26,7 +31,7 @@ export default new GraphQLObjectType({
           type: GraphQLString
         }
       },
-      resolve: (obj, args, context) => {
+      resolve: (_, args, context) => {
         if (args.id) {
           const { id } = fromGlobalId(args.id)
           return UserLoader.load(context, id)
