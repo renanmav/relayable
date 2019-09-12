@@ -1,4 +1,5 @@
 import { graphql } from 'graphql'
+import { fromGlobalId, toGlobalId } from 'graphql-relay'
 
 import { schema } from '../../schema'
 import {
@@ -94,5 +95,55 @@ describe('for the user query', () => {
     )
 
     expect(result.data!.user.github_id).toBeNull()
+  })
+
+  it('should retrieve a user by its id', async () => {
+    const user = await createRows.createUser()
+
+    const query = `
+      query fetchById(
+        $id: String!
+      ) {
+        user(id: $id) {
+          name
+          avatar_url
+        }
+      }
+    `
+
+    const context = getContext()
+    const variables = {
+      id: toGlobalId('User', user._id)
+    }
+
+    const result = await graphql(schema, query, rootValue, context, variables)
+
+    expect(result.data!.user.name).toBe(user.name)
+    expect(result.data!.user.avatar_url).toBe(user.avatar_url)
+  })
+
+  it('should retrieve a user by its login', async () => {
+    const user = await createRows.createUser()
+
+    const query = `
+      query fetchByLogin(
+        $login: String!
+      ) {
+        user(login: $login) {
+          name
+          avatar_url
+        }
+      }
+    `
+
+    const context = getContext()
+    const variables = {
+      login: user.login
+    }
+
+    const result = await graphql(schema, query, rootValue, context, variables)
+
+    expect(result.data!.user.name).toBe(user.name)
+    expect(result.data!.user.avatar_url).toBe(user.avatar_url)
   })
 })
