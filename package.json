@@ -1,7 +1,7 @@
 {
   "name": "@yotta/relayable",
   "version": "1.0.0",
-  "description": "Yotta's social network created with Relay and GraphQL",
+  "description": "Yotta's Q&A created with Relay and GraphQL",
   "main": "index.js",
   "author": "yottadev",
   "license": "MIT",
@@ -9,9 +9,12 @@
   "scripts": {
     "build:server": "yarn workspace @yotta/server build",
     "deploy:server:now": "yarn workspace @yotta/server deploy:now",
-    "start:server": "yarn workspace @yotta/server start:dev"
+    "start:server": "yarn workspace @yotta/server start:dev",
+    "lint:staged": "lint-staged",
+    "test": "yarn workspace @yotta/server test"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.18",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
     "eslint": "^6.3.0",
@@ -23,7 +26,28 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^3.0.5",
+    "jest": "24.7.1",
+    "lint-staged": "^9.2.5",
+    "prettier": "^1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint:staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write --single-quote true --trailing-comma all --print-width 80 --no-semi",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.tsx": [
+      "prettier --write --single-quote true --trailing-comma all --print-width 80 --no-semi",
+      "eslint --fix",
+      "git add"
+    ]
   },
   "workspaces": {
     "packages": [
