@@ -28,6 +28,7 @@ module.exports = {
   rules: {
     'max-len': ['error', { 'code': 80 }],
     '@typescript-eslint/camelcase': ['error', { properties: 'never', 'ignoreDestructuring': true }],
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off'
