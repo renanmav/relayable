@@ -27,7 +27,7 @@ const graphqlServer = graphqlHttp(graphqlSettingsPerReq)
 
 router.all('/graphql', bodyParser(), graphqlServer)
 if (process.env.NODE_ENV !== 'production') {
-  router.all('/graphiql', koaPlayground({ endpoint: '/graphql' }))
+  router.all('/graphiql', koaPlayground({ endpoint: '/graphql' }) as any)
 }
 
 app.use(logger())

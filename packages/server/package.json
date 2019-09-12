@@ -16,6 +16,7 @@
     "graphql": "^14.5.4",
     "graphql-playground-middleware-koa": "^1.6.12",
     "graphql-relay": "^0.6.0",
+    "isomorphic-fetch": "^2.2.1",
     "kcors": "^2.2.2",
     "koa": "^2.8.1",
     "koa-bodyparser": "^4.2.1",

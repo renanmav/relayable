@@ -1,3 +1,3 @@
-import LoginWithFacebook from './LoginWithFacebook'
+import LoginWithGithub from './LoginWithGithub'
 
-export default { LoginWithFacebook }
+export default { LoginWithGithub }
