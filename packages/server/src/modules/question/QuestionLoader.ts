@@ -4,6 +4,7 @@ import { mongooseLoader } from '@entria/graphql-mongoose-loader'
 import User from '../user/UserLoader'
 import QuestionModel, { IQuestion } from './QuestionModel'
 import { GraphQLContext } from 'server/src/TypeDefinitions'
+import UserModel from '../user/UserModel'
 
 export default class Question {
   id: string
@@ -58,6 +59,10 @@ export const load = async (
   } catch (err) {
     return null
   }
+
+  const author = await UserModel.findById(data.author)
+
+  data.author = author!
 
   return viewerCanSee(context, data)
 }
