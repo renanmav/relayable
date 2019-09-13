@@ -51,11 +51,11 @@ const QuestionType = registerType(
       },
       createdAt: {
         type: GraphQLString,
-        resolve: q => q.createdAt
+        resolve: q => q.createdAt.toISOString()
       },
       updatedAt: {
         type: GraphQLString,
-        resolve: q => q.updatedAt
+        resolve: q => q.updatedAt.toISOString()
       }
     }),
     interfaces: [nodeInterface, postInterface]

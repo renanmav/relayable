@@ -16,8 +16,8 @@ export default class Question {
   views: number
   tags: string[] | undefined
   author: User
-  createdAt: string
-  updatedAt: string
+  createdAt: any
+  updatedAt: any
 
   constructor (data: Partial<IQuestion>) {
     this.id = data.id

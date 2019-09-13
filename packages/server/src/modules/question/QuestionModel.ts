@@ -51,8 +51,14 @@ export interface IQuestion extends Document {
   author: IUser
   views: number
   tags?: string[]
-  createdAt: string
-  updatedAt: string
+  createdAt: {
+    toISOString: () => string
+    toString: () => string
+  }
+  updatedAt: {
+    toISOString: () => string
+    toString: () => string
+  }
 }
 
 const UserModel: Model<IQuestion> = mongoose.model('Question', questionSchema)
