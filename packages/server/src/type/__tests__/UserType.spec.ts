@@ -1,5 +1,4 @@
 import { graphql } from 'graphql'
-import { fromGlobalId, toGlobalId } from 'graphql-relay'
 
 import { schema } from '../../schema'
 import {
