@@ -20,10 +20,13 @@ export default mutationWithClientMutationId({
 
     const _tags = data.tags as string[]
     const tags: string[] = []
-    _tags.map(_tag => {
-      const tag = slugify(_tag, { lower: true })
-      tags.push(tag)
-    })
+
+    if (_tags) {
+      _tags.map(_tag => {
+        const tag = slugify(_tag, { lower: true })
+        tags.push(tag)
+      })
+    }
 
     const question = new QuestionModel({ ...data, author: user, tags })
 
