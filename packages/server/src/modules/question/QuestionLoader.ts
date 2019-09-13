@@ -1,10 +1,14 @@
 import DataLoader from 'dataloader'
-import { mongooseLoader } from '@entria/graphql-mongoose-loader'
+import {
+  mongooseLoader,
+  connectionFromMongoCursor
+} from '@entria/graphql-mongoose-loader'
 
 import User from '../user/UserLoader'
 import QuestionModel, { IQuestion } from './QuestionModel'
 import { GraphQLContext } from 'server/src/TypeDefinitions'
 import UserModel from '../user/UserModel'
+import { ConnectionArguments, toGlobalId, fromGlobalId } from 'graphql-relay'
 
 export default class Question {
   id: string
@@ -47,7 +51,7 @@ const viewerCanSee = ({ user }: GraphQLContext, data: IQuestion | null) => {
 
 export const load = async (
   context: GraphQLContext,
-  id: string
+  id: any
 ): Promise<Question | null> => {
   if (!id) {
     return null
@@ -65,4 +69,23 @@ export const load = async (
   data.author = author!
 
   return viewerCanSee(context, data)
+}
+
+type QuestionArgs = ConnectionArguments & {
+  authorId?: string
+}
+
+export const loadQuestions = async (
+  context: GraphQLContext,
+  args: QuestionArgs
+) => {
+  const where = args.authorId ? { author: fromGlobalId(args.authorId).id } : {}
+  const questions = QuestionModel.find(where).sort({ createdAt: -1 })
+
+  return connectionFromMongoCursor({
+    cursor: questions,
+    context,
+    args,
+    loader: load
+  })
 }

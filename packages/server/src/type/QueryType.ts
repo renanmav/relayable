@@ -1,11 +1,11 @@
-import { GraphQLObjectType, GraphQLString } from 'graphql'
-import { fromGlobalId } from 'graphql-relay'
+import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql'
+import { connectionArgs } from 'graphql-relay'
 
 import UserType from '../modules/user/UserType'
-import { UserLoader } from '../loader'
+import { UserLoader, QuestionLoader } from '../loader'
 import { nodeField } from '../interface/NodeInterface'
 import { GraphQLContext } from '../TypeDefinitions'
-import QuestionType from '../modules/question/QuestionType'
+import { QuestionConnection } from '../modules/question/QuestionType'
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -31,6 +31,18 @@ export default new GraphQLObjectType({
       },
       resolve: (_, args, context) =>
         UserLoader.loadByLogin(context, args.login)
+    },
+    questions: {
+      type: QuestionConnection.connectionType,
+      description:
+        'Returns a connection with connectionArgs and/or the Author global ID\n\n Must be authenticated',
+      args: {
+        ...connectionArgs,
+        authorId: {
+          type: GraphQLID
+        }
+      },
+      resolve: (_, args, ctx) => QuestionLoader.loadQuestions(ctx, args)
     }
   })
 })

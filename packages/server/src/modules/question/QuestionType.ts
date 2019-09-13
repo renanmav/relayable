@@ -2,9 +2,10 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
-  GraphQLList
+  GraphQLList,
+  GraphQLNonNull
 } from 'graphql'
-import { globalIdField } from 'graphql-relay'
+import { globalIdField, connectionDefinitions } from 'graphql-relay'
 
 import { registerType, nodeInterface } from '../../interface/NodeInterface'
 import postInterface from '../../interface/PostInterface'
@@ -63,3 +64,8 @@ const QuestionType = registerType(
 )
 
 export default QuestionType
+
+export const QuestionConnection = connectionDefinitions({
+  name: 'Question',
+  nodeType: QuestionType
+})
