@@ -5,6 +5,7 @@ import slugify from 'slugify'
 import { GraphQLContext } from '../../../TypeDefinitions'
 import QuestionModel from '../QuestionModel'
 import QuestionType from '../QuestionType'
+import { EVENTS } from '../../../pubSub'
 
 export default mutationWithClientMutationId({
   name: 'CreateQuestion',
@@ -14,7 +15,7 @@ export default mutationWithClientMutationId({
     content: { type: new GraphQLNonNull(GraphQLString) },
     tags: { type: GraphQLList(GraphQLString) }
   },
-  mutateAndGetPayload: async (data, { user }: GraphQLContext) => {
+  mutateAndGetPayload: async (data, { user, pubSub }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
 
     const _tags = data.tags as string[]
@@ -27,6 +28,8 @@ export default mutationWithClientMutationId({
     const question = new QuestionModel({ ...data, author: user, tags })
 
     await question.save()
+
+    pubSub.publish(EVENTS.QUESTION.NEW, { NewQuestion: { question } })
 
     return { question }
   },

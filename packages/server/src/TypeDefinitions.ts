@@ -1,5 +1,7 @@
 import { Request, Response } from 'koa'
 import Dataloader from 'dataloader'
+import { PubSub } from 'graphql-subscriptions'
+
 import { IUser } from './modules/user/UserModel'
 import { IQuestion } from './modules/question/QuestionModel'
 
@@ -15,4 +17,5 @@ export type GraphQLContext = {
   res: Response
   dataloaders: Dataloaders
   user?: IUser
+  pubSub: PubSub
 }

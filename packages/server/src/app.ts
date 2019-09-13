@@ -10,6 +10,7 @@ import { schema } from './schema'
 import { Loaders } from './interface/NodeInterface'
 import * as loaders from './loader'
 import { getUser } from './auth'
+import pubSub from './pubSub'
 
 const app = new Koa()
 const router = new Router()
@@ -34,7 +35,8 @@ const graphqlSettingsPerReq = async (req: Request, res: Response) => {
       req,
       res,
       dataloaders,
-      user
+      user,
+      pubSub
     }
   }
   return options
@@ -44,7 +46,13 @@ const graphqlServer = graphqlHttp(graphqlSettingsPerReq)
 
 router.all('/graphql', bodyParser(), graphqlServer)
 if (process.env.NODE_ENV !== 'production') {
-  router.all('/graphiql', koaPlayground({ endpoint: '/graphql' }) as any)
+  router.all(
+    '/graphiql',
+    koaPlayground({
+      endpoint: '/graphql',
+      subscriptionEndpoint: '/subscriptions'
+    })
+  )
 }
 
 app.use(logger())
