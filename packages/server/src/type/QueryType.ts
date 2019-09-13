@@ -42,7 +42,10 @@ export default new GraphQLObjectType({
           type: GraphQLID
         }
       },
-      resolve: (_, args, ctx) => QuestionLoader.loadQuestions(ctx, args)
+      resolve: (_, args, ctx) => {
+        if (!ctx.user) throw new Error('must be authenticated')
+        return QuestionLoader.loadQuestions(ctx, args)
+      }
     }
   })
 })

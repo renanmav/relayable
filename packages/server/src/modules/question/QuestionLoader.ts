@@ -44,7 +44,9 @@ export const getLoader = () =>
   )
 
 const viewerCanSee = ({ user }: GraphQLContext, data: IQuestion | null) => {
-  if (!data || !user) return null
+  if (!data) return null
+
+  if (!user) throw new Error('must be authenticated')
 
   return new Question(data)
 }
