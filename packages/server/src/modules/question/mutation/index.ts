@@ -1,4 +1,5 @@
 import CreateQuestion from './CreateQuestion'
 import EditQuestion from './EditQuestion'
+import DeleteQuestion from './DeleteQuestion'
 
-export default { CreateQuestion, EditQuestion }
+export default { CreateQuestion, EditQuestion, DeleteQuestion }
