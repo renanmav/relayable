@@ -8,7 +8,6 @@ import {
 import { graphql } from 'graphql'
 import { schema } from '../../../../schema'
 import { toGlobalId } from 'graphql-relay'
-import slugify from 'slugify'
 
 beforeAll(connectMongoose)
 

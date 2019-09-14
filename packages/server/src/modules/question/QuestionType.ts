@@ -40,7 +40,7 @@ const QuestionType = registerType(
       },
       views: {
         type: GraphQLInt,
-        resolve: q => q.views
+        resolve: q => q.views.length
       },
       tags: {
         type: GraphQLList(GraphQLString),

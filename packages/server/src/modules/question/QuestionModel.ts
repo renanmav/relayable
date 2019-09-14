@@ -26,13 +26,13 @@ const questionSchema = new Schema(
       ref: 'User',
       required: true
     },
-    views: {
-      type: Number,
-      default: 0
-    },
-    tags: {
-      type: [String]
-    }
+    views: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    tags: { type: [String] }
   },
   {
     timestamps: {
@@ -49,7 +49,7 @@ export interface IQuestion extends Document {
   upvotes: number
   downvotes: number
   author: IUser
-  views: number
+  views: IUser[]
   tags?: string[]
   createdAt: {
     toISOString: () => string
