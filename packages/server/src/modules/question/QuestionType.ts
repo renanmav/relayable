@@ -2,8 +2,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
-  GraphQLList,
-  GraphQLNonNull
+  GraphQLList
 } from 'graphql'
 import { globalIdField, connectionDefinitions } from 'graphql-relay'
 

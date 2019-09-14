@@ -2,7 +2,8 @@ import { PubSub } from 'graphql-subscriptions'
 
 export const EVENTS = {
   QUESTION: {
-    NEW: 'NEW_QUESTION'
+    NEW: 'NEW_QUESTION',
+    NEW_VIEW: 'NEW_QUESTION_VIEW'
   }
 }
 

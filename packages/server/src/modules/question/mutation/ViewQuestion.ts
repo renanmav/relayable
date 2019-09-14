@@ -4,6 +4,7 @@ import { GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql'
 import { GraphQLContext } from '../../../TypeDefinitions'
 import QuestionModel from '../QuestionModel'
 import QuestionType from '../QuestionType'
+import { EVENTS } from '../../../pubSub'
 
 export default mutationWithClientMutationId({
   name: 'ViewQuestion',
@@ -12,7 +13,7 @@ export default mutationWithClientMutationId({
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) }
   },
-  mutateAndGetPayload: async (data, { user }: GraphQLContext) => {
+  mutateAndGetPayload: async (data, { user, pubSub }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
 
     const { id } = fromGlobalId(data.id)
@@ -20,11 +21,15 @@ export default mutationWithClientMutationId({
     const question = await QuestionModel.findById(id)
     if (!question) return { error: "Question doesn't exists" }
 
-    if (question.views.includes(user._id)) { return { error: 'You already have seen this question' } }
+    if (question.views.includes(user._id)) {
+      return { error: 'You already have seen this question' }
+    }
 
     question.views.push(user)
 
     await question.save()
+
+    pubSub.publish(EVENTS.QUESTION.NEW_VIEW, { NewView: { question } })
 
     return { question }
   },

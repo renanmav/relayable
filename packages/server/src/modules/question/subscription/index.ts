@@ -1,3 +1,4 @@
 import NewQuestion from './NewQuestion'
+import NewView from './NewView'
 
-export default { NewQuestion }
+export default { NewQuestion, NewView }
