@@ -6,7 +6,6 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "yarn clean && sucrase ./src -d ./dist --transforms typescript,imports",
-    "deploy:now": "yarn build && now",
     "start:prod": "node dist/index.js",
     "start:dev": "nodemon src/index.ts",
     "test": "jest --coverage"
