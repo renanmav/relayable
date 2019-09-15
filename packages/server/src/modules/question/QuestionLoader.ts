@@ -7,17 +7,17 @@ import {
 import User from '../user/UserLoader'
 import QuestionModel, { IQuestion } from './QuestionModel'
 import { GraphQLContext } from 'server/src/TypeDefinitions'
-import UserModel from '../user/UserModel'
-import { ConnectionArguments, toGlobalId, fromGlobalId } from 'graphql-relay'
+import UserModel, { IUser } from '../user/UserModel'
+import { ConnectionArguments, fromGlobalId } from 'graphql-relay'
 
 export default class Question {
   id: string
   _id: string
   title: string
   content: string
-  upvotes: number
-  downvotes: number
-  views: number
+  upvotes: IUser[]
+  downvotes: IUser[]
+  views: IUser[]
   tags: string[] | undefined
   author: User
   createdAt: any
@@ -28,9 +28,9 @@ export default class Question {
     this._id = data._id
     this.title = data.title!
     this.content = data.content!
-    this.upvotes = data.upvotes || 0
-    this.downvotes = data.downvotes || 0
-    this.views = data.views || 0
+    this.upvotes = data.upvotes || []
+    this.downvotes = data.downvotes || []
+    this.views = data.views || []
     this.tags = data.tags
     this.author = data.author! as User
     this.createdAt = data.createdAt!

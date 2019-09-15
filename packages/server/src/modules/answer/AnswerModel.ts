@@ -1,12 +1,8 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
 import { IUser } from '../user/UserModel'
 
-const questionSchema = new Schema(
+const answerSchema = new Schema(
   {
-    title: {
-      type: String,
-      required: true
-    },
     content: {
       type: String,
       required: true
@@ -28,31 +24,26 @@ const questionSchema = new Schema(
       ref: 'User',
       required: true
     },
-    views: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ],
-    tags: { type: [String] }
+    is_accepted: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: {
       createdAt: 'createdAt',
       updatedAt: 'updatedAt'
     },
-    collection: 'question'
+    collection: 'answer'
   }
 )
 
-export interface IQuestion extends Document {
-  title: string
+export interface IAnswer extends Document {
   content: string
   upvotes: IUser[]
   downvotes: IUser[]
   author: IUser
-  views: IUser[]
-  tags?: string[]
+  is_accepted: boolean
   createdAt: {
     toISOString: () => string
     toString: () => string
@@ -63,9 +54,6 @@ export interface IQuestion extends Document {
   }
 }
 
-const QuestionModel: Model<IQuestion> = mongoose.model(
-  'Question',
-  questionSchema
-)
+const AnswerModel: Model<IAnswer> = mongoose.model('Answer', answerSchema)
 
-export default QuestionModel
+export default AnswerModel
