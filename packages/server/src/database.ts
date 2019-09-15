@@ -10,12 +10,9 @@ export function connectDatabase () {
       .on('close', () => logger.warn('Database connection closed'))
       .once('open', () => resolve(mongoose.connections[0]))
 
-    mongoose.connect(
-      dbUri,
-      {
-        useNewUrlParser: true,
-        useCreateIndex: true
-      }
-    )
+    mongoose.connect(dbUri!, {
+      useNewUrlParser: true,
+      useCreateIndex: true
+    })
   })
 }

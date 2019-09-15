@@ -40,3 +40,33 @@ it('should load User', async () => {
   expect(result.data!.node.id).toBe(variables.id)
   expect(result.data!.node.name).toBe(user.name)
 })
+
+it('should load Question', async () => {
+  const user = await createRows.createUser()
+  const question = await createRows.createQuestion({ author: user._id })
+
+  const query = `
+    query Q($id: ID!) {
+      node(id: $id) {
+        id
+        ... on Question {
+          title
+          author {
+            name
+          }
+        }
+      }
+    }
+  `
+
+  const rootValue = {}
+  const context = getContext({ user })
+  const variables = {
+    id: toGlobalId('Question', question._id)
+  }
+
+  const result = await graphql(schema, query, rootValue, context, variables)
+  expect(result.data!.node.id).toBe(variables.id)
+  expect(result.data!.node.title).toBe(question.title)
+  expect(result.data!.node.author.name).toBe(user.name)
+})

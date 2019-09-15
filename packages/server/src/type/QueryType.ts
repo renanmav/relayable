@@ -1,9 +1,11 @@
-import { GraphQLObjectType, GraphQLString } from 'graphql'
+import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql'
+import { connectionArgs } from 'graphql-relay'
+
 import UserType from '../modules/user/UserType'
-import { UserLoader } from '../loader'
-import { fromGlobalId } from 'graphql-relay'
+import { UserLoader, QuestionLoader } from '../loader'
 import { nodeField } from '../interface/NodeInterface'
 import { GraphQLContext } from '../TypeDefinitions'
+import { QuestionConnection } from '../modules/question/QuestionType'
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -23,18 +25,26 @@ export default new GraphQLObjectType({
     },
     user: {
       type: UserType,
-      description: 'Fetch a user by its id or login',
+      description: 'Fetch a user by its login',
       args: {
-        id: { type: GraphQLString },
         login: { type: GraphQLString }
       },
-      resolve: (_, args, context) => {
-        if (args.id) {
-          const { id } = fromGlobalId(args.id)
-          return UserLoader.load(context, id)
+      resolve: (_, args, context) =>
+        UserLoader.loadByLogin(context, args.login)
+    },
+    questions: {
+      type: QuestionConnection.connectionType,
+      description:
+        'Returns a connection with connectionArgs and/or the Author global ID\n\n Must be authenticated',
+      args: {
+        ...connectionArgs,
+        authorId: {
+          type: GraphQLID
         }
-
-        return UserLoader.loadByLogin(context, args.login)
+      },
+      resolve: (_, args, ctx) => {
+        if (!ctx.user) throw new Error('must be authenticated')
+        return QuestionLoader.loadQuestions(ctx, args)
       }
     }
   })

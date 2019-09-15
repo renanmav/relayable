@@ -19,6 +19,7 @@
     "graphql": "^14.5.4",
     "graphql-playground-middleware-koa": "^1.6.12",
     "graphql-relay": "^0.6.0",
+    "graphql-subscriptions": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "kcors": "^2.2.2",
     "koa": "^2.8.1",
@@ -29,6 +30,8 @@
     "mongodb-memory-server": "^5.2.3",
     "mongoose": "^5.7.0",
     "pretty-error": "^2.1.1",
+    "slugify": "^1.3.5",
+    "subscriptions-transport-ws": "^0.9.16",
     "triple-beam": "^1.3.0",
     "winston": "^3.2.1"
   },
