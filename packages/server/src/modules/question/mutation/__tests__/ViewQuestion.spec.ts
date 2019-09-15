@@ -8,6 +8,7 @@ import {
 import { graphql } from 'graphql'
 import { schema } from '../../../../schema'
 import { toGlobalId } from 'graphql-relay'
+import { PubSub } from 'graphql-subscriptions'
 
 beforeAll(connectMongoose)
 
@@ -34,7 +35,8 @@ const rootValue = {}
 it('should view when logged in', async () => {
   const user = await createRows.createUser()
   const question = await createRows.createQuestion({ author: user._id })
-  const context = getContext({ user })
+  const pubSub = new PubSub()
+  const context = getContext({ user, pubSub })
   const variables = {
     id: toGlobalId('Question', question._id)
   }

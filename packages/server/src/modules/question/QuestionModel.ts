@@ -11,16 +11,18 @@ const questionSchema = new Schema(
       type: String,
       required: true
     },
-    upvotes: {
-      type: Number,
-      required: true,
-      default: 0
-    },
-    downvotes: {
-      type: Number,
-      required: true,
-      default: 0
-    },
+    upvotes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    downvotes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -46,8 +48,8 @@ const questionSchema = new Schema(
 export interface IQuestion extends Document {
   title: string
   content: string
-  upvotes: number
-  downvotes: number
+  upvotes: IUser[]
+  downvotes: IUser[]
   author: IUser
   views: IUser[]
   tags?: string[]

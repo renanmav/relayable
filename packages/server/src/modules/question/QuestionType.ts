@@ -31,11 +31,11 @@ const QuestionType = registerType(
       },
       upvotes: {
         type: GraphQLInt,
-        resolve: q => q.upvotes
+        resolve: q => q.upvotes.length
       },
       downvotes: {
         type: GraphQLInt,
-        resolve: q => q.downvotes
+        resolve: q => q.downvotes.length
       },
       views: {
         type: GraphQLInt,
