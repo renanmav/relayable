@@ -7,9 +7,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build:server": "yarn workspace @yotta/server build",
-    "deploy:server:now": "yarn workspace @yotta/server deploy:now",
     "start:server": "yarn workspace @yotta/server start:dev",
+    "build": "yarn workspace @yotta/server build",
+    "start": "yarn workspace @yotta/server start:prod",
     "lint:staged": "lint-staged",
     "test": "yarn workspace @yotta/server test"
   },
