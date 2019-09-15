@@ -8,6 +8,7 @@ import {
 import { graphql } from 'graphql'
 import { schema } from '../../../../schema'
 import { toGlobalId } from 'graphql-relay'
+import { PubSub } from 'graphql-subscriptions'
 
 beforeAll(connectMongoose)
 
@@ -53,7 +54,8 @@ it('should not vote if logged off', async () => {
 it('should remove his vote', async () => {
   const user = await createRows.createUser()
   const question = await createRows.createQuestion({ author: user._id })
-  const context = getContext({ user })
+  const pubSub = new PubSub()
+  const context = getContext({ user, pubSub })
   const variables = {
     id: toGlobalId('Question', question._id)
   }
@@ -69,7 +71,8 @@ describe('when votting up', () => {
   it('should vote only once', async () => {
     const user = await createRows.createUser()
     const question = await createRows.createQuestion({ author: user._id })
-    const context = getContext({ user })
+    const pubSub = new PubSub()
+    const context = getContext({ user, pubSub })
     const variables = {
       id: toGlobalId('Question', question._id),
       up: true
@@ -91,7 +94,8 @@ describe('when votting up', () => {
   it('should remove down vote if so', async () => {
     const user = await createRows.createUser()
     const question = await createRows.createQuestion({ author: user._id })
-    const context = getContext({ user })
+    const pubSub = new PubSub()
+    const context = getContext({ user, pubSub })
     const variables = {
       id: toGlobalId('Question', question._id)
     }
@@ -116,7 +120,8 @@ describe('when votting down', () => {
   it('should vote only once', async () => {
     const user = await createRows.createUser()
     const question = await createRows.createQuestion({ author: user._id })
-    const context = getContext({ user })
+    const pubSub = new PubSub()
+    const context = getContext({ user, pubSub })
     const variables = {
       id: toGlobalId('Question', question._id),
       down: true
@@ -138,7 +143,8 @@ describe('when votting down', () => {
   it('should remove up vote if so', async () => {
     const user = await createRows.createUser()
     const question = await createRows.createQuestion({ author: user._id })
-    const context = getContext({ user })
+    const pubSub = new PubSub()
+    const context = getContext({ user, pubSub })
     const variables = {
       id: toGlobalId('Question', question._id)
     }
