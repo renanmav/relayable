@@ -29,7 +29,7 @@ export default mutationWithClientMutationId({
     question.answers.push(answer)
     await question.save()
 
-    return { answer }
+    return { id: answer._id }
   },
   outputFields: {
     error: {
@@ -38,7 +38,11 @@ export default mutationWithClientMutationId({
     },
     answer: {
       type: AnswerType,
-      resolve: obj => obj.answer
+      resolve: async (
+        { id },
+        _,
+        { dataloaders: { AnswerLoader } }: GraphQLContext
+      ) => AnswerLoader.load(id)
     }
   }
 })

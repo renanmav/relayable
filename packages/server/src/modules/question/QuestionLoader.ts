@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DataLoader from 'dataloader'
 import {
   mongooseLoader,
@@ -10,8 +11,6 @@ import { GraphQLContext } from 'server/src/TypeDefinitions'
 import { IUser } from '../user/UserModel'
 import { ConnectionArguments, fromGlobalId } from 'graphql-relay'
 import Answer from '../answer/AnswerLoader'
-import { UserLoader } from '../../loader'
-import { IAnswer } from '../answer/AnswerModel'
 
 export default class Question {
   id: string
@@ -67,23 +66,6 @@ export const load = async (
     data = await context.dataloaders.QuestionLoader.load(id as string)
   } catch (err) {
     return null
-  }
-
-  try {
-    const author = await UserLoader.load(context, data.author)
-    data.author = author as IUser
-  } catch (err) {
-    throw new Error("author doesn't exists")
-  }
-
-  try {
-    const answers = await context.dataloaders.AnswerLoader.loadMany(
-      (data.answers as unknown) as string[]
-    )
-
-    data.answers = answers! as IAnswer[]
-  } catch (err) {
-    data.answers = []
   }
 
   return viewerCanSee(context, data)

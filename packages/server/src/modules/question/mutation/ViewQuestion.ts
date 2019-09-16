@@ -31,7 +31,7 @@ export default mutationWithClientMutationId({
 
     pubSub.publish(EVENTS.QUESTION.NEW_VIEW, { NewView: { question } })
 
-    return { question }
+    return { id: question._id }
   },
   outputFields: {
     error: {
@@ -40,7 +40,11 @@ export default mutationWithClientMutationId({
     },
     question: {
       type: QuestionType,
-      resolve: obj => obj.question
+      resolve: async (
+        { id },
+        _,
+        { dataloaders: { QuestionLoader } }: GraphQLContext
+      ) => QuestionLoader.load(id)
     }
   }
 })

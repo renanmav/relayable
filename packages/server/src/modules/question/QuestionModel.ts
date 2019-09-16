@@ -57,7 +57,7 @@ export interface IQuestion extends Document {
   content: string
   upvotes: IUser[]
   downvotes: IUser[]
-  author: IUser
+  author: IUser | string
   views: IUser[]
   tags?: string[]
   answers: IAnswer[]

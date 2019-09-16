@@ -1,4 +1,9 @@
-import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql'
+import {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLID,
+  GraphQLNonNull
+} from 'graphql'
 import { connectionArgs } from 'graphql-relay'
 
 import UserType from '../modules/user/UserType'
@@ -27,7 +32,7 @@ export default new GraphQLObjectType({
       type: UserType,
       description: 'Fetch a user by its login',
       args: {
-        login: { type: GraphQLString }
+        login: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve: (_, args, context) =>
         UserLoader.loadByLogin(context, args.login)

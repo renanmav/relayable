@@ -4,15 +4,14 @@ import {
   GraphQLInt,
   GraphQLBoolean
 } from 'graphql'
-import { globalIdField, fromGlobalId } from 'graphql-relay'
+import { globalIdField } from 'graphql-relay'
 
 import { registerType, nodeInterface } from '../../interface/NodeInterface'
 import postInterface from '../../interface/PostInterface'
 import UserType from '../user/UserType'
 import { IAnswer } from './AnswerModel'
 import QuestionType from '../question/QuestionType'
-import UserModel from '../user/UserModel'
-import QuestionModel from '../question/QuestionModel'
+import { GraphQLContext } from '../../TypeDefinitions'
 
 const AnswerType = registerType(
   new GraphQLObjectType<IAnswer>({
@@ -46,11 +45,11 @@ const AnswerType = registerType(
       },
       author: {
         type: UserType,
-        resolve: async a => {
-          const user = await UserModel.findById(a.author)
-          if (!user) throw new Error("This author doesn't exists")
-          return user
-        }
+        resolve: async (
+          { author },
+          _,
+          { dataloaders: { UserLoader } }: GraphQLContext
+        ) => UserLoader.load(author as string)
       },
       createdAt: {
         type: GraphQLString,

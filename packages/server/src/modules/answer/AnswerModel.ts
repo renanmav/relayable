@@ -48,7 +48,7 @@ export interface IAnswer extends Document {
   content: string
   upvotes: IUser[]
   downvotes: IUser[]
-  author: IUser
+  author: IUser | string
   is_accepted: boolean
   createdAt: {
     toISOString: () => string

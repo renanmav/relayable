@@ -3,6 +3,8 @@ import { GraphQLNonNull, GraphQLString } from 'graphql'
 
 import { requestGithubUser } from './helpers'
 import UserModel from '../UserModel'
+import UserType from '../UserType'
+import { GraphQLContext } from '../../../TypeDefinitions'
 
 export default mutationWithClientMutationId({
   name: 'LoginWithGithub',
@@ -11,9 +13,7 @@ export default mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLString)
     }
   },
-  mutateAndGetPayload: async (
-    { code }
-  ) => {
+  mutateAndGetPayload: async ({ code }) => {
     const user = await requestGithubUser({
       client_id: process.env.GITHUB_CLIENT_ID as string,
       client_secret: process.env.GITHUB_CLIENT_SECRET as string,
@@ -25,7 +25,7 @@ export default mutationWithClientMutationId({
     let userDb = await UserModel.findOne({ login: user.login })
 
     if (userDb) {
-      return { user: userDb, token }
+      return { id: userDb._id, token }
     }
 
     userDb = new UserModel({
@@ -37,12 +37,20 @@ export default mutationWithClientMutationId({
 
     await userDb.save()
 
-    return { user: userDb, token }
+    return { token, id: userDb._id }
   },
   outputFields: {
     token: {
       type: GraphQLString,
-      resolve: (obj) => obj.token
+      resolve: obj => obj.token
+    },
+    user: {
+      type: UserType,
+      resolve: async (
+        { id },
+        _,
+        { dataloaders: { UserLoader } }: GraphQLContext
+      ) => UserLoader.load(id)
     }
   }
 })

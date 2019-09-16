@@ -7,8 +7,6 @@ import User from '../user/UserLoader'
 import { GraphQLContext } from 'server/src/TypeDefinitions'
 import { IUser } from '../user/UserModel'
 import AnswerModel, { IAnswer } from './AnswerModel'
-import { IQuestion } from '../question/QuestionModel'
-import { UserLoader, QuestionLoader } from '../../loader'
 
 declare type ObjectId = mongoose.Schema.Types.ObjectId
 export default class Answer {
@@ -62,20 +60,6 @@ export const load = async (
     data = await context.dataloaders.AnswerLoader.load(id as string)
   } catch (err) {
     return null
-  }
-
-  try {
-    const author = await UserLoader.load(context, data.author)
-    data.author = author as IUser
-  } catch (err) {
-    throw new Error("author doesn't exists")
-  }
-
-  try {
-    const question = await QuestionLoader.load(context, data.question)
-    data.question = question as IQuestion
-  } catch (err) {
-    throw new Error("This question doesn't exists")
   }
 
   return viewerCanSee(context, data)

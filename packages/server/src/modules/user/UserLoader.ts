@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DataLoader from 'dataloader'
 import { mongooseLoader } from '@entria/graphql-mongoose-loader'
 import { Types } from 'mongoose'
