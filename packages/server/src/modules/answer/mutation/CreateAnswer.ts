@@ -1,9 +1,10 @@
-import { mutationWithClientMutationId } from 'graphql-relay'
+import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay'
 import { GraphQLNonNull, GraphQLString, GraphQLID } from 'graphql'
 
 import { GraphQLContext } from '../../../TypeDefinitions'
 import AnswerModel from '../AnswerModel'
 import AnswerType from '../AnswerType'
+import QuestionModel from '../../question/QuestionModel'
 
 export default mutationWithClientMutationId({
   name: 'CreateAnswer',
@@ -18,9 +19,15 @@ export default mutationWithClientMutationId({
   mutateAndGetPayload: async (data, { user }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
 
-    const answer = new AnswerModel({ ...data, author: user })
+    const { id } = fromGlobalId(data.question)
+    const question = await QuestionModel.findById(id)
+    if (!question) return { error: "This question doesn't exists" }
 
+    const answer = new AnswerModel({ ...data, author: user, question })
     await answer.save()
+
+    question.answers.push(answer)
+    await question.save()
 
     return { answer }
   },

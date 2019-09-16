@@ -3,13 +3,18 @@ import {
   mongooseLoader,
   connectionFromMongoCursor
 } from '@entria/graphql-mongoose-loader'
+import mongoose, { Types } from 'mongoose'
 
 import User from '../user/UserLoader'
 import QuestionModel, { IQuestion } from './QuestionModel'
 import { GraphQLContext } from 'server/src/TypeDefinitions'
-import UserModel, { IUser } from '../user/UserModel'
+import { IUser } from '../user/UserModel'
 import { ConnectionArguments, fromGlobalId } from 'graphql-relay'
+import Answer from '../answer/AnswerLoader'
+import { UserLoader } from '../../loader'
+import { IAnswer } from '../answer/AnswerModel'
 
+declare type ObjectId = mongoose.Schema.Types.ObjectId
 export default class Question {
   id: string
   _id: string
@@ -20,6 +25,7 @@ export default class Question {
   views: IUser[]
   tags: string[] | undefined
   author: User
+  answers: Answer[]
   createdAt: any
   updatedAt: any
 
@@ -33,6 +39,7 @@ export default class Question {
     this.views = data.views || []
     this.tags = data.tags
     this.author = data.author! as User
+    this.answers = data.answers! as Answer[]
     this.createdAt = data.createdAt!
     this.updatedAt = data.updatedAt!
   }
@@ -53,25 +60,54 @@ const viewerCanSee = ({ user }: GraphQLContext, data: IQuestion | null) => {
 
 export const load = async (
   context: GraphQLContext,
-  id: any
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  id: string | Object | ObjectId
 ): Promise<Question | null> => {
-  if (!id) {
+  if (!id && typeof id !== 'string') {
     return null
   }
 
   let data
   try {
-    data = await context.dataloaders.QuestionLoader.load(id)
+    data = await context.dataloaders.QuestionLoader.load(id as string)
   } catch (err) {
     return null
   }
 
-  const author = await UserModel.findById(data.author)
+  try {
+    const author = await UserLoader.load(context, data.author)
+    data.author = author as IUser
+  } catch (err) {
+    throw new Error("author doesn't exists")
+  }
 
-  data.author = author!
+  try {
+    const answers = await context.dataloaders.AnswerLoader.loadMany(
+      (data.answers as unknown) as string[]
+    )
+
+    data.answers = answers! as IAnswer[]
+  } catch (err) {
+    data.answers = []
+  }
 
   return viewerCanSee(context, data)
 }
+
+export const clearCache = (
+  { dataloaders }: GraphQLContext,
+  id: Types.ObjectId
+) => dataloaders.QuestionLoader.clear(id.toString())
+export const primeCache = (
+  { dataloaders }: GraphQLContext,
+  id: Types.ObjectId,
+  data: IQuestion
+) => dataloaders.QuestionLoader.prime(id.toString(), data)
+export const clearAndPrimeCache = (
+  context: GraphQLContext,
+  id: Types.ObjectId,
+  data: IQuestion
+) => clearCache(context, id) && primeCache(context, id, data)
 
 type QuestionArgs = ConnectionArguments & {
   authorId?: string

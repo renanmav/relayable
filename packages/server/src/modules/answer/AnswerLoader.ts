@@ -1,11 +1,15 @@
 import DataLoader from 'dataloader'
 import { mongooseLoader } from '@entria/graphql-mongoose-loader'
+import mongoose, { Types } from 'mongoose'
 
 import User from '../user/UserLoader'
 import { GraphQLContext } from 'server/src/TypeDefinitions'
-import UserModel, { IUser } from '../user/UserModel'
+import { IUser } from '../user/UserModel'
 import AnswerModel, { IAnswer } from './AnswerModel'
+import { IQuestion } from '../question/QuestionModel'
+import { UserLoader, QuestionLoader } from '../../loader'
 
+declare type ObjectId = mongoose.Schema.Types.ObjectId
 export default class Answer {
   id: string
   _id: string
@@ -45,22 +49,48 @@ const viewerCanSee = ({ user }: GraphQLContext, data: IAnswer | null) => {
 
 export const load = async (
   context: GraphQLContext,
-  id: any
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  id: string | Object | ObjectId
 ): Promise<Answer | null> => {
-  if (!id) {
+  if (!id && typeof id !== 'string') {
     return null
   }
 
   let data
   try {
-    data = await context.dataloaders.AnswerLoader.load(id)
+    data = await context.dataloaders.AnswerLoader.load(id as string)
   } catch (err) {
     return null
   }
 
-  const author = await UserModel.findById(data.author)
+  try {
+    const author = await UserLoader.load(context, data.author)
+    data.author = author as IUser
+  } catch (err) {
+    throw new Error("author doesn't exists")
+  }
 
-  data.author = author!
+  try {
+    const question = await QuestionLoader.load(context, data.question)
+    data.question = question as IQuestion
+  } catch (err) {
+    throw new Error("This question doesn't exists")
+  }
 
   return viewerCanSee(context, data)
 }
+
+export const clearCache = (
+  { dataloaders }: GraphQLContext,
+  id: Types.ObjectId
+) => dataloaders.AnswerLoader.clear(id.toString())
+export const primeCache = (
+  { dataloaders }: GraphQLContext,
+  id: Types.ObjectId,
+  data: IAnswer
+) => dataloaders.AnswerLoader.prime(id.toString(), data)
+export const clearAndPrimeCache = (
+  context: GraphQLContext,
+  id: Types.ObjectId,
+  data: IAnswer
+) => clearCache(context, id) && primeCache(context, id, data)

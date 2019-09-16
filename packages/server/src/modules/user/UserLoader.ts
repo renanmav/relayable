@@ -58,6 +58,21 @@ export const load = async (
   return viewerCanSee(context, data)
 }
 
+export const clearCache = (
+  { dataloaders }: GraphQLContext,
+  id: Types.ObjectId
+) => dataloaders.UserLoader.clear(id.toString())
+export const primeCache = (
+  { dataloaders }: GraphQLContext,
+  id: Types.ObjectId,
+  data: IUser
+) => dataloaders.UserLoader.prime(id.toString(), data)
+export const clearAndPrimeCache = (
+  context: GraphQLContext,
+  id: Types.ObjectId,
+  data: IUser
+) => clearCache(context, id) && primeCache(context, id, data)
+
 export const loadByLogin = async (
   context: GraphQLContext,
   login: string

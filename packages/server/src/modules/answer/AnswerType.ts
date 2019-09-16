@@ -10,6 +10,7 @@ import { registerType, nodeInterface } from '../../interface/NodeInterface'
 import postInterface from '../../interface/PostInterface'
 import UserType from '../user/UserType'
 import { IAnswer } from './AnswerModel'
+import QuestionType from '../question/QuestionType'
 
 const AnswerType = registerType(
   new GraphQLObjectType<IAnswer>({
@@ -20,6 +21,10 @@ const AnswerType = registerType(
       _id: {
         type: GraphQLString,
         resolve: a => a._id
+      },
+      question: {
+        type: QuestionType,
+        resolve: a => a.question
       },
       content: {
         type: GraphQLString,

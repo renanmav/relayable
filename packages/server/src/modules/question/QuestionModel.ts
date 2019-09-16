@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
 import { IUser } from '../user/UserModel'
+import { IAnswer } from '../answer/AnswerModel'
 
 const questionSchema = new Schema(
   {
@@ -34,7 +35,13 @@ const questionSchema = new Schema(
         ref: 'User'
       }
     ],
-    tags: { type: [String] }
+    tags: { type: [String] },
+    answers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Answer'
+      }
+    ]
   },
   {
     timestamps: {
@@ -53,6 +60,7 @@ export interface IQuestion extends Document {
   author: IUser
   views: IUser[]
   tags?: string[]
+  answers: IAnswer[]
   createdAt: {
     toISOString: () => string
     toString: () => string

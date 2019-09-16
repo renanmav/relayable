@@ -1,8 +1,13 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
 import { IUser } from '../user/UserModel'
+import { IQuestion } from '../question/QuestionModel'
 
 const answerSchema = new Schema(
   {
+    question: {
+      type: Schema.Types.ObjectId,
+      ref: 'Question'
+    },
     content: {
       type: String,
       required: true
@@ -39,6 +44,7 @@ const answerSchema = new Schema(
 )
 
 export interface IAnswer extends Document {
+  question: IQuestion
   content: string
   upvotes: IUser[]
   downvotes: IUser[]
