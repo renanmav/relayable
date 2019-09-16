@@ -54,7 +54,7 @@ export default mutationWithClientMutationId({
 
       pubSub.publish(EVENTS.QUESTION.NEW_VOTE, { NewVote: { question } })
 
-      return { question }
+      return { id: question._id }
     }
 
     if (down) {
@@ -76,7 +76,7 @@ export default mutationWithClientMutationId({
 
       pubSub.publish(EVENTS.QUESTION.NEW_VOTE, { NewVote: { question } })
 
-      return { question }
+      return { id: question._id }
     }
 
     // remove vote
@@ -102,7 +102,7 @@ export default mutationWithClientMutationId({
         { id },
         _,
         { dataloaders: { QuestionLoader } }: GraphQLContext
-      ) => QuestionLoader.load(id)
+      ) => (id ? QuestionLoader.load(id) : null)
     }
   }
 })
