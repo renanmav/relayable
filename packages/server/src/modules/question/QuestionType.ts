@@ -11,6 +11,7 @@ import postInterface from '../../interface/PostInterface'
 import { IQuestion } from './QuestionModel'
 import UserType from '../user/UserType'
 import AnswerType from '../answer/AnswerType'
+import UserModel from '../user/UserModel'
 
 const QuestionType = registerType(
   new GraphQLObjectType<IQuestion>({
@@ -48,7 +49,11 @@ const QuestionType = registerType(
       },
       author: {
         type: UserType,
-        resolve: q => q.author
+        resolve: async q => {
+          const author = await UserModel.findById(q.author)
+          if (!author) throw new Error("This author doesn't exists")
+          return author
+        }
       },
       answers: {
         type: GraphQLList(AnswerType),
