@@ -44,7 +44,7 @@ const answerSchema = new Schema(
 )
 
 export interface IAnswer extends Document {
-  question: IQuestion
+  question: IQuestion | string
   content: string
   upvotes: IUser[]
   downvotes: IUser[]

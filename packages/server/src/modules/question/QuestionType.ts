@@ -57,7 +57,11 @@ const QuestionType = registerType(
       },
       answers: {
         type: GraphQLList(AnswerType),
-        resolve: q => q.answers
+        resolve: async (
+          { answers: ids },
+          _,
+          { dataloaders: { AnswerLoader } }: GraphQLContext
+        ) => AnswerLoader.loadMany(ids as string[])
       },
       createdAt: {
         type: GraphQLString,

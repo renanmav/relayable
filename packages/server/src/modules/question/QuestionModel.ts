@@ -60,7 +60,7 @@ export interface IQuestion extends Document {
   author: IUser | string
   views: IUser[]
   tags?: string[]
-  answers: IAnswer[]
+  answers: IAnswer[] | string[]
   createdAt: {
     toISOString: () => string
     toString: () => string

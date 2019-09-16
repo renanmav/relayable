@@ -25,7 +25,11 @@ const AnswerType = registerType(
       },
       question: {
         type: QuestionType,
-        resolve: a => a.question
+        resolve: async (
+          { question: id },
+          _,
+          { dataloaders: { QuestionLoader } }: GraphQLContext
+        ) => QuestionLoader.load(id as string)
       },
       content: {
         type: GraphQLString,

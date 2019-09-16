@@ -2,7 +2,7 @@ import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay'
 import { GraphQLNonNull, GraphQLString, GraphQLID } from 'graphql'
 
 import { GraphQLContext } from '../../../TypeDefinitions'
-import AnswerModel from '../AnswerModel'
+import AnswerModel, { IAnswer } from '../AnswerModel'
 import AnswerType from '../AnswerType'
 import QuestionModel from '../../question/QuestionModel'
 
@@ -26,7 +26,7 @@ export default mutationWithClientMutationId({
     const answer = new AnswerModel({ ...data, author: user, question })
     await answer.save()
 
-    question.answers.push(answer)
+    question.answers.push(answer as IAnswer & string)
     await question.save()
 
     return { id: answer._id }
@@ -42,7 +42,7 @@ export default mutationWithClientMutationId({
         { id },
         _,
         { dataloaders: { AnswerLoader } }: GraphQLContext
-      ) => AnswerLoader.load(id)
+      ) => (id ? AnswerLoader.load(id) : null)
     }
   }
 })
