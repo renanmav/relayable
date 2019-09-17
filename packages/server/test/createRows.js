@@ -29,6 +29,7 @@ export const createQuestion = async (payload = {}) => {
 
 export const createAnswer = async (payload = {}) => {
   return new Answer({
-    content: 'Some answer'
-  })
+    content: 'Some answer',
+    ...payload
+  }).save()
 }

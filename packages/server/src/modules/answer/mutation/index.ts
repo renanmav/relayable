@@ -1,3 +1,4 @@
 import CreateAnswer from './CreateAnswer'
+import EditAnswer from './EditAnswer'
 
-export default { CreateAnswer }
+export default { CreateAnswer, EditAnswer }

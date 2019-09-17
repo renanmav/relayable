@@ -59,7 +59,7 @@ export default mutationWithClientMutationId({
         { id },
         _,
         { dataloaders: { QuestionLoader } }: GraphQLContext
-      ) => QuestionLoader.load(id)
+      ) => (id ? QuestionLoader.load(id) : null)
     }
   }
 })
