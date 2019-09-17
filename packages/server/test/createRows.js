@@ -32,9 +32,11 @@ export const createAnswer = async (question, payload = {}) => {
     content: 'Some answer',
     question: question._id,
     ...payload
-  }).save()
+  })
 
-  question.answers.push(answer._id)
+  await answer.save()
+
+  question.answers.push(answer)
   await question.save()
 
   return answer
