@@ -1,4 +1,4 @@
-import { User, Question } from '../src/model'
+import { User, Question, Answer } from '../src/model'
 
 export const restartCounters = () => {
   global.__COUNTERS__ = Object.keys(global.__COUNTERS__).reduce(
@@ -25,4 +25,19 @@ export const createQuestion = async (payload = {}) => {
     content: 'What is the meaning of life?',
     ...payload
   }).save()
+}
+
+export const createAnswer = async (question, payload = {}) => {
+  const answer = new Answer({
+    content: 'Some answer',
+    question: question._id,
+    ...payload
+  })
+
+  await answer.save()
+
+  question.answers.push(answer)
+  await question.save()
+
+  return answer
 }

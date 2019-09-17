@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DataLoader from 'dataloader'
 import {
   mongooseLoader,
@@ -7,19 +8,21 @@ import {
 import User from '../user/UserLoader'
 import QuestionModel, { IQuestion } from './QuestionModel'
 import { GraphQLContext } from 'server/src/TypeDefinitions'
-import UserModel from '../user/UserModel'
-import { ConnectionArguments, toGlobalId, fromGlobalId } from 'graphql-relay'
+import { IUser } from '../user/UserModel'
+import { ConnectionArguments, fromGlobalId } from 'graphql-relay'
+import Answer from '../answer/AnswerLoader'
 
 export default class Question {
   id: string
   _id: string
   title: string
   content: string
-  upvotes: number
-  downvotes: number
-  views: number
+  upvotes: IUser[]
+  downvotes: IUser[]
+  views: IUser[]
   tags: string[] | undefined
   author: User
+  answers: Answer[]
   createdAt: any
   updatedAt: any
 
@@ -28,11 +31,12 @@ export default class Question {
     this._id = data._id
     this.title = data.title!
     this.content = data.content!
-    this.upvotes = data.upvotes || 0
-    this.downvotes = data.downvotes || 0
-    this.views = data.views || 0
+    this.upvotes = data.upvotes || []
+    this.downvotes = data.downvotes || []
+    this.views = data.views || []
     this.tags = data.tags
     this.author = data.author! as User
+    this.answers = data.answers! as Answer[]
     this.createdAt = data.createdAt!
     this.updatedAt = data.updatedAt!
   }
@@ -55,20 +59,14 @@ export const load = async (
   context: GraphQLContext,
   id: any
 ): Promise<Question | null> => {
-  if (!id) {
-    return null
-  }
+  if (!id) return null
 
   let data
   try {
-    data = await context.dataloaders.QuestionLoader.load(id)
+    data = await context.dataloaders.QuestionLoader.load(id as string)
   } catch (err) {
     return null
   }
-
-  const author = await UserModel.findById(data.author)
-
-  data.author = author!
 
   return viewerCanSee(context, data)
 }

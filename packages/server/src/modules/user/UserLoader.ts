@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DataLoader from 'dataloader'
 import { mongooseLoader } from '@entria/graphql-mongoose-loader'
-import { Types, Schema } from 'mongoose'
+import { Types } from 'mongoose'
 import UserModel, { IUser } from './UserModel'
 import { GraphQLContext } from 'server/src/TypeDefinitions'
-
-declare type ObjectId = Schema.Types.ObjectId
 
 export default class User {
   id: string
@@ -42,12 +41,9 @@ const viewerCanSee = (
 
 export const load = async (
   context: GraphQLContext,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  id: string | Object | ObjectId
+  id: any
 ): Promise<User | null> => {
-  if (!id && typeof id !== 'string') {
-    return null
-  }
+  if (!id) return null
 
   let data
   try {

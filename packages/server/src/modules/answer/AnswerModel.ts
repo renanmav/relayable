@@ -1,12 +1,12 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
 import { IUser } from '../user/UserModel'
-import { IAnswer } from '../answer/AnswerModel'
+import { IQuestion } from '../question/QuestionModel'
 
-const questionSchema = new Schema(
+const answerSchema = new Schema(
   {
-    title: {
-      type: String,
-      required: true
+    question: {
+      type: Schema.Types.ObjectId,
+      ref: 'Question'
     },
     content: {
       type: String,
@@ -29,38 +29,27 @@ const questionSchema = new Schema(
       ref: 'User',
       required: true
     },
-    views: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ],
-    tags: { type: [String] },
-    answers: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Answer'
-      }
-    ]
+    is_accepted: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: {
       createdAt: 'createdAt',
       updatedAt: 'updatedAt'
     },
-    collection: 'question'
+    collection: 'answer'
   }
 )
 
-export interface IQuestion extends Document {
-  title: string
+export interface IAnswer extends Document {
+  question: IQuestion | string
   content: string
   upvotes: IUser[]
   downvotes: IUser[]
   author: IUser | string
-  views: IUser[]
-  tags?: string[]
-  answers: IAnswer[] | string[]
+  is_accepted: boolean
   createdAt: {
     toISOString: () => string
     toString: () => string
@@ -71,9 +60,6 @@ export interface IQuestion extends Document {
   }
 }
 
-const QuestionModel: Model<IQuestion> = mongoose.model(
-  'Question',
-  questionSchema
-)
+const AnswerModel: Model<IAnswer> = mongoose.model('Answer', answerSchema)
 
-export default QuestionModel
+export default AnswerModel

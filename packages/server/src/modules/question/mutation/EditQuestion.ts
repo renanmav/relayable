@@ -24,7 +24,9 @@ export default mutationWithClientMutationId({
     if (!question) return { error: "Question doesn't exists" }
 
     // eslint-disable-next-line eqeqeq
-    if (question.author.toString() != user._id) { return { error: "You don't own this question" } }
+    if (question.author.toString() != user._id) {
+      return { error: "You don't own this question" }
+    }
 
     const { title, content } = data
 
@@ -44,7 +46,7 @@ export default mutationWithClientMutationId({
 
     await question.save()
 
-    return { question }
+    return { id: question._id }
   },
   outputFields: {
     error: {
@@ -53,7 +55,11 @@ export default mutationWithClientMutationId({
     },
     question: {
       type: QuestionType,
-      resolve: obj => obj.question
+      resolve: async (
+        { id },
+        _,
+        { dataloaders: { QuestionLoader } }: GraphQLContext
+      ) => (id ? QuestionLoader.load(id) : null)
     }
   }
 })

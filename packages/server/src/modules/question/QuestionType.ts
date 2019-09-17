@@ -5,11 +5,15 @@ import {
   GraphQLList
 } from 'graphql'
 import { globalIdField, connectionDefinitions } from 'graphql-relay'
+import { orderBy } from 'lodash'
 
 import { registerType, nodeInterface } from '../../interface/NodeInterface'
 import postInterface from '../../interface/PostInterface'
 import { IQuestion } from './QuestionModel'
 import UserType from '../user/UserType'
+import AnswerType from '../answer/AnswerType'
+import { GraphQLContext } from '../../TypeDefinitions'
+import { IAnswer } from '../answer/AnswerModel'
 
 const QuestionType = registerType(
   new GraphQLObjectType<IQuestion>({
@@ -47,7 +51,28 @@ const QuestionType = registerType(
       },
       author: {
         type: UserType,
-        resolve: q => q.author
+        resolve: async (
+          { author },
+          _,
+          { dataloaders: { UserLoader } }: GraphQLContext
+        ) => UserLoader.load(author as string)
+      },
+      answers: {
+        type: GraphQLList(AnswerType),
+        resolve: async (
+          { answers: ids },
+          _,
+          { dataloaders: { AnswerLoader } }: GraphQLContext
+        ) => {
+          const answers = await AnswerLoader.loadMany(ids as string[])
+          let _answers: IAnswer[] = orderBy(
+            answers,
+            answer => answer.upvotes.length,
+            'desc'
+          )
+          _answers = orderBy(_answers, answer => answer.is_accepted, 'desc')
+          return _answers
+        }
       },
       createdAt: {
         type: GraphQLString,
