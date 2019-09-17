@@ -37,13 +37,7 @@ const rootValue = {}
 it('should edit answer data if he/she is owner', async () => {
   const user = await createRows.createUser()
   const question = await createRows.createQuestion({ author: user._id })
-  const answer = await createRows.createAnswer({
-    author: user._id,
-    question: question._id
-  })
-  question.answers.push(answer._id)
-  await question.save()
-
+  const answer = await createRows.createAnswer(question, { author: user._id })
   const context = getContext({ user })
 
   const variables = {
@@ -52,7 +46,6 @@ it('should edit answer data if he/she is owner', async () => {
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  console.log(result.data!.EditAnswer)
 
   expect(result.data!.EditAnswer.answer.id).toBe(variables.id)
   expect(result.data!.EditAnswer.answer.content).toBe(variables.content)
@@ -61,20 +54,13 @@ it('should edit answer data if he/she is owner', async () => {
 it("should not edit question data if he/she isn't the owner", async () => {
   const userA = await createRows.createUser()
   const userB = await createRows.createUser()
-
   const question = await createRows.createQuestion({ author: userA._id })
-
-  const answer = await createRows.createAnswer({
-    author: userB._id,
-    question: question._id
-  })
-  question.answers.push(answer._id)
-  await question.save()
+  const answer = await createRows.createAnswer(question, { author: userB._id })
 
   const context = getContext({ user: userA })
 
   const variables = {
-    id: toGlobalId('Answer', question._id),
+    id: toGlobalId('Answer', answer._id),
     content: 'Trying to edit some answer that its not mine'
   }
 

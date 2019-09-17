@@ -27,9 +27,15 @@ export const createQuestion = async (payload = {}) => {
   }).save()
 }
 
-export const createAnswer = async (payload = {}) => {
-  return new Answer({
+export const createAnswer = async (question, payload = {}) => {
+  const answer = new Answer({
     content: 'Some answer',
+    question: question._id,
     ...payload
   }).save()
+
+  question.answers.push(answer._id)
+  await question.save()
+
+  return answer
 }
