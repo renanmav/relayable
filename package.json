@@ -39,12 +39,12 @@
   },
   "lint-staged": {
     "*.ts": [
-      "prettier --write --single-quote true --trailing-comma all --print-width 80 --no-semi",
+      "prettier --find-config-path --write",
       "eslint --fix",
       "git add"
     ],
     "*.tsx": [
-      "prettier --write --single-quote true --trailing-comma all --print-width 80 --no-semi",
+      "prettier --find-config-path --write",
       "eslint --fix",
       "git add"
     ]
