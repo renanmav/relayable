@@ -40,17 +40,14 @@ export default new GraphQLObjectType({
     questions: {
       type: QuestionConnection.connectionType,
       description:
-        'Returns a connection with connectionArgs and/or the Author global ID\n\n Must be authenticated',
+        'Returns a connection with connectionArgs and/or the Author global ID',
       args: {
         ...connectionArgs,
         authorId: {
           type: GraphQLID
         }
       },
-      resolve: (_, args, ctx) => {
-        if (!ctx.user) throw new Error('must be authenticated')
-        return QuestionLoader.loadQuestions(ctx, args)
-      }
+      resolve: (_, args, ctx) => QuestionLoader.loadQuestions(ctx, args)
     }
   })
 })

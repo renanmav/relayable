@@ -20,6 +20,7 @@ export default class Question {
   upvotes: IUser[]
   downvotes: IUser[]
   views: IUser[]
+  anonymous_views: number
   tags: string[] | undefined
   author: User
   answers: Answer[]
@@ -34,6 +35,7 @@ export default class Question {
     this.upvotes = data.upvotes || []
     this.downvotes = data.downvotes || []
     this.views = data.views || []
+    this.anonymous_views = data.anonymous_views || 0
     this.tags = data.tags
     this.author = data.author! as User
     this.answers = data.answers! as Answer[]
@@ -47,10 +49,8 @@ export const getLoader = () =>
     mongooseLoader(QuestionModel, ids)
   )
 
-const viewerCanSee = ({ user }: GraphQLContext, data: IQuestion | null) => {
+const viewerCanSee = (_: GraphQLContext, data: IQuestion | null) => {
   if (!data) return null
-
-  if (!user) throw new Error('must be authenticated')
 
   return new Question(data)
 }

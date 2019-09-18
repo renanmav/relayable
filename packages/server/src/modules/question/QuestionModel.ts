@@ -35,6 +35,10 @@ const questionSchema = new Schema(
         ref: 'User'
       }
     ],
+    anonymous_views: {
+      type: Number,
+      default: 0
+    },
     tags: { type: [String] },
     answers: [
       {
@@ -59,6 +63,7 @@ export interface IQuestion extends Document {
   downvotes: IUser[]
   author: IUser | string
   views: IUser[]
+  anonymous_views: number
   tags?: string[]
   answers: IAnswer[] | string[]
   createdAt: {

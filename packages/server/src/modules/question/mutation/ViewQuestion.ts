@@ -8,24 +8,25 @@ import { EVENTS } from '../../../pubSub'
 
 export default mutationWithClientMutationId({
   name: 'ViewQuestion',
-  description:
-    'Mutation to view the question\nEach user represents one view\nThe user must the logged in',
+  description: 'Mutation to view the question\nEach user represents one view',
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) }
   },
   mutateAndGetPayload: async (data, { user, pubSub }: GraphQLContext) => {
-    if (!user) return { error: 'You must be authenticated' }
-
     const { id } = fromGlobalId(data.id)
 
     const question = await QuestionModel.findById(id)
     if (!question) return { error: "Question doesn't exists" }
 
-    if (question.views.includes(user._id)) {
-      return { error: 'You already have seen this question' }
-    }
+    if (user) {
+      if (question.views.includes(user._id)) {
+        return { error: 'You already have seen this question' }
+      }
 
-    question.views.push(user)
+      question.views.push(user)
+    } else {
+      question.anonymous_views += 1
+    }
 
     await question.save()
 

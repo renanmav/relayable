@@ -26,6 +26,7 @@ const query = `
       error
       question {
         views
+        anonymous_views
       }
     }
   }
@@ -46,17 +47,18 @@ it('should view when logged in', async () => {
   expect(result.data!.ViewQuestion.question.views).toBe(1)
 })
 
-it('should not view when logged off', async () => {
+it('should increment anonymous views when logged off', async () => {
   const user = await createRows.createUser()
   const question = await createRows.createQuestion({ author: user._id })
-  const context = getContext()
+  const pubSub = new PubSub()
+  const context = getContext({ pubSub })
   const variables = {
     id: toGlobalId('Question', question._id)
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
 
-  expect(result.data!.ViewQuestion.error).toBeTruthy()
+  expect(result.data!.ViewQuestion.question.anonymous_views).toBe(1)
 })
 
 it('should view only once', async () => {

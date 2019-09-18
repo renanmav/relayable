@@ -47,12 +47,15 @@ describe('when authenticated', () => {
 })
 
 describe('when unauthenticated', () => {
-  it('should not retrieve the Question connection', async () => {
+  it('should retrieve the Question connection', async () => {
+    const user = await createRows.createUser()
+    const question = await createRows.createQuestion({ author: user._id })
+
     const context = getContext()
 
     const result = await graphql(schema, query, rootValue, context)
 
-    expect(result.errors!).toBeTruthy()
-    expect(result.data!.questions).toBeFalsy()
+    expect(result.data!.questions.edges[0].node.title).toBe(question.title)
+    expect(result.data!.questions.edges[0].node.author.name).toBe(user.name)
   })
 })
