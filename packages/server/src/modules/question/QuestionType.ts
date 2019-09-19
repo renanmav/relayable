@@ -47,10 +47,11 @@ const QuestionType = registerType(
       },
       anonymous_views: {
         type: GraphQLInt,
-        resolve: q => {
-          console.log(q)
-          return q.anonymous_views
-        }
+        resolve: q => q.anonymous_views
+      },
+      total_views: {
+        type: GraphQLInt,
+        resolve: q => q.anonymous_views + q.views.length
       },
       tags: {
         type: GraphQLList(GraphQLString),
