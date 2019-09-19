@@ -11,8 +11,19 @@ module.exports = {
   testEnvironment: '<rootDir>/test/environment/mongodb.js',
   setupFilesAfterEnv: ['<rootDir>/test/setupAfterEnv.js'],
   transform: {
-    '.(js|ts)': '@sucrase/jest-plugin'
+    '.(js|ts)': '@sucrase/jest-plugin',
   },
   transformIgnorePatterns: ['/node_modules/'],
-  moduleFileExtensions: ['ts', 'js']
+  moduleFileExtensions: ['ts', 'js'],
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        suiteName: 'Relayable GraphQL Server Tests',
+        outputDirectory: './test-results/jest',
+        outputName: 'results.xml',
+      },
+    ],
+  ],
 }
