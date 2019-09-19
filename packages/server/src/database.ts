@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
+
 import { dbUri } from './config'
 import logger from './core/logger'
 
-export function connectDatabase () {
+export function connectDatabase() {
   return new Promise((resolve, reject) => {
     mongoose.Promise = global.Promise
     mongoose.connection
@@ -12,7 +13,7 @@ export function connectDatabase () {
 
     mongoose.connect(dbUri!, {
       useNewUrlParser: true,
-      useCreateIndex: true
+      useCreateIndex: true,
     })
   })
 }

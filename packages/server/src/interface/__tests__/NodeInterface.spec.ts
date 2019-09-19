@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { toGlobalId } from 'graphql-relay'
 import { graphql } from 'graphql'
+
 import {
   connectMongoose,
   disconnectMongoose,
   clearDbAndRestartCounters,
   createRows,
-  getContext
+  getContext,
 } from '../../../test/helper'
 import { schema } from '../../schema'
 
@@ -33,7 +34,7 @@ it('should load User', async () => {
   const rootValue = {}
   const context = getContext()
   const variables = {
-    id: toGlobalId('User', user._id)
+    id: toGlobalId('User', user._id),
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
@@ -62,7 +63,7 @@ it('should load Question', async () => {
   const rootValue = {}
   const context = getContext({ user })
   const variables = {
-    id: toGlobalId('Question', question._id)
+    id: toGlobalId('Question', question._id),
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)

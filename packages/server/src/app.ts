@@ -23,7 +23,7 @@ const graphqlSettingsPerReq = async (req: Request, res: Response) => {
   const dataloaders = Object.keys(AllLoaders).reduce(
     (acc, loaderKey) => ({
       ...acc,
-      [loaderKey]: AllLoaders[loaderKey].getLoader()
+      [loaderKey]: AllLoaders[loaderKey].getLoader(),
     }),
     {}
   )
@@ -36,8 +36,8 @@ const graphqlSettingsPerReq = async (req: Request, res: Response) => {
       res,
       dataloaders,
       user,
-      pubSub
-    }
+      pubSub,
+    },
   }
   return options
 }
@@ -50,7 +50,7 @@ if (process.env.NODE_ENV !== 'production') {
     '/graphiql',
     koaPlayground({
       endpoint: '/graphql',
-      subscriptionEndpoint: '/subscriptions'
+      subscriptionEndpoint: '/subscriptions',
     })
   )
 }

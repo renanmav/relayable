@@ -2,7 +2,9 @@
 import DataLoader from 'dataloader'
 import { mongooseLoader } from '@entria/graphql-mongoose-loader'
 import { Types } from 'mongoose'
+
 import UserModel, { IUser } from './UserModel'
+
 import { GraphQLContext } from 'server/src/TypeDefinitions'
 
 export default class User {
@@ -13,7 +15,7 @@ export default class User {
   login: string
   avatar_url: string | undefined
 
-  constructor (data: Partial<IUser>) {
+  constructor(data: Partial<IUser>) {
     this.id = data.id
     this._id = data._id
     this.github_id = data.github_id

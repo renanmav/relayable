@@ -19,9 +19,9 @@ const requestGithubToken = async (
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    body: JSON.stringify(credentials)
+    body: JSON.stringify(credentials),
   })
     .then(res => res.json())
     .catch(error => {

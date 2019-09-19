@@ -2,15 +2,17 @@
 import DataLoader from 'dataloader'
 import {
   mongooseLoader,
-  connectionFromMongoCursor
+  connectionFromMongoCursor,
 } from '@entria/graphql-mongoose-loader'
+import { ConnectionArguments, fromGlobalId } from 'graphql-relay'
 
 import User from '../user/UserLoader'
-import QuestionModel, { IQuestion } from './QuestionModel'
-import { GraphQLContext } from 'server/src/TypeDefinitions'
 import { IUser } from '../user/UserModel'
-import { ConnectionArguments, fromGlobalId } from 'graphql-relay'
 import Answer from '../answer/AnswerLoader'
+
+import QuestionModel, { IQuestion } from './QuestionModel'
+
+import { GraphQLContext } from 'server/src/TypeDefinitions'
 
 export default class Question {
   id: string
@@ -27,7 +29,7 @@ export default class Question {
   createdAt: any
   updatedAt: any
 
-  constructor (data: Partial<IQuestion>) {
+  constructor(data: Partial<IQuestion>) {
     this.id = data.id
     this._id = data._id
     this.title = data.title!
@@ -73,19 +75,44 @@ export const load = async (
 
 type QuestionArgs = ConnectionArguments & {
   authorId?: string
+  search?: string
 }
 
 export const loadQuestions = async (
   context: GraphQLContext,
   args: QuestionArgs
 ) => {
-  const where = args.authorId ? { author: fromGlobalId(args.authorId).id } : {}
-  const questions = QuestionModel.find(where).sort({ createdAt: -1 })
+  const { authorId, search } = args
+
+  let where = {}
+
+  const searchWords = []
+  if (search) {
+    const strArr = search.split(' ')
+    let regexStr = ''
+    strArr.forEach(word => {
+      regexStr += `(.*${word}.*)|`
+    })
+    const $regex = new RegExp(regexStr.slice(0, -1), 'ig')
+    searchWords.push({ title: { $regex } })
+    searchWords.push({ content: { $regex } })
+    searchWords.push({ tags: { $regex } })
+    where = { $or: searchWords }
+  }
+  if (authorId) {
+    searchWords.length
+      ? (where = {
+        $and: [{ author: fromGlobalId(authorId).id }, { $or: searchWords }],
+      })
+      : (where = { author: fromGlobalId(authorId).id })
+  }
+
+  const questions = QuestionModel.find(where)
 
   return connectionFromMongoCursor({
     cursor: questions,
     context,
     args,
-    loader: load
+    loader: load,
   })
 }

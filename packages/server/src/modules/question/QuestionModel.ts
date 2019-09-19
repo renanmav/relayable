@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
+
 import { IUser } from '../user/UserModel'
 import { IAnswer } from '../answer/AnswerModel'
 
@@ -6,53 +7,53 @@ const questionSchema = new Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     content: {
       type: String,
-      required: true
+      required: true,
     },
     upvotes: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
+        ref: 'User',
+      },
     ],
     downvotes: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
+        ref: 'User',
+      },
     ],
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: true,
     },
     views: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
+        ref: 'User',
+      },
     ],
     anonymous_views: {
       type: Number,
-      default: 0
+      default: 0,
     },
     tags: { type: [String] },
     answers: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Answer'
-      }
-    ]
+        ref: 'Answer',
+      },
+    ],
   },
   {
     timestamps: {
       createdAt: 'createdAt',
-      updatedAt: 'updatedAt'
+      updatedAt: 'updatedAt',
     },
-    collection: 'question'
+    collection: 'question',
   }
 )
 

@@ -3,9 +3,11 @@ import DataLoader from 'dataloader'
 import { mongooseLoader } from '@entria/graphql-mongoose-loader'
 
 import User from '../user/UserLoader'
-import { GraphQLContext } from 'server/src/TypeDefinitions'
 import { IUser } from '../user/UserModel'
+
 import AnswerModel, { IAnswer } from './AnswerModel'
+
+import { GraphQLContext } from 'server/src/TypeDefinitions'
 
 export default class Answer {
   id: string
@@ -18,7 +20,7 @@ export default class Answer {
   createdAt: any
   updatedAt: any
 
-  constructor (data: Partial<IAnswer>) {
+  constructor(data: Partial<IAnswer>) {
     this.id = data.id
     this._id = data._id
     this.content = data.content!

@@ -1,14 +1,15 @@
+import { graphql } from 'graphql'
+import { toGlobalId } from 'graphql-relay'
+import { PubSub } from 'graphql-subscriptions'
+
+import { schema } from '../../../../schema'
 import {
   getContext,
   createRows,
   connectMongoose,
   clearDbAndRestartCounters,
-  disconnectMongoose
+  disconnectMongoose,
 } from '../../../../../test/helper'
-import { graphql } from 'graphql'
-import { schema } from '../../../../schema'
-import { toGlobalId } from 'graphql-relay'
-import { PubSub } from 'graphql-subscriptions'
 
 beforeAll(connectMongoose)
 
@@ -43,7 +44,7 @@ it('should not vote if logged off', async () => {
   const context = getContext()
   const variables = {
     id: toGlobalId('Question', question._id),
-    up: true
+    up: true,
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
@@ -57,7 +58,7 @@ it('should remove his vote', async () => {
   const pubSub = new PubSub()
   const context = getContext({ user, pubSub })
   const variables = {
-    id: toGlobalId('Question', question._id)
+    id: toGlobalId('Question', question._id),
   }
 
   await graphql(schema, query, rootValue, context, { ...variables, up: true })
@@ -75,7 +76,7 @@ describe('when votting up', () => {
     const context = getContext({ user, pubSub })
     const variables = {
       id: toGlobalId('Question', question._id),
-      up: true
+      up: true,
     }
 
     const result = await graphql(schema, query, rootValue, context, variables)
@@ -97,19 +98,19 @@ describe('when votting up', () => {
     const pubSub = new PubSub()
     const context = getContext({ user, pubSub })
     const variables = {
-      id: toGlobalId('Question', question._id)
+      id: toGlobalId('Question', question._id),
     }
 
     const result = await graphql(schema, query, rootValue, context, {
       ...variables,
-      down: true
+      down: true,
     })
     expect(result.data!.VoteQuestion.question.upvotes).toBe(0)
     expect(result.data!.VoteQuestion.question.downvotes).toBe(1)
 
     const secondResult = await graphql(schema, query, rootValue, context, {
       ...variables,
-      up: true
+      up: true,
     })
     expect(secondResult.data!.VoteQuestion.question.upvotes).toBe(1)
     expect(secondResult.data!.VoteQuestion.question.downvotes).toBe(0)
@@ -124,7 +125,7 @@ describe('when votting down', () => {
     const context = getContext({ user, pubSub })
     const variables = {
       id: toGlobalId('Question', question._id),
-      down: true
+      down: true,
     }
 
     const result = await graphql(schema, query, rootValue, context, variables)
@@ -146,19 +147,19 @@ describe('when votting down', () => {
     const pubSub = new PubSub()
     const context = getContext({ user, pubSub })
     const variables = {
-      id: toGlobalId('Question', question._id)
+      id: toGlobalId('Question', question._id),
     }
 
     const result = await graphql(schema, query, rootValue, context, {
       ...variables,
-      up: true
+      up: true,
     })
     expect(result.data!.VoteQuestion.question.upvotes).toBe(1)
     expect(result.data!.VoteQuestion.question.downvotes).toBe(0)
 
     const secondResult = await graphql(schema, query, rootValue, context, {
       ...variables,
-      down: true
+      down: true,
     })
     expect(secondResult.data!.VoteQuestion.question.upvotes).toBe(0)
     expect(secondResult.data!.VoteQuestion.question.downvotes).toBe(1)

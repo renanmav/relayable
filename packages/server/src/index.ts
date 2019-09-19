@@ -1,10 +1,13 @@
+/* eslint-disable import/order */
 /* eslint-disable import/first */
 import dotenv from 'dotenv'
 dotenv.config()
 
 import { createServer } from 'http'
+
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { execute, subscribe } from 'graphql'
+
 import app from './app'
 import { graphqlPort } from './config'
 import logger, { getConsoleTransport } from './core/logger'
@@ -22,16 +25,17 @@ connectDatabase()
 
       SubscriptionServer.create(
         {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onConnect: (cParams: any) =>
             logger.info('Client subscription connected!', cParams),
           onDisconnect: () => logger.info('Client subscription disconnected!'),
           execute,
           subscribe,
-          schema
+          schema,
         },
         {
           server,
-          path: '/subscriptions'
+          path: '/subscriptions',
         }
       )
     })
