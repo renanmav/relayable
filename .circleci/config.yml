@@ -16,12 +16,26 @@ aliases:
       - node_modules
     key: v0-node-modules-{{ checksum "yarn.lock" }}
 
+  - &restore-mongodb-binaries-cache
+    keys:
+      - v0-mongodb-binaries
+  - &save-mongodb-binaries-cache
+    paths:
+      - ~/.mongodb-binaries
+    key: v0-mongodb-binaries
+
   # commands
   - &yarn
     name: Install Dependencies
     command: yarn install --frozen-lockfile --production=false --non-interactive --cache-folder ~/.cache/yarn
-  - &lint |
-    yarn lint
+  - &lint
+    name: Lint Files
+    command: yarn lint
+  - &test
+    name: Run Tests
+    command: |
+      yarn test --maxWorkers=4 --forceExit --ci
+      bash <(curl -s https://codecov.io/bash)
 
 defaults: &defaults
   working_directory: ~/app
@@ -50,11 +64,25 @@ jobs:
           at: ~/app
       - run: *lint
 
+  test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - restore_cache: *restore-mongodb-binaries-cache
+      - run: *test
+      - save_cache: *save-mongodb-binaries-cache
+      - store_test_results:
+          path: ./test-results
+
 workflows:
   version: 2
   relayable:
     jobs:
       - install_deps
       - lint:
+          requires:
+            - install_deps
+      - test:
           requires:
             - install_deps
