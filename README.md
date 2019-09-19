@@ -1,5 +1,6 @@
 ## Open source web app (Relayable)
 [![apm](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/yottadev/relayable/pulls)
+![codecov](https://codecov.io/github/yottadev/relayable/branch/master/graph/badge.svg)
 
 Relayable is an open source web app to publish questions and give answers. The app is built with:
 
