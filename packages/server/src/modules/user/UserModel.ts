@@ -5,27 +5,27 @@ const userSchema = new Schema(
     github_id: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     login: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     avatar_url: {
-      type: String
-    }
+      type: String,
+    },
   },
   {
     timestamps: {
       createdAt: 'createdAt',
-      updatedAt: 'updatedAt'
+      updatedAt: 'updatedAt',
     },
-    collection: 'user'
+    collection: 'user',
   }
 )
 

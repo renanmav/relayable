@@ -1,13 +1,14 @@
+import { graphql } from 'graphql'
+import { toGlobalId } from 'graphql-relay'
+
 import {
   getContext,
   createRows,
   connectMongoose,
   clearDbAndRestartCounters,
-  disconnectMongoose
+  disconnectMongoose,
 } from '../../../../../test/helper'
-import { graphql } from 'graphql'
 import { schema } from '../../../../schema'
-import { toGlobalId } from 'graphql-relay'
 
 beforeAll(connectMongoose)
 
@@ -42,7 +43,7 @@ it('should edit answer data if he/she is owner', async () => {
 
   const variables = {
     id: toGlobalId('Answer', answer._id),
-    content: "Some answer that I've typed wrong"
+    content: "Some answer that I've typed wrong",
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
@@ -61,7 +62,7 @@ it("should not edit question data if he/she isn't the owner", async () => {
 
   const variables = {
     id: toGlobalId('Answer', answer._id),
-    content: 'Trying to edit some answer that its not mine'
+    content: 'Trying to edit some answer that its not mine',
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)

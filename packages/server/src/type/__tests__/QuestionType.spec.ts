@@ -1,4 +1,5 @@
 import { graphql } from 'graphql'
+import { toGlobalId } from 'graphql-relay'
 
 import { schema } from '../../schema'
 import {
@@ -6,7 +7,7 @@ import {
   clearDbAndRestartCounters,
   disconnectMongoose,
   getContext,
-  createRows
+  createRows,
 } from '../../../test/helper'
 
 beforeAll(connectMongoose)
@@ -16,11 +17,18 @@ beforeEach(clearDbAndRestartCounters)
 afterAll(disconnectMongoose)
 
 const query = `
-  query {
-    questions {
+  query QuestionConnection(
+    $authorId: ID
+    $search: String
+  ) {
+    questions(
+      authorId: $authorId
+      search: $search
+    ) {
       edges {
         node {
           title
+          tags
           author {
             name
           }
@@ -43,6 +51,49 @@ describe('when authenticated', () => {
 
     expect(result.data!.questions.edges[0].node.title).toBe(question.title)
     expect(result.data!.questions.edges[0].node.author.name).toBe(user.name)
+  })
+
+  it('should retrieve only questions done by user if authorId its provided', async () => {
+    const userA = await createRows.createUser()
+    const userB = await createRows.createUser()
+
+    await createRows.createQuestion({ author: userA._id })
+    await createRows.createQuestion({ author: userB._id })
+
+    const context = await getContext({ user: userB })
+
+    const variables = {
+      authorId: toGlobalId('User', userA._id),
+    }
+
+    const result = await graphql(schema, query, rootValue, context, variables)
+
+    expect(result.data!.questions.edges[0].node.author.name).toBe(userA.name)
+    expect(result.data!.questions.edges[1]).toBeUndefined()
+  })
+
+  it('should search on authorId response', async () => {
+    const userA = await createRows.createUser()
+    const userB = await createRows.createUser()
+
+    await createRows.createQuestion({ author: userA._id, tags: ['42'] })
+    await createRows.createQuestion({ author: userA._id })
+
+    await createRows.createQuestion({ author: userB._id })
+
+    const context = await getContext({ user: userB })
+
+    const variables = {
+      authorId: toGlobalId('User', userA._id),
+      search: '42',
+    }
+
+    const result = await graphql(schema, query, rootValue, context, variables)
+
+    expect(result.data!.questions.edges[0].node.author.name).toBe(userA.name)
+    expect(result.data!.questions.edges[0].node.tags[0]).toBe('42')
+    expect(result.data!.questions.edges[1]).toBeUndefined()
+    expect(result.data!.questions.edges[2]).toBeUndefined()
   })
 })
 

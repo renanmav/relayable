@@ -1,13 +1,14 @@
+import { graphql } from 'graphql'
+import { toGlobalId } from 'graphql-relay'
+
 import {
   getContext,
   createRows,
   connectMongoose,
   clearDbAndRestartCounters,
-  disconnectMongoose
+  disconnectMongoose,
 } from '../../../../../test/helper'
-import { graphql } from 'graphql'
 import { schema } from '../../../../schema'
-import { toGlobalId } from 'graphql-relay'
 
 beforeAll(connectMongoose)
 
@@ -46,7 +47,7 @@ it('should answer a question if exists', async () => {
   const context = getContext({ user })
   const variables = {
     question: toGlobalId('Question', question._id),
-    content: '42'
+    content: '42',
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)

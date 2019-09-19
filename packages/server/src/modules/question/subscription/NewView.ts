@@ -1,6 +1,7 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLString } from 'graphql'
-import { QuestionConnection } from '../QuestionType'
 import { offsetToCursor } from 'graphql-relay'
+
+import { QuestionConnection } from '../QuestionType'
 import pubSub, { EVENTS } from '../../../pubSub'
 import { getUser } from '../../../auth'
 
@@ -10,7 +11,7 @@ const NewViewPayloadType = new GraphQLObjectType({
     edge: {
       type: QuestionConnection.edgeType,
       args: {
-        token: { type: new GraphQLNonNull(GraphQLString) }
+        token: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async ({ question }, { token }) => {
         const { user } = await getUser(token)
@@ -19,16 +20,16 @@ const NewViewPayloadType = new GraphQLObjectType({
 
         return {
           cursor: offsetToCursor(question.id),
-          node: question
+          node: question,
         }
-      }
-    }
-  })
+      },
+    },
+  }),
 })
 
 const newViewSubscription = {
   type: NewViewPayloadType,
-  subscribe: () => pubSub.asyncIterator(EVENTS.QUESTION.NEW_VIEW)
+  subscribe: () => pubSub.asyncIterator(EVENTS.QUESTION.NEW_VIEW),
 }
 
 export default newViewSubscription

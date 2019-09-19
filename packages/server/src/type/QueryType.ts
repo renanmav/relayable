@@ -2,7 +2,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLID,
-  GraphQLNonNull
+  GraphQLNonNull,
 } from 'graphql'
 import { connectionArgs } from 'graphql-relay'
 
@@ -20,34 +20,35 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       description: 'Use this query to fetch GitHub login URL',
       resolve: () =>
-        `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user`
+        `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user`,
     },
     node: nodeField,
     me: {
       type: UserType,
       description: 'Get your own data based on provided Authorization token',
-      resolve: (_, __, { user }: GraphQLContext) => user
+      resolve: (_, __, { user }: GraphQLContext) => user,
     },
     user: {
       type: UserType,
       description: 'Fetch a user by its login',
       args: {
-        login: { type: new GraphQLNonNull(GraphQLString) }
+        login: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: (_, args, context) =>
-        UserLoader.loadByLogin(context, args.login)
+        UserLoader.loadByLogin(context, args.login),
     },
     questions: {
       type: QuestionConnection.connectionType,
       description:
-        'Returns a connection with connectionArgs and/or the Author global ID',
+        'Returns a connection with connectionArgs and/or the Author global ID\n\n' +
+        'You can search questions too with the search arg\n\n' +
+        'Search its done by title, content and tags fields',
       args: {
         ...connectionArgs,
-        authorId: {
-          type: GraphQLID
-        }
+        authorId: { type: GraphQLID },
+        search: { type: GraphQLString },
       },
-      resolve: (_, args, ctx) => QuestionLoader.loadQuestions(ctx, args)
-    }
-  })
+      resolve: (_, args, ctx) => QuestionLoader.loadQuestions(ctx, args),
+    },
+  }),
 })

@@ -4,3 +4,4 @@ dist
 now.json
 .nowignore
 coverage
+test-results

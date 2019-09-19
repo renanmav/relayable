@@ -1,4 +1,5 @@
 import { GraphQLInterfaceType, GraphQLString, GraphQLInt } from 'graphql'
+
 import UserType from '../modules/user/UserType'
 
 const PostType = new GraphQLInterfaceType({
@@ -10,8 +11,8 @@ const PostType = new GraphQLInterfaceType({
     downvotes: { type: GraphQLInt },
     author: { type: UserType },
     createdAt: { type: GraphQLString },
-    updatedAt: { type: GraphQLString }
-  })
+    updatedAt: { type: GraphQLString },
+  }),
 })
 
 export default PostType

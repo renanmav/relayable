@@ -14,7 +14,7 @@ export default mutationWithClientMutationId({
     'Only the owner of the question can accept the answer\n' +
     'Only one answer can be accepted',
   inputFields: {
-    id: { type: new GraphQLNonNull(GraphQLID) }
+    id: { type: new GraphQLNonNull(GraphQLID) },
   },
   mutateAndGetPayload: async (data, { user }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
@@ -50,7 +50,7 @@ export default mutationWithClientMutationId({
   outputFields: {
     error: {
       type: GraphQLString,
-      resolve: obj => obj.error
+      resolve: obj => obj.error,
     },
     answer: {
       type: AnswerType,
@@ -58,7 +58,7 @@ export default mutationWithClientMutationId({
         { id },
         _,
         { dataloaders: { AnswerLoader } }: GraphQLContext
-      ) => (id ? AnswerLoader.load(id) : null)
-    }
-  }
+      ) => (id ? AnswerLoader.load(id) : null),
+    },
+  },
 })
