@@ -4,7 +4,7 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLID,
-  GraphQLBoolean
+  GraphQLBoolean,
 } from 'graphql'
 
 import { GraphQLContext } from '../../../TypeDefinitions'
@@ -19,7 +19,7 @@ export default mutationWithClientMutationId({
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
     up: { type: GraphQLBoolean },
-    down: { type: GraphQLBoolean }
+    down: { type: GraphQLBoolean },
   },
   mutateAndGetPayload: async (data, { user, pubSub }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
@@ -94,7 +94,7 @@ export default mutationWithClientMutationId({
   outputFields: {
     error: {
       type: GraphQLString,
-      resolve: obj => obj.error
+      resolve: obj => obj.error,
     },
     question: {
       type: QuestionType,
@@ -102,7 +102,7 @@ export default mutationWithClientMutationId({
         { id },
         _,
         { dataloaders: { QuestionLoader } }: GraphQLContext
-      ) => (id ? QuestionLoader.load(id) : null)
-    }
-  }
+      ) => (id ? QuestionLoader.load(id) : null),
+    },
+  },
 })

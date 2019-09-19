@@ -8,7 +8,7 @@ export default mutationWithClientMutationId({
   name: 'DeleteQuestion',
   description: 'Use this mutation to delete a question if you owns it',
   inputFields: {
-    id: { type: new GraphQLNonNull(GraphQLID) }
+    id: { type: new GraphQLNonNull(GraphQLID) },
   },
   mutateAndGetPayload: async (data, { user }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
@@ -30,7 +30,7 @@ export default mutationWithClientMutationId({
   outputFields: {
     error: {
       type: GraphQLString,
-      resolve: obj => obj.error
-    }
-  }
+      resolve: obj => obj.error,
+    },
+  },
 })

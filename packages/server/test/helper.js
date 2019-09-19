@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 import * as loaders from '../src/loader'
+
 import * as _createRows from './createRows'
 
 export const createRows = _createRows
@@ -14,7 +15,7 @@ const mongooseOptions = {
   autoIndex: false,
   autoReconnect: false,
   connectTimeoutMS: 10000,
-  useNewUrlParser: true
+  useNewUrlParser: true,
 }
 
 // Just in case want to debug something
@@ -26,7 +27,7 @@ export async function connectMongoose () {
     global.__MONGO_URI__,
     {
       ...mongooseOptions,
-      dbName: global.__MONGO_DB_NAME__
+      dbName: global.__MONGO_DB_NAME__,
     }
   )
 }
@@ -65,7 +66,7 @@ export function getContext (context) {
   const dataloaders = Object.keys(loaders).reduce(
     (prev, loaderKey) => ({
       ...prev,
-      [loaderKey]: loaders[loaderKey].getLoader()
+      [loaderKey]: loaders[loaderKey].getLoader(),
     }),
     {}
   )
@@ -73,6 +74,6 @@ export function getContext (context) {
   return {
     ...context,
     req: {},
-    dataloaders
+    dataloaders,
   }
 }

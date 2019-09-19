@@ -30,11 +30,13 @@ module.exports = {
         code: 80,
         ignoreUrls: true,
         ignoreStrings: true,
+        ignoreComments: true,
         ignoreTemplateLiterals: true,
       },
     ],
     'comma-dangle': ['error', 'always-multiline'],
     'space-before-function-paren': 'off',
+    'import/order': ['error', { 'newlines-between': 'always' }],
     '@typescript-eslint/camelcase': [
       'error',
       { properties: 'never', ignoreDestructuring: true },

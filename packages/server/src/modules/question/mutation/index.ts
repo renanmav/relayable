@@ -9,5 +9,5 @@ export default {
   EditQuestion,
   DeleteQuestion,
   ViewQuestion,
-  VoteQuestion
+  VoteQuestion,
 }

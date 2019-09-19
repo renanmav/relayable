@@ -4,13 +4,15 @@ import {
   mongooseLoader,
   connectionFromMongoCursor,
 } from '@entria/graphql-mongoose-loader'
+import { ConnectionArguments, fromGlobalId } from 'graphql-relay'
 
 import User from '../user/UserLoader'
-import QuestionModel, { IQuestion } from './QuestionModel'
-import { GraphQLContext } from 'server/src/TypeDefinitions'
 import { IUser } from '../user/UserModel'
-import { ConnectionArguments, fromGlobalId } from 'graphql-relay'
 import Answer from '../answer/AnswerLoader'
+
+import QuestionModel, { IQuestion } from './QuestionModel'
+
+import { GraphQLContext } from 'server/src/TypeDefinitions'
 
 export default class Question {
   id: string

@@ -1,6 +1,7 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLString } from 'graphql'
-import { QuestionConnection } from '../QuestionType'
 import { offsetToCursor } from 'graphql-relay'
+
+import { QuestionConnection } from '../QuestionType'
 import pubSub, { EVENTS } from '../../../pubSub'
 import { getUser } from '../../../auth'
 
@@ -10,7 +11,7 @@ const NewVotePayloadType = new GraphQLObjectType({
     edge: {
       type: QuestionConnection.edgeType,
       args: {
-        token: { type: new GraphQLNonNull(GraphQLString) }
+        token: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve: async ({ question }, { token }) => {
         const { user } = await getUser(token)
@@ -19,16 +20,16 @@ const NewVotePayloadType = new GraphQLObjectType({
 
         return {
           cursor: offsetToCursor(question.id),
-          node: question
+          node: question,
         }
-      }
-    }
-  })
+      },
+    },
+  }),
 })
 
 const newVoteSubscription = {
   type: NewVotePayloadType,
-  subscribe: () => pubSub.asyncIterator(EVENTS.QUESTION.NEW_VOTE)
+  subscribe: () => pubSub.asyncIterator(EVENTS.QUESTION.NEW_VOTE),
 }
 
 export default newVoteSubscription

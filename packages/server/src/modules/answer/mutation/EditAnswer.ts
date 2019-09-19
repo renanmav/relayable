@@ -10,7 +10,7 @@ export default mutationWithClientMutationId({
   description: 'Mutation to edit the answer if logged in user is the author',
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
-    content: { type: new GraphQLNonNull(GraphQLString) }
+    content: { type: new GraphQLNonNull(GraphQLString) },
   },
   mutateAndGetPayload: async (data, { user }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
@@ -34,7 +34,7 @@ export default mutationWithClientMutationId({
   outputFields: {
     error: {
       type: GraphQLString,
-      resolve: obj => obj.error
+      resolve: obj => obj.error,
     },
     answer: {
       type: AnswerType,
@@ -42,7 +42,7 @@ export default mutationWithClientMutationId({
         { id },
         _,
         { dataloaders: { AnswerLoader } }: GraphQLContext
-      ) => (id ? AnswerLoader.load(id) : null)
-    }
-  }
+      ) => (id ? AnswerLoader.load(id) : null),
+    },
+  },
 })

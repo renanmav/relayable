@@ -17,11 +17,12 @@ const logger = winston.createLogger({
     //
     // new winston.transports.File({ filename: 'error.log', level: 'error' }),
     // new winston.transports.File({ filename: 'combined.log' })
-  ]
+  ],
 })
 
-export const getConsoleTransport = (label: string) => new winston.transports.Console({
-  format: consoleFormatter({ label })
-})
+export const getConsoleTransport = (label: string) =>
+  new winston.transports.Console({
+    format: consoleFormatter({ label }),
+  })
 
 export default logger

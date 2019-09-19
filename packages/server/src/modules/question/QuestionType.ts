@@ -9,11 +9,12 @@ import { orderBy } from 'lodash'
 
 import { registerType, nodeInterface } from '../../interface/NodeInterface'
 import postInterface from '../../interface/PostInterface'
-import { IQuestion } from './QuestionModel'
 import UserType from '../user/UserType'
 import AnswerType from '../answer/AnswerType'
 import { GraphQLContext } from '../../TypeDefinitions'
 import { IAnswer } from '../answer/AnswerModel'
+
+import { IQuestion } from './QuestionModel'
 
 const QuestionType = registerType(
   new GraphQLObjectType<IQuestion>({

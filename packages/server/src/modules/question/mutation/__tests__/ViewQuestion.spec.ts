@@ -1,14 +1,15 @@
+import { graphql } from 'graphql'
+import { toGlobalId } from 'graphql-relay'
+import { PubSub } from 'graphql-subscriptions'
+
+import { schema } from '../../../../schema'
 import {
   getContext,
   createRows,
   connectMongoose,
   clearDbAndRestartCounters,
-  disconnectMongoose
+  disconnectMongoose,
 } from '../../../../../test/helper'
-import { graphql } from 'graphql'
-import { schema } from '../../../../schema'
-import { toGlobalId } from 'graphql-relay'
-import { PubSub } from 'graphql-subscriptions'
 
 beforeAll(connectMongoose)
 
@@ -39,7 +40,7 @@ it('should view when logged in', async () => {
   const pubSub = new PubSub()
   const context = getContext({ user, pubSub })
   const variables = {
-    id: toGlobalId('Question', question._id)
+    id: toGlobalId('Question', question._id),
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
@@ -53,7 +54,7 @@ it('should increment anonymous views when logged off', async () => {
   const pubSub = new PubSub()
   const context = getContext({ pubSub })
   const variables = {
-    id: toGlobalId('Question', question._id)
+    id: toGlobalId('Question', question._id),
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
@@ -66,7 +67,7 @@ it('should view only once', async () => {
   const question = await createRows.createQuestion({ author: user._id })
   const context = getContext({ user })
   const variables = {
-    id: toGlobalId('Question', question._id)
+    id: toGlobalId('Question', question._id),
   }
 
   await graphql(schema, query, rootValue, context, variables)

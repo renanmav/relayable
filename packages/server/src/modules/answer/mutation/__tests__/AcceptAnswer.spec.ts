@@ -1,13 +1,14 @@
+import { graphql } from 'graphql'
+import { toGlobalId } from 'graphql-relay'
+
 import {
   getContext,
   createRows,
   connectMongoose,
   clearDbAndRestartCounters,
-  disconnectMongoose
+  disconnectMongoose,
 } from '../../../../../test/helper'
-import { graphql } from 'graphql'
 import { schema } from '../../../../schema'
-import { toGlobalId } from 'graphql-relay'
 import AnswerModel from '../../AnswerModel'
 
 beforeAll(connectMongoose)
@@ -38,12 +39,12 @@ it("should not accept the answer if isn't question owner", async () => {
 
   const otherUser = await createRows.createUser()
   const answer = await createRows.createAnswer(question, {
-    author: otherUser._id
+    author: otherUser._id,
   })
 
   const context = getContext({ user: otherUser })
   const variables = {
-    id: toGlobalId('Answer', answer._id)
+    id: toGlobalId('Answer', answer._id),
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
@@ -58,15 +59,15 @@ it('should accept only one answer', async () => {
   const answerUser = await createRows.createUser()
   const answer = await createRows.createAnswer(question, {
     author: answerUser._id,
-    is_accepted: true
+    is_accepted: true,
   })
   const acceptedAnswer = await createRows.createAnswer(question, {
-    author: answerUser._id
+    author: answerUser._id,
   })
 
   const context = getContext({ user })
   const variables = {
-    id: toGlobalId('Answer', acceptedAnswer._id)
+    id: toGlobalId('Answer', acceptedAnswer._id),
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
