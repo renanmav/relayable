@@ -11,6 +11,7 @@
     "build": "yarn workspace @yotta/server build",
     "start": "yarn workspace @yotta/server start:prod",
     "lint:staged": "lint-staged",
+    "lint": "yarn eslint --fix ./packages --ext js,ts,tsx",
     "test": "yarn workspace @yotta/server test"
   },
   "devDependencies": {

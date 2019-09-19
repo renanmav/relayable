@@ -20,6 +20,8 @@ aliases:
   - &yarn
     name: Install Dependencies
     command: yarn install --frozen-lockfile --production=false --non-interactive --cache-folder ~/.cache/yarn
+  - &lint |
+    yarn lint
 
 defaults: &defaults
   working_directory: ~/app
@@ -41,8 +43,18 @@ jobs:
           root: .
           paths: .
 
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - run: *lint
+
 workflows:
   version: 2
   relayable:
     jobs:
       - install_deps
+      - lint:
+          requires:
+            - install_deps
