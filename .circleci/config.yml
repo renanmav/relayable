@@ -36,8 +36,26 @@ aliases:
     command: |
       yarn test --maxWorkers=4 --forceExit --ci
       bash <(curl -s https://codecov.io/bash)
+  - &build_docker_image_server
+    name: Build the Docker Image
+    command: |
+      docker build --rm=false \
+        -f ./packages/server/Dockerfile \
+        -t $IMAGE_NAME_SERVER .
+      docker images
+
+  # job filters
+  - &filter-only-master-and-tags
+    tags:
+      only:
+        - /.*/
+    branches:
+      only:
+        - master
 
 defaults: &defaults
+  environment:
+    IMAGE_NAME_SERVER: 'server'
   working_directory: ~/app
   docker:
     - image: circleci/node:12.4.0
@@ -75,6 +93,14 @@ jobs:
       - store_test_results:
           path: ./test-results
 
+  build_server:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - setup_remote_docker
+      - run: *build_docker_image_server
+
 workflows:
   version: 2
   relayable:
@@ -86,3 +112,8 @@ workflows:
       - test:
           requires:
             - install_deps
+      - build_server:
+          filters: *filter-only-master-and-tags
+          requires:
+            - lint
+            - test
