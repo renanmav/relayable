@@ -1,0 +1,376 @@
+input AcceptAnswerInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type AcceptAnswerPayload {
+  error: String
+  answer: Answer
+  clientMutationId: String
+}
+
+"""
+Answer data
+"""
+type Answer implements Node & Post {
+  """
+  The ID of an object
+  """
+  id: ID!
+  _id: String
+  question: Question
+  content: String
+  upvotes: Int
+  downvotes: Int
+  is_accepted: Boolean
+  author: User
+  createdAt: String
+  updatedAt: String
+}
+
+input CreateAnswerInput {
+  """
+  ID of the question
+  """
+  question: ID!
+  content: String!
+  clientMutationId: String
+}
+
+type CreateAnswerPayload {
+  error: String
+  answer: Answer
+  clientMutationId: String
+}
+
+input CreateQuestionInput {
+  title: String!
+  content: String!
+  tags: [String]
+  clientMutationId: String
+}
+
+type CreateQuestionPayload {
+  error: String
+  question: Question
+  clientMutationId: String
+}
+
+input DeleteQuestionInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeleteQuestionPayload {
+  error: String
+  clientMutationId: String
+}
+
+input EditAnswerInput {
+  id: ID!
+  content: String!
+  clientMutationId: String
+}
+
+type EditAnswerPayload {
+  error: String
+  answer: Answer
+  clientMutationId: String
+}
+
+input EditQuestionInput {
+  id: ID!
+  title: String
+  content: String
+  tags: [String]
+  clientMutationId: String
+}
+
+type EditQuestionPayload {
+  error: String
+  question: Question
+  clientMutationId: String
+}
+
+input LoginWithGithubInput {
+  code: String!
+  clientMutationId: String
+}
+
+type LoginWithGithubPayload {
+  token: String
+  user: User
+  clientMutationId: String
+}
+
+type Mutation {
+  LoginWithGithub(input: LoginWithGithubInput!): LoginWithGithubPayload
+
+  """
+  Use this mutation to create a question
+  """
+  CreateQuestion(input: CreateQuestionInput!): CreateQuestionPayload
+
+  """
+  Mutation to edit the question if logged in user is the author
+  """
+  EditQuestion(input: EditQuestionInput!): EditQuestionPayload
+
+  """
+  Use this mutation to delete a question if you owns it
+  """
+  DeleteQuestion(input: DeleteQuestionInput!): DeleteQuestionPayload
+
+  """
+  Mutation to view the question
+  Each user represents one view
+  """
+  ViewQuestion(input: ViewQuestionInput!): ViewQuestionPayload
+
+  """
+  Mutation to up/down vote a question
+
+  Each user vote only once (and can change his vote)
+  """
+  VoteQuestion(input: VoteQuestionInput!): VoteQuestionPayload
+
+  """
+  Use this mutation to answer a question
+  """
+  CreateAnswer(input: CreateAnswerInput!): CreateAnswerPayload
+
+  """
+  Mutation to edit the answer if logged in user is the author
+  """
+  EditAnswer(input: EditAnswerInput!): EditAnswerPayload
+
+  """
+  Mutation to up/down vote a answer
+
+  Each user vote only once (and can change his vote)
+  """
+  VoteAnswer(input: VoteAnswerInput!): VoteAnswerPayload
+
+  """
+  Mutation to accept the answer
+  Only the owner of the question can accept the answer
+  Only one answer can be accepted
+  """
+  AcceptAnswer(input: AcceptAnswerInput!): AcceptAnswerPayload
+}
+
+type NewQuestionPayload {
+  edge(token: String!): QuestionEdge
+}
+
+type NewViewPayload {
+  edge(token: String!): QuestionEdge
+}
+
+type NewVotePayload {
+  edge(token: String!): QuestionEdge
+}
+
+"""
+An object with an ID
+"""
+interface Node {
+  """
+  The id of the object.
+  """
+  id: ID!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+"""
+Post interface to enforce some fields
+"""
+interface Post {
+  content: String
+  upvotes: Int
+  downvotes: Int
+  author: User
+  createdAt: String
+  updatedAt: String
+}
+
+"""
+The root of all queries
+"""
+type Query {
+  """
+  Use this query to fetch GitHub login URL
+  """
+  githubLoginUrl: String
+
+  """
+  Fetches an object given its ID
+  """
+  node(
+    """
+    The ID of an object
+    """
+    id: ID!
+  ): Node
+
+  """
+  Get your own data based on provided Authorization token
+  """
+  me: User
+
+  """
+  Fetch a user by its login
+  """
+  user(login: String!): User
+
+  """
+  Returns a connection with connectionArgs and/or the Author global ID
+
+  You can search questions too with the search arg
+
+  Search its done by title, content and tags fields
+  """
+  questions(
+    after: String
+    first: Int
+    before: String
+    last: Int
+    authorId: ID
+    search: String
+  ): QuestionConnection
+}
+
+"""
+Question data
+"""
+type Question implements Node & Post {
+  """
+  The ID of an object
+  """
+  id: ID!
+  _id: String
+  title: String
+  content: String
+  upvotes: Int
+  downvotes: Int
+  views: Int
+  anonymous_views: Int
+  total_views: Int
+  tags: [String]
+  author: User
+  answers: [Answer]
+  createdAt: String
+  updatedAt: String
+}
+
+"""
+A connection to a list of items.
+"""
+type QuestionConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [QuestionEdge]
+}
+
+"""
+An edge in a connection.
+"""
+type QuestionEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Question
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type Subscription {
+  NewQuestion: NewQuestionPayload
+  NewView: NewViewPayload
+  NewVote: NewVotePayload
+}
+
+"""
+User data
+"""
+type User implements Node {
+  """
+  The ID of an object
+  """
+  id: ID!
+  _id: String
+  github_id: String
+  name: String
+  login: String
+  avatar_url: String
+}
+
+input ViewQuestionInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type ViewQuestionPayload {
+  error: String
+  question: Question
+  clientMutationId: String
+}
+
+input VoteAnswerInput {
+  id: ID!
+  up: Boolean
+  down: Boolean
+  clientMutationId: String
+}
+
+type VoteAnswerPayload {
+  error: String
+  answer: Answer
+  clientMutationId: String
+}
+
+input VoteQuestionInput {
+  id: ID!
+  up: Boolean
+  down: Boolean
+  clientMutationId: String
+}
+
+type VoteQuestionPayload {
+  error: String
+  question: Question
+  clientMutationId: String
+}

@@ -9,7 +9,8 @@
     "lint": "yarn eslint --fix ./src --ext ts,js",
     "start:prod": "node dist/index.js",
     "start:dev": "nodemon src/index.ts",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "update-schema": "sucrase-node ./scripts/updateSchema.js"
   },
   "dependencies": {
     "@entria/graphql-mongoose-loader": "^4.2.0",
