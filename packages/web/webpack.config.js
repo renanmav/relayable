@@ -7,23 +7,26 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ['babel-loader', 'ts-loader']
+        use: ['babel-loader', 'ts-loader'],
       },
       {
         test: /\.pug$/,
-        loader: ['pug-loader']
-      }
-    ]
+        loader: ['pug-loader'],
+      },
+    ],
   },
   resolve: {
     alias: {
-      '@yotta/web': path.resolve(__dirname)
+      '@yotta/web': path.resolve(__dirname),
     },
-    extensions: ['.js', '.ts', '.tsx']
+    extensions: ['.js', '.ts', '.tsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.pug'
-    })
-  ]
+      template: './src/index.pug',
+    }),
+  ],
+  node: {
+    fs: 'empty',
+  },
 }
