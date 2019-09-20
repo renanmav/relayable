@@ -53,12 +53,12 @@ module.exports = {
     'one-var': 'warn',
     'no-multi-assign': 'warn',
     'operator-linebreak': 'warn',
-    complexity: ['warn', 6],
     'no-console': 'warn',
     // ===== Import =====
     'import/prefer-default-export': 'warn',
     'import/first': 'warn',
     'import/no-webpack-loader-syntax': 'warn',
+    'import/order': ['error', { 'newlines-between': 'always' }],
     // ===== JSX =====
     'react/jsx-indent': ['warn', 2],
     'react/jsx-indent-props': ['warn', 2],
