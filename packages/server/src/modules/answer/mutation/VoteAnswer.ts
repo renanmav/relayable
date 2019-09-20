@@ -1,11 +1,6 @@
 /* eslint-disable eqeqeq */
 import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay'
-import {
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLID,
-  GraphQLBoolean
-} from 'graphql'
+import { GraphQLString, GraphQLNonNull, GraphQLID, GraphQLBoolean } from 'graphql'
 
 import { GraphQLContext } from '../../../TypeDefinitions'
 import AnswerModel from '../AnswerModel'
@@ -18,7 +13,7 @@ export default mutationWithClientMutationId({
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
     up: { type: GraphQLBoolean },
-    down: { type: GraphQLBoolean }
+    down: { type: GraphQLBoolean },
   },
   mutateAndGetPayload: async (data, { user }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
@@ -37,9 +32,7 @@ export default mutationWithClientMutationId({
     if (up) {
       // verifies if the user voted down
       if (answer.downvotes.includes(user._id)) {
-        answer.downvotes = answer.downvotes.filter(
-          id => id.toString() != user._id
-        )
+        answer.downvotes = answer.downvotes.filter(id => id.toString() != user._id)
       }
 
       // verifies if the user already voted up
@@ -83,15 +76,12 @@ export default mutationWithClientMutationId({
   outputFields: {
     error: {
       type: GraphQLString,
-      resolve: obj => obj.error
+      resolve: obj => obj.error,
     },
     answer: {
       type: AnswerType,
-      resolve: async (
-        { id },
-        _,
-        { dataloaders: { AnswerLoader } }: GraphQLContext
-      ) => (id ? AnswerLoader.load(id) : null)
-    }
-  }
+      resolve: async ({ id }, _, { dataloaders: { AnswerLoader } }: GraphQLContext) =>
+        (id ? AnswerLoader.load(id) : null),
+    },
+  },
 })

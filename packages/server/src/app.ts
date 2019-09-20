@@ -9,7 +9,7 @@ import graphqlHttp, { Options } from 'koa-graphql'
 import { schema } from './schema'
 import { Loaders } from './interface/NodeInterface'
 import * as loaders from './loader'
-import { getUser } from './auth'
+import getUser from './auth'
 import pubSub from './pubSub'
 
 const app = new Koa()
@@ -23,7 +23,7 @@ const graphqlSettingsPerReq = async (req: Request, res: Response) => {
   const dataloaders = Object.keys(AllLoaders).reduce(
     (acc, loaderKey) => ({
       ...acc,
-      [loaderKey]: AllLoaders[loaderKey].getLoader()
+      [loaderKey]: AllLoaders[loaderKey].getLoader(),
     }),
     {}
   )
@@ -36,8 +36,8 @@ const graphqlSettingsPerReq = async (req: Request, res: Response) => {
       res,
       dataloaders,
       user,
-      pubSub
-    }
+      pubSub,
+    },
   }
   return options
 }
@@ -50,7 +50,7 @@ if (process.env.NODE_ENV !== 'production') {
     '/graphiql',
     koaPlayground({
       endpoint: '/graphql',
-      subscriptionEndpoint: '/subscriptions'
+      subscriptionEndpoint: '/subscriptions',
     })
   )
 }

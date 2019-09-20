@@ -10,7 +10,7 @@ export default mutationWithClientMutationId({
   name: 'ViewQuestion',
   description: 'Mutation to view the question\nEach user represents one view',
   inputFields: {
-    id: { type: new GraphQLNonNull(GraphQLID) }
+    id: { type: new GraphQLNonNull(GraphQLID) },
   },
   mutateAndGetPayload: async (data, { user, pubSub }: GraphQLContext) => {
     const { id } = fromGlobalId(data.id)
@@ -37,15 +37,12 @@ export default mutationWithClientMutationId({
   outputFields: {
     error: {
       type: GraphQLString,
-      resolve: obj => obj.error
+      resolve: obj => obj.error,
     },
     question: {
       type: QuestionType,
-      resolve: async (
-        { id },
-        _,
-        { dataloaders: { QuestionLoader } }: GraphQLContext
-      ) => (id ? QuestionLoader.load(id) : null)
-    }
-  }
+      resolve: async ({ id }, _, { dataloaders: { QuestionLoader } }: GraphQLContext) =>
+        (id ? QuestionLoader.load(id) : null),
+    },
+  },
 })

@@ -1,13 +1,14 @@
+import { graphql } from 'graphql'
+import { toGlobalId } from 'graphql-relay'
+
 import {
   getContext,
   createRows,
   connectMongoose,
   clearDbAndRestartCounters,
-  disconnectMongoose
+  disconnectMongoose,
 } from '../../../../../test/helper'
-import { graphql } from 'graphql'
 import { schema } from '../../../../schema'
-import { toGlobalId } from 'graphql-relay'
 
 beforeAll(connectMongoose)
 
@@ -43,7 +44,7 @@ it('should not vote if logged off', async () => {
   const context = getContext()
   const variables = {
     id: toGlobalId('Answer', answer._id),
-    up: true
+    up: true,
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
@@ -58,7 +59,7 @@ it('should remove his vote', async () => {
 
   const context = getContext({ user })
   const variables = {
-    id: toGlobalId('Answer', answer._id)
+    id: toGlobalId('Answer', answer._id),
   }
 
   await graphql(schema, query, rootValue, context, { ...variables, up: true })
@@ -76,19 +77,13 @@ describe('when votting up', () => {
     const context = getContext({ user })
     const variables = {
       id: toGlobalId('Answer', answer._id),
-      up: true
+      up: true,
     }
 
     const result = await graphql(schema, query, rootValue, context, variables)
     expect(result.data!.VoteAnswer.answer.upvotes).toBe(1)
 
-    const secondResult = await graphql(
-      schema,
-      query,
-      rootValue,
-      context,
-      variables
-    )
+    const secondResult = await graphql(schema, query, rootValue, context, variables)
     expect(secondResult.data!.VoteAnswer.error).toBeTruthy()
   })
 
@@ -98,19 +93,19 @@ describe('when votting up', () => {
     const answer = await createRows.createAnswer(question, { author: user._id })
     const context = getContext({ user })
     const variables = {
-      id: toGlobalId('Answer', answer._id)
+      id: toGlobalId('Answer', answer._id),
     }
 
     const result = await graphql(schema, query, rootValue, context, {
       ...variables,
-      down: true
+      down: true,
     })
     expect(result.data!.VoteAnswer.answer.upvotes).toBe(0)
     expect(result.data!.VoteAnswer.answer.downvotes).toBe(1)
 
     const secondResult = await graphql(schema, query, rootValue, context, {
       ...variables,
-      up: true
+      up: true,
     })
     expect(secondResult.data!.VoteAnswer.answer.upvotes).toBe(1)
     expect(secondResult.data!.VoteAnswer.answer.downvotes).toBe(0)
@@ -125,19 +120,13 @@ describe('when votting down', () => {
     const context = getContext({ user })
     const variables = {
       id: toGlobalId('Answer', answer._id),
-      down: true
+      down: true,
     }
 
     const result = await graphql(schema, query, rootValue, context, variables)
     expect(result.data!.VoteAnswer.answer.downvotes).toBe(1)
 
-    const secondResult = await graphql(
-      schema,
-      query,
-      rootValue,
-      context,
-      variables
-    )
+    const secondResult = await graphql(schema, query, rootValue, context, variables)
     expect(secondResult.data!.VoteAnswer.error).toBeTruthy()
   })
 
@@ -147,19 +136,19 @@ describe('when votting down', () => {
     const answer = await createRows.createAnswer(question, { author: user._id })
     const context = getContext({ user })
     const variables = {
-      id: toGlobalId('Answer', answer._id)
+      id: toGlobalId('Answer', answer._id),
     }
 
     const result = await graphql(schema, query, rootValue, context, {
       ...variables,
-      up: true
+      up: true,
     })
     expect(result.data!.VoteAnswer.answer.upvotes).toBe(1)
     expect(result.data!.VoteAnswer.answer.downvotes).toBe(0)
 
     const secondResult = await graphql(schema, query, rootValue, context, {
       ...variables,
-      down: true
+      down: true,
     })
     expect(secondResult.data!.VoteAnswer.answer.upvotes).toBe(0)
     expect(secondResult.data!.VoteAnswer.answer.downvotes).toBe(1)

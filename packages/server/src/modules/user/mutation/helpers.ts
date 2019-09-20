@@ -12,25 +12,21 @@ interface ITokenResponse {
   scope: string
 }
 
-const requestGithubToken = async (
-  credentials: ICredentials
-): Promise<ITokenResponse> =>
+const requestGithubToken = async (credentials: ICredentials): Promise<ITokenResponse> =>
   fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    body: JSON.stringify(credentials)
+    body: JSON.stringify(credentials),
   })
     .then(res => res.json())
     .catch(error => {
       throw new Error(JSON.stringify(error))
     })
 
-export const requestGithubUserAccount = async (
-  token: string
-): Promise<IGithubUser> =>
+export const requestGithubUserAccount = async (token: string): Promise<IGithubUser> =>
   fetch(`https://api.github.com/user?access_token=${token}`)
     .then(res => res.json())
     .catch(error => {

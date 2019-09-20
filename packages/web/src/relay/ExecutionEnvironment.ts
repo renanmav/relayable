@@ -11,7 +11,7 @@ const ExecutionEnvironment = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     canUseDOM && !!(window.addEventListener || (window as any).attachEvent),
   canUseViewport: canUseDOM && !!window.screen,
-  isInWorker: !canUseDOM
+  isInWorker: !canUseDOM,
 }
 
 export default ExecutionEnvironment

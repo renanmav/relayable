@@ -1,14 +1,15 @@
+import { graphql } from 'graphql'
+import { toGlobalId } from 'graphql-relay'
+import slugify from 'slugify'
+
+import { schema } from '../../../../schema'
 import {
   getContext,
   createRows,
   connectMongoose,
   clearDbAndRestartCounters,
-  disconnectMongoose
+  disconnectMongoose,
 } from '../../../../../test/helper'
-import { graphql } from 'graphql'
-import { schema } from '../../../../schema'
-import { toGlobalId } from 'graphql-relay'
-import slugify from 'slugify'
 
 beforeAll(connectMongoose)
 
@@ -49,7 +50,7 @@ it('should edit question data if he/she is owner', async () => {
     id: toGlobalId('Question', question._id),
     title: 'Some other question',
     content: 'What does the fox say again?',
-    tags: ['fox', 'Old meme']
+    tags: ['fox', 'Old meme'],
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
@@ -76,7 +77,7 @@ it("should not edit question data if he/she isn't the owner", async () => {
     id: toGlobalId('Question', question._id),
     title: 'Some other question',
     content: 'What does the fox say again?',
-    tags: ['fox', 'Old meme']
+    tags: ['fox', 'Old meme'],
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)

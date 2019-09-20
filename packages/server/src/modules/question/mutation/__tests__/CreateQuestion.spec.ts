@@ -1,13 +1,14 @@
+import { PubSub } from 'graphql-subscriptions'
+import { graphql } from 'graphql'
+
 import {
   getContext,
   createRows,
   connectMongoose,
   clearDbAndRestartCounters,
-  disconnectMongoose
+  disconnectMongoose,
 } from '../../../../../test/helper'
-import { graphql } from 'graphql'
 import { schema } from '../../../../schema'
-import { PubSub } from 'graphql-subscriptions'
 
 beforeAll(connectMongoose)
 
@@ -41,7 +42,7 @@ it('should create a question when authenticated', async () => {
   const context = getContext({ user, pubSub })
   const variables = {
     title: 'A question',
-    content: 'What does the fox say?'
+    content: 'What does the fox say?',
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
@@ -53,7 +54,7 @@ it('should not create a question when unauthenticated', async () => {
   const context = getContext()
   const variables = {
     title: 'Test',
-    content: 'Some question'
+    content: 'Some question',
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)

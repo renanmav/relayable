@@ -11,9 +11,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const network = Network.create(
-  process.env.NODE_ENV === 'development'
-    ? RelayNetworkLogger.wrapFetch(cacheHandler)
-    : cacheHandler
+  process.env.NODE_ENV === 'development' ? RelayNetworkLogger.wrapFetch(cacheHandler) : cacheHandler
 )
 
 const source = new RecordSource()
@@ -21,7 +19,7 @@ const store = new Store(source)
 
 const env = new Environment({
   network,
-  store
+  store,
 })
 
 export default env

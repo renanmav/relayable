@@ -2,8 +2,8 @@ FROM node:latest
 
 LABEL maintainer="yotta.dev<team@yotta.dev>"
 
-RUN mkdir /usr/api
-WORKDIR /usr/api
+RUN mkdir /app
+WORKDIR /app
 
 COPY package.json .
 RUN yarn

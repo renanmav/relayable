@@ -13,7 +13,7 @@ export default mutationWithClientMutationId({
     id: { type: new GraphQLNonNull(GraphQLID) },
     title: { type: GraphQLString },
     content: { type: GraphQLString },
-    tags: { type: GraphQLList(GraphQLString) }
+    tags: { type: GraphQLList(GraphQLString) },
   },
   mutateAndGetPayload: async (data, { user }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
@@ -51,15 +51,12 @@ export default mutationWithClientMutationId({
   outputFields: {
     error: {
       type: GraphQLString,
-      resolve: obj => obj.error
+      resolve: obj => obj.error,
     },
     question: {
       type: QuestionType,
-      resolve: async (
-        { id },
-        _,
-        { dataloaders: { QuestionLoader } }: GraphQLContext
-      ) => (id ? QuestionLoader.load(id) : null)
-    }
-  }
+      resolve: async ({ id }, _, { dataloaders: { QuestionLoader } }: GraphQLContext) =>
+        (id ? QuestionLoader.load(id) : null),
+    },
+  },
 })

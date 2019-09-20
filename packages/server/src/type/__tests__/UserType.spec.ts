@@ -6,7 +6,7 @@ import {
   clearDbAndRestartCounters,
   disconnectMongoose,
   getContext,
-  createRows
+  createRows,
 } from '../../../test/helper'
 
 beforeAll(connectMongoose)
@@ -62,16 +62,10 @@ describe('for the user query', () => {
 
     const context = getContext({ user })
     const variables = {
-      login: user.login
+      login: user.login,
     }
 
-    const result = await graphql(
-      schema,
-      userQuery,
-      rootValue,
-      context,
-      variables
-    )
+    const result = await graphql(schema, userQuery, rootValue, context, variables)
 
     expect(result.data!.user.github_id).toBe(user.github_id)
   })
@@ -82,16 +76,10 @@ describe('for the user query', () => {
 
     const context = getContext({ user: userA })
     const variables = {
-      login: userB.login
+      login: userB.login,
     }
 
-    const result = await graphql(
-      schema,
-      userQuery,
-      rootValue,
-      context,
-      variables
-    )
+    const result = await graphql(schema, userQuery, rootValue, context, variables)
 
     expect(result.data!.user.github_id).toBeNull()
   })
@@ -112,7 +100,7 @@ describe('for the user query', () => {
 
     const context = getContext()
     const variables = {
-      login: user.login
+      login: user.login,
     }
 
     const result = await graphql(schema, query, rootValue, context, variables)

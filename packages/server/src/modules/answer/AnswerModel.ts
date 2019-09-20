@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
+
 import { IUser } from '../user/UserModel'
 import { IQuestion } from '../question/QuestionModel'
 
@@ -6,40 +7,40 @@ const answerSchema = new Schema(
   {
     question: {
       type: Schema.Types.ObjectId,
-      ref: 'Question'
+      ref: 'Question',
     },
     content: {
       type: String,
-      required: true
+      required: true,
     },
     upvotes: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
+        ref: 'User',
+      },
     ],
     downvotes: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
+        ref: 'User',
+      },
     ],
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: true,
     },
     is_accepted: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   {
     timestamps: {
       createdAt: 'createdAt',
-      updatedAt: 'updatedAt'
+      updatedAt: 'updatedAt',
     },
-    collection: 'answer'
+    collection: 'answer',
   }
 )
 

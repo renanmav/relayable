@@ -1,11 +1,6 @@
 // @ts-ignore
 import RelayQueryResponseCache from 'relay-runtime/lib/RelayQueryResponseCache'
-import {
-  RequestParameters,
-  Variables,
-  CacheConfig,
-  UploadableMap
-} from 'relay-runtime'
+import { RequestParameters, Variables, CacheConfig, UploadableMap } from 'relay-runtime'
 
 import { isMutation, isQuery, forceFetch } from './helpers'
 import fetchQuery from './fetchQuery'
@@ -13,7 +8,7 @@ import fetchQuery from './fetchQuery'
 const oneMinute = 60 * 1000
 const relayResponseCache = new RelayQueryResponseCache({
   size: 250,
-  ttl: oneMinute
+  ttl: oneMinute,
 })
 
 const cacheHandler = async (

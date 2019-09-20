@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 import { dbUri } from './config'
 import logger from './core/logger'
 
@@ -12,7 +13,7 @@ export function connectDatabase () {
 
     mongoose.connect(dbUri!, {
       useNewUrlParser: true,
-      useCreateIndex: true
+      useCreateIndex: true,
     })
   })
 }

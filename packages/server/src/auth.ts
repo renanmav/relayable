@@ -2,7 +2,7 @@ import { requestGithubUserAccount } from './modules/user/mutation/helpers'
 import UserModel, { IUser } from './modules/user/UserModel'
 
 // @ts-ignore
-export async function getUser (token: string): { user: IUser | null } {
+export default async function getUser (token: string): { user: IUser | null } {
   if (!token) return { user: null }
 
   try {

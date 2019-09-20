@@ -1,11 +1,6 @@
 /* eslint-disable eqeqeq */
 import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay'
-import {
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLID,
-  GraphQLBoolean
-} from 'graphql'
+import { GraphQLString, GraphQLNonNull, GraphQLID, GraphQLBoolean } from 'graphql'
 
 import { GraphQLContext } from '../../../TypeDefinitions'
 import QuestionModel from '../QuestionModel'
@@ -19,7 +14,7 @@ export default mutationWithClientMutationId({
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
     up: { type: GraphQLBoolean },
-    down: { type: GraphQLBoolean }
+    down: { type: GraphQLBoolean },
   },
   mutateAndGetPayload: async (data, { user, pubSub }: GraphQLContext) => {
     if (!user) return { error: 'You must be authenticated' }
@@ -38,9 +33,7 @@ export default mutationWithClientMutationId({
     if (up) {
       // verifies if the user voted down
       if (question.downvotes.includes(user._id)) {
-        question.downvotes = question.downvotes.filter(
-          id => id.toString() != user._id
-        )
+        question.downvotes = question.downvotes.filter(id => id.toString() != user._id)
       }
 
       // verifies if the user already voted up
@@ -60,9 +53,7 @@ export default mutationWithClientMutationId({
     if (down) {
       // verifies if the user voted up
       if (question.upvotes.includes(user._id)) {
-        question.upvotes = question.upvotes.filter(
-          id => id.toString() != user._id
-        )
+        question.upvotes = question.upvotes.filter(id => id.toString() != user._id)
       }
 
       // verifies if the user already voted down
@@ -81,9 +72,7 @@ export default mutationWithClientMutationId({
 
     // remove vote
     question.upvotes = question.upvotes.filter(id => id.toString() != user._id)
-    question.downvotes = question.downvotes.filter(
-      id => id.toString() != user._id
-    )
+    question.downvotes = question.downvotes.filter(id => id.toString() != user._id)
 
     await question.save()
 
@@ -94,15 +83,12 @@ export default mutationWithClientMutationId({
   outputFields: {
     error: {
       type: GraphQLString,
-      resolve: obj => obj.error
+      resolve: obj => obj.error,
     },
     question: {
       type: QuestionType,
-      resolve: async (
-        { id },
-        _,
-        { dataloaders: { QuestionLoader } }: GraphQLContext
-      ) => (id ? QuestionLoader.load(id) : null)
-    }
-  }
+      resolve: async ({ id }, _, { dataloaders: { QuestionLoader } }: GraphQLContext) =>
+        (id ? QuestionLoader.load(id) : null),
+    },
+  },
 })

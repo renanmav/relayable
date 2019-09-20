@@ -2,7 +2,9 @@
 import DataLoader from 'dataloader'
 import { mongooseLoader } from '@entria/graphql-mongoose-loader'
 import { Types } from 'mongoose'
+
 import UserModel, { IUser } from './UserModel'
+
 import { GraphQLContext } from 'server/src/TypeDefinitions'
 
 export default class User {
@@ -26,10 +28,7 @@ export default class User {
 export const getLoader = () =>
   new DataLoader((ids: ReadonlyArray<string>) => mongooseLoader(UserModel, ids))
 
-const viewerCanSee = (
-  { user }: GraphQLContext,
-  data: IUser | null
-): User | null => {
+const viewerCanSee = ({ user }: GraphQLContext, data: IUser | null): User | null => {
   if (!data) return null
 
   if (user && user.github_id === data.github_id) return new User(data)
@@ -39,10 +38,7 @@ const viewerCanSee = (
   return new User({ id, _id, name, login, avatar_url })
 }
 
-export const load = async (
-  context: GraphQLContext,
-  id: any
-): Promise<User | null> => {
+export const load = async (context: GraphQLContext, id: any): Promise<User | null> => {
   if (!id) return null
 
   let data
@@ -54,10 +50,7 @@ export const load = async (
   return viewerCanSee(context, data)
 }
 
-export const loadByLogin = async (
-  context: GraphQLContext,
-  login: string
-): Promise<User | null> => {
+export const loadByLogin = async (context: GraphQLContext, login: string): Promise<User | null> => {
   const user = await UserModel.findOne({ login })
 
   if (!user) return null

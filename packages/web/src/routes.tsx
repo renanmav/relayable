@@ -1,8 +1,11 @@
 import { Router } from '@reach/router'
+
 import Home from './pages/Home'
 
-export default () => (
+const Routes = () => (
   <Router>
     <Home path="/" />
   </Router>
 )
+
+export default Routes

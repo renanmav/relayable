@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  RequestParameters,
-  Variables,
-  UploadableMap,
-  CacheConfig
-} from 'relay-runtime'
+import { RequestParameters, Variables, UploadableMap, CacheConfig } from 'relay-runtime'
 
 export const isMutation = (request: RequestParameters) => request.operationKind === 'mutation'
 export const isQuery = (request: RequestParameters) => request.operationKind === 'query'
@@ -30,14 +25,11 @@ function getRequestBodyWithUploadables (
   return formData
 }
 
-function getRequestBodyWithoutUploadables (
-  request: RequestParameters,
-  variables: Variables
-) {
+function getRequestBodyWithoutUploadables (request: RequestParameters, variables: Variables) {
   return JSON.stringify({
     name: request.name,
     query: request.text,
-    variables
+    variables,
   })
 }
 
@@ -56,13 +48,13 @@ export function getRequestBody (
 export const getHeaders = (uploadables?: UploadableMap) => {
   if (uploadables) {
     return {
-      Accept: '*/*'
+      Accept: '*/*',
     }
   }
 
   return {
     Accept: 'application/json',
-    'Content-type': 'application/json'
+    'Content-type': 'application/json',
   }
 }
 

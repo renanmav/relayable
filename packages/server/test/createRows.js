@@ -1,3 +1,4 @@
+/* eslint-disable no-multi-assign */
 import { User, Question, Answer } from '../src/model'
 
 export const restartCounters = () => {
@@ -15,23 +16,22 @@ export const createUser = async (payload = {}) => {
     name: `User ${n}`,
     login: `user${n}`,
     avatar_url: `http://localhost/files/${n}`,
-    ...payload
+    ...payload,
   }).save()
 }
 
-export const createQuestion = async (payload = {}) => {
-  return new Question({
+export const createQuestion = async (payload = {}) =>
+  new Question({
     title: 'Some question',
     content: 'What is the meaning of life?',
-    ...payload
+    ...payload,
   }).save()
-}
 
 export const createAnswer = async (question, payload = {}) => {
   const answer = new Answer({
     content: 'Some answer',
     question: question._id,
-    ...payload
+    ...payload,
   })
 
   await answer.save()

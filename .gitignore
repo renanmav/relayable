@@ -5,3 +5,4 @@ now.json
 .nowignore
 coverage
 yarn-error.log
+test-results

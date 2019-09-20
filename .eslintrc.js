@@ -3,25 +3,41 @@ module.exports = {
     browser: true,
     es6: true,
     node: true,
-    jest: true
+    jest: true,
   },
-  extends: ['standard', 'plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint'],
+  extends: [
+    'standard',
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+    'plugin:react/recommended',
+  ],
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+    SharedArrayBuffer: 'readonly',
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint', 'import'],
   rules: {
-    'max-len': ['error', { code: 120 }],
-    '@typescript-eslint/no-unused-vars': 'off',
+    'max-len': [
+      'error',
+      {
+        code: 100,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreComments: true,
+        ignoreTemplateLiterals: true,
+      },
+    ],
+    'comma-dangle': ['error', 'always-multiline'],
+    'space-before-function-paren': 'off',
+    'import/order': ['error', { 'newlines-between': 'always' }],
     '@typescript-eslint/camelcase': ['error', { properties: 'never', ignoreDestructuring: true }],
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -45,7 +61,6 @@ module.exports = {
     'arrow-parens': ['warn', 'as-needed'],
     'arrow-body-style': ['warn', 'as-needed'],
     'no-confusing-arrow': 'warn',
-    'implicit-arrow-linebreak': 'warn',
     'no-dupe-class-members': 'warn',
     'no-duplicate-imports': 'warn',
     'dot-notation': 'warn',
@@ -54,12 +69,9 @@ module.exports = {
     'no-multi-assign': 'warn',
     'operator-linebreak': 'warn',
     'no-console': 'warn',
-    // ===== Import =====
-    'import/prefer-default-export': 'warn',
     'import/first': 'warn',
     'import/no-webpack-loader-syntax': 'warn',
     'import/order': ['error', { 'newlines-between': 'always' }],
-    // ===== JSX =====
     'react/jsx-indent': ['warn', 2],
     'react/jsx-indent-props': ['warn', 2],
     'react/jsx-no-bind': ['warn'],
@@ -70,20 +82,20 @@ module.exports = {
         declaration: 'parens-new-line',
         assignment: 'parens-new-line',
         return: 'parens-new-line',
-        arrow: 'parens-new-line'
-      }
+        arrow: 'parens-new-line',
+      },
     ],
     'react/jsx-sort-props': [
       'warn',
       {
         ignoreCase: true,
         callbacksLast: true,
-        shorthandFirst: true
-      }
+        shorthandFirst: true,
+      },
     ],
     'react/jsx-closing-tag-location': 'warn',
+    'react/react-in-jsx-scope': 'off',
     'react/jsx-pascal-case': ['warn'],
-    // ===== React =====
     'react/prefer-stateless-function': ['warn'],
     'react/no-this-in-sfc': 'warn',
     'react/no-render-return-value': 'warn',
@@ -100,16 +112,19 @@ module.exports = {
       'warn',
       {
         component: true,
-        html: true
-      }
-    ]
+        html: true,
+      },
+    ],
   },
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx']
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
     'import/resolver': {
-      typescript: {}
-    }
-  }
+      typescript: {},
+    },
+    react: {
+      version: 'detect',
+    },
+  },
 }

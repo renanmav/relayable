@@ -4,8 +4,7 @@ import { getRequestBody, getHeaders, handleData, isMutation } from './helpers'
 import fetchWithRetries from './fetchWithRetries'
 
 // eslint-disable-next-line prefer-destructuring
-export const GRAPHQL_URL =
-  process.env.GRAPHQL_URL || 'http://localhost:5000/graphql'
+export const GRAPHQL_URL = process.env.GRAPHQL_URL || 'http://localhost:5000/graphql'
 
 const fetchQuery = async (
   request: RequestParameters,
@@ -15,7 +14,7 @@ const fetchQuery = async (
   try {
     const body = getRequestBody(request, variables, uploadables)
     const headers = {
-      ...getHeaders(uploadables)
+      ...getHeaders(uploadables),
     }
 
     const response = await fetchWithRetries(GRAPHQL_URL, {
@@ -23,7 +22,7 @@ const fetchQuery = async (
       headers,
       body,
       fetchTimeout: 20000,
-      retryDelays: [1000, 3000, 5000]
+      retryDelays: [1000, 3000, 5000],
     })
 
     const data = await handleData(response)
@@ -47,10 +46,7 @@ const fetchQuery = async (
 
     const timeoutRegexp = new RegExp(/Still no successful response after/)
     const serverUnavailableRegexp = new RegExp(/Failed to fetch/)
-    if (
-      timeoutRegexp.test(err.message) ||
-      serverUnavailableRegexp.test(err.message)
-    ) {
+    if (timeoutRegexp.test(err.message) || serverUnavailableRegexp.test(err.message)) {
       throw new Error('Serviço indisponível. Tente novamente mais tarde.')
     }
 
