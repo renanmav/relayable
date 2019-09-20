@@ -1,10 +1,15 @@
-import { Environment, Network, RecordSource, Store } from 'relay-runtime'
+import {
+  Environment,
+  Network,
+  RecordSource,
+  Store,
+  // @ts-ignore
+  RelayNetworkLoggerTransaction,
+  // @ts-ignore
+  createRelayNetworkLogger,
+} from 'relay-runtime'
 // @ts-ignore
 import { installRelayDevTools } from 'relay-devtools'
-// @ts-ignore
-import createRelayNetworkLogger from 'relay-runtime/lib/network/createRelayNetworkLogger'
-// @ts-ignore
-import RelayNetworkLoggerTransaction from 'relay-runtime/lib/network/RelayNetworkLoggerTransaction'
 
 import cacheHandler from './cacheHandler'
 
