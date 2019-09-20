@@ -13,3 +13,11 @@ Relayable is an open source web app to publish questions and give answers. The a
 - Mongoose - MongoDB object modeling designed to work in an asynchronous environment. https://mongoosejs.com
 - MongoDB - The MongoDB Database https://www.mongodb.com/
 - Material-UI - React components for faster and easier web development. Build your own design system, or start with Material Design. https://material-ui.com/
+
+## Contribution guidelines
+
+Please review our [contribution guidelines](CONTRIBUTING.md) and [code of conduct](CODE-OF-CONDUCT.md) when contributing.
+
+## License
+
+[MIT License](LICENSE)
