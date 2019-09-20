@@ -1,10 +1,14 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 // @ts-ignore
-import RelayNetworkLogger from 'relay-runtime/lib/RelayNetworkLogger'
-// @ts-ignore
 import { installRelayDevTools } from 'relay-devtools'
+// @ts-ignore
+import createRelayNetworkLogger from 'relay-runtime/lib/network/createRelayNetworkLogger'
+// @ts-ignore
+import RelayNetworkLoggerTransaction from 'relay-runtime/lib/network/RelayNetworkLoggerTransaction'
 
 import cacheHandler from './cacheHandler'
+
+const RelayNetworkLogger = createRelayNetworkLogger(RelayNetworkLoggerTransaction)
 
 if (process.env.NODE_ENV === 'development') {
   installRelayDevTools()

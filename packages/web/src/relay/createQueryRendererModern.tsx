@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { GraphQLTaggedNode, Variables } from 'relay-runtime'
 import { QueryRenderer } from 'react-relay'
 import hoistStatics from 'hoist-non-react-statics'
@@ -38,8 +38,8 @@ export default function createQueryRenderer(
             )
           }
 
-          if (props) {
-            return <FragmentComponent {...props} relay={relayProps} />
+          if (relayProps) {
+            return <FragmentComponent {...props} query={relayProps} />
           }
 
           return <div>Loading</div>

@@ -6,3 +6,4 @@ now.json
 coverage
 yarn-error.log
 test-results
+__generated__

@@ -74,6 +74,7 @@ module.exports = {
     'import/order': ['error', { 'newlines-between': 'always' }],
     'react/jsx-indent': ['warn', 2],
     'react/jsx-indent-props': ['warn', 2],
+    'react/prop-types': 'off',
     'react/jsx-wrap-multilines': [
       'warn',
       {
