@@ -37,6 +37,7 @@ module.exports = {
     ],
     'comma-dangle': ['error', 'always-multiline'],
     'space-before-function-paren': 'off',
+    '@typescript-eslint/ban-types': 'off',
     'import/order': ['error', { 'newlines-between': 'always' }],
     '@typescript-eslint/camelcase': ['error', { properties: 'never', ignoreDestructuring: true }],
     '@typescript-eslint/no-non-null-assertion': 'off',
@@ -55,7 +56,6 @@ module.exports = {
     'no-eval': 'error',
     'no-useless-escape': 'warn',
     'space-before-blocks': 'warn',
-    'space-before-function-paren': 'warn',
     'prefer-arrow-callback': 'warn',
     'arrow-spacing': 'warn',
     'arrow-parens': ['warn', 'as-needed'],
@@ -74,8 +74,6 @@ module.exports = {
     'import/order': ['error', { 'newlines-between': 'always' }],
     'react/jsx-indent': ['warn', 2],
     'react/jsx-indent-props': ['warn', 2],
-    'react/jsx-no-bind': ['warn'],
-    'react/jsx-one-expression-per-line': ['warn', { allow: 'literal' }],
     'react/jsx-wrap-multilines': [
       'warn',
       {
@@ -83,14 +81,6 @@ module.exports = {
         assignment: 'parens-new-line',
         return: 'parens-new-line',
         arrow: 'parens-new-line',
-      },
-    ],
-    'react/jsx-sort-props': [
-      'warn',
-      {
-        ignoreCase: true,
-        callbacksLast: true,
-        shorthandFirst: true,
       },
     ],
     'react/jsx-closing-tag-location': 'warn',
