@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:alpine
 
 LABEL maintainer="yotta.dev<team@yotta.dev>"
 
