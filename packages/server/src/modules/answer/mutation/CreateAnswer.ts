@@ -26,7 +26,15 @@ export default mutationWithClientMutationId({
     const answer = new AnswerModel({ ...data, author: user, question })
     await answer.save()
 
+    if (!question.answers.length) {
+      const today = new Date()
+
+      question.time_first_answer = new Date(
+        today.getTime() - (question.createdAt as Date).getTime()
+      )
+    }
     question.answers.push(answer as IAnswer & string)
+
     await question.save()
 
     return { id: answer._id }
