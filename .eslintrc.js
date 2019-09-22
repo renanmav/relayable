@@ -59,11 +59,13 @@ module.exports = {
     'import/prefer-default-export': 'warn',
     'import/first': 'warn',
     'import/no-webpack-loader-syntax': 'warn',
+    'import/order': ['warn', { 'newlines-between': 'always' }],
     // ===== JSX =====
+    'jsx-quotes': ['warn', 'prefer-single'],
     'react/jsx-indent': ['warn', 2],
     'react/jsx-indent-props': ['warn', 2],
     'react/jsx-no-bind': ['warn'],
-    'react/jsx-one-expression-per-line': ['warn', { allow: 'literal' }],
+    'react/jsx-one-expression-per-line': ['warn', { allow: 'single-child' }],
     'react/jsx-wrap-multilines': [
       'warn',
       {

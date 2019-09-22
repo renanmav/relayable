@@ -12,6 +12,10 @@ module.exports = {
       {
         test: /\.pug$/,
         loader: ['pug-loader']
+      },
+      {
+        test: /\.(png|svg)$/,
+        use: 'file-loader'
       }
     ]
   },
