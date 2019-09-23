@@ -6,7 +6,7 @@ services:
     ports:
       - '5000:5000'
     volumes:
-      - './packages/server/src:/usr/api/src'
+      - './packages/server/src:/app/src'
     command: yarn start:dev
     container_name: yotta-api
     links:

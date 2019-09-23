@@ -35,6 +35,7 @@ module.exports = {
         ignoreTemplateLiterals: true,
       },
     ],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'comma-dangle': ['error', 'always-multiline'],
     'space-before-function-paren': 'off',
     '@typescript-eslint/ban-types': 'off',

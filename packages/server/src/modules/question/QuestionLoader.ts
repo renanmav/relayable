@@ -2,6 +2,7 @@
 import DataLoader from 'dataloader'
 import { mongooseLoader, connectionFromMongoCursor } from '@entria/graphql-mongoose-loader'
 import { ConnectionArguments, fromGlobalId } from 'graphql-relay'
+import moment, { duration } from 'moment'
 
 import User from '../user/UserLoader'
 import { IUser } from '../user/UserModel'
@@ -26,7 +27,7 @@ export default class Question {
   createdAt: any
   updatedAt: any
 
-  constructor (data: Partial<IQuestion>) {
+  constructor(data: Partial<IQuestion>) {
     this.id = data.id
     this._id = data._id
     this.title = data.title!
@@ -104,4 +105,28 @@ export const loadQuestions = async (context: GraphQLContext, args: QuestionArgs)
     args,
     loader: load,
   })
+}
+
+export const loadAverageResponse = async () => {
+  let media: moment.Duration
+
+  try {
+    const aggregation = await QuestionModel.aggregate([
+      {
+        $group: {
+          _id: null,
+          avg_time: {
+            $avg: {
+              $subtract: [{ $ifNull: ['$time_first_answer', 0] }, { $ifNull: ['$createdAt', 0] }],
+            },
+          },
+        },
+      },
+    ])
+    media = duration(aggregation[0].avg_time)
+  } catch (err) {
+    media = duration(0)
+  }
+
+  return media.humanize()
 }

@@ -47,6 +47,7 @@ const questionSchema = new Schema(
         ref: 'Answer',
       },
     ],
+    time_first_answer: Date,
   },
   {
     timestamps: {
@@ -67,14 +68,9 @@ export interface IQuestion extends Document {
   anonymous_views: number
   tags?: string[]
   answers: IAnswer[] | string[]
-  createdAt: {
-    toISOString: () => string
-    toString: () => string
-  }
-  updatedAt: {
-    toISOString: () => string
-    toString: () => string
-  }
+  createdAt: Date
+  updatedAt: Date
+  time_first_answer: Date
 }
 
 const QuestionModel: Model<IQuestion> = mongoose.model('Question', questionSchema)

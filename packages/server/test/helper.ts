@@ -21,22 +21,19 @@ const mongooseOptions = {
 // Just in case want to debug something
 // mongoose.set('debug', true);
 
-export async function connectMongoose () {
+export async function connectMongoose() {
   jest.setTimeout(20000)
-  return mongoose.connect(
-    global.__MONGO_URI__,
-    {
-      ...mongooseOptions,
-      dbName: global.__MONGO_DB_NAME__,
-    }
-  )
+  return mongoose.connect(global.__MONGO_URI__, {
+    ...mongooseOptions,
+    dbName: global.__MONGO_DB_NAME__,
+  })
 }
 
-export async function clearDatabase () {
+export async function clearDatabase() {
   await mongoose.connection.db.dropDatabase()
 }
 
-export async function disconnectMongoose () {
+export async function disconnectMongoose() {
   await mongoose.disconnect()
   mongoose.connections.forEach(connection => {
     const modelNames = Object.keys(connection.models)
@@ -57,12 +54,12 @@ export async function disconnectMongoose () {
   })
 }
 
-export async function clearDbAndRestartCounters () {
+export async function clearDbAndRestartCounters() {
   await clearDatabase()
   createRows.restartCounters()
 }
 
-export function getContext (context) {
+export function getContext(context?: Object) {
   const dataloaders = Object.keys(loaders).reduce(
     (prev, loaderKey) => ({
       ...prev,

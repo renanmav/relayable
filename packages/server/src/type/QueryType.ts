@@ -44,5 +44,12 @@ export default new GraphQLObjectType({
       },
       resolve: (_, args, ctx) => QuestionLoader.loadQuestions(ctx, args),
     },
+    questionAvgResponse: {
+      type: GraphQLString,
+      description:
+        'Returns the average difference between a question creation and its first answer\n\n' +
+        'Value returned is in minutes',
+      resolve: async () => QuestionLoader.loadAverageResponse(),
+    },
   }),
 })
