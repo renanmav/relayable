@@ -1,12 +1,11 @@
-import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLNonNull, GraphQLList } from 'graphql'
+import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLNonNull } from 'graphql'
 import { connectionArgs } from 'graphql-relay'
 
 import UserType from '../modules/user/UserType'
 import { UserLoader, QuestionLoader } from '../loader'
 import { nodeField } from '../interface/NodeInterface'
 import { GraphQLContext } from '../TypeDefinitions'
-import QuestionType, { QuestionConnection } from '../modules/question/QuestionType'
-import QuestionModel from '../modules/question/QuestionModel'
+import { QuestionConnection } from '../modules/question/QuestionType'
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -45,16 +44,12 @@ export default new GraphQLObjectType({
       },
       resolve: (_, args, ctx) => QuestionLoader.loadQuestions(ctx, args),
     },
-    questionAvgAnswer: {
-      type: GraphQLList(QuestionType),
+    questionAvgResponse: {
+      type: GraphQLString,
       description:
-        'Returns the average difference between a question creation and its first answer',
-      resolve: async (_, __, ___) => {
-        const response = await QuestionModel.aggregate()
-        console.log(response)
-
-        return response
-      },
+        'Returns the average difference between a question creation and its first answer\n\n' +
+        'Value returned is in minutes',
+      resolve: async () => QuestionLoader.loadAverageResponse(),
     },
   }),
 })
