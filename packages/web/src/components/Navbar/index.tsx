@@ -13,10 +13,8 @@ interface NavbarProps {
   relay: RelayProp
 }
 
-const NavbarComponent: React.FC<NavbarProps> = ({ query: { githubLoginUrl }, relay }) => {
+const NavbarComponent: React.FC<NavbarProps> = ({ query: { githubLoginUrl } }) => {
   const navigateToGithub = () => navigate(githubLoginUrl!)
-
-  console.log(relay)
 
   return (
     <Navbar>
