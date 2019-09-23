@@ -4,6 +4,12 @@ const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: './src/index.tsx',
+  output: {
+    publicPath: '/',
+  },
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {
