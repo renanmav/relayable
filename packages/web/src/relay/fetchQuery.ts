@@ -1,5 +1,7 @@
 import { RequestParameters, Variables, UploadableMap } from 'relay-runtime'
 
+import { yottaToken } from '../utils/contants'
+
 import { getRequestBody, getHeaders, handleData, isMutation } from './helpers'
 import fetchWithRetries from './fetchWithRetries'
 
@@ -15,6 +17,7 @@ const fetchQuery = async (
     const body = getRequestBody(request, variables, uploadables)
     const headers = {
       ...getHeaders(uploadables),
+      authorization: localStorage.getItem(yottaToken),
     }
 
     const response = await fetchWithRetries(GRAPHQL_URL, {

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 
 export const Navbar = styled.header`
   display: flex;
@@ -36,4 +36,37 @@ export const LoginBtn = styled.button`
   &:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   }
+`
+
+export const Right = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
+const smoothBlink = keyframes`
+  0% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0.8;
+  }
+`
+
+export const Avatar = styled.img<{ loading?: number }>`
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  margin-left: 22px;
+  cursor: pointer;
+  ${({ loading }) =>
+    loading === 1 &&
+    css`
+      animation: ${smoothBlink} 1.5s infinite;
+    `}
 `

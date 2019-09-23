@@ -3,6 +3,7 @@ import { RouteComponentProps } from '@reach/router'
 import { parse } from 'query-string'
 import { yottaToken, yottaUser } from '@yotta/web/src/utils/contants'
 
+import { Container } from './styles'
 import LoginWithGithubMutation from './mutation/LoginWithGithubMutation'
 
 const Auth: React.FC<RouteComponentProps> = ({ location, navigate }) => {
@@ -27,7 +28,7 @@ const Auth: React.FC<RouteComponentProps> = ({ location, navigate }) => {
     )
   }, [])
 
-  return <div />
+  return <Container>Carregando...</Container>
 }
 
 export default Auth
