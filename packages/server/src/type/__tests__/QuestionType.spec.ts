@@ -110,3 +110,40 @@ describe('when unauthenticated', () => {
     expect(result.data!.questions.edges[0].node.author.name).toBe(user.name)
   })
 })
+
+it('should return how much time a question takes to get answered', async () => {
+  const user = await createRows.createUser()
+  const question = await createRows.createQuestion({ author: user._id })
+
+  const context = getContext({ user })
+
+  const answerQuery = `
+    mutation AnswerQuery(
+      $question: ID!
+    ) {
+      CreateAnswer(input: {
+        question: $question
+        content: "Something"
+      }) {
+        error
+      }
+    }
+  `
+  const variables = {
+    question: toGlobalId('Question', question._id),
+  }
+
+  const answerResponse = await graphql(schema, answerQuery, rootValue, context, variables)
+
+  expect(answerResponse.data!.CreateAnswer.error).toBeNull()
+
+  const avgResponseQuery = `
+    query {
+      questionAvgResponse
+    }
+  `
+
+  const avgResponse = await graphql(schema, avgResponseQuery, rootValue, context)
+
+  expect(avgResponse.data!.questionAvgResponse).toBeTruthy()
+})
