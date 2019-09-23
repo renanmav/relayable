@@ -4,15 +4,18 @@ export default createGlobalStyle`
   :root {
     --theme-pink: #F05B80;
     --theme-purple: #4158F0;
-    --theme-light-grey: #E5E5E5
+    --theme-light-grey: #F8F9FA;
+    --theme-dark-grey: #979797;
   }
 
   * {
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
   }
 
   html, body, #app {
     height: 100%;
+    background-color: var(--theme-light-grey);
   }
 
   body {
