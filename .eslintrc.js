@@ -39,7 +39,6 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'space-before-function-paren': 'off',
     '@typescript-eslint/ban-types': 'off',
-    'import/order': ['error', { 'newlines-between': 'always' }],
     '@typescript-eslint/camelcase': ['error', { properties: 'never', ignoreDestructuring: true }],
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -73,9 +72,12 @@ module.exports = {
     'import/first': 'warn',
     'import/no-webpack-loader-syntax': 'warn',
     'import/order': ['error', { 'newlines-between': 'always' }],
+    'react/prop-types': 'off',
+    'jsx-quotes': ['warn', 'prefer-single'],
     'react/jsx-indent': ['warn', 2],
     'react/jsx-indent-props': ['warn', 2],
-    'react/prop-types': 'off',
+    'react/jsx-no-bind': ['warn'],
+    'react/jsx-one-expression-per-line': ['warn', { allow: 'single-child' }],
     'react/jsx-wrap-multilines': [
       'warn',
       {

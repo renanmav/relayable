@@ -1,11 +1,10 @@
 import React from 'react'
 import { Router } from '@reach/router'
-
-import Home from './pages/Home'
+import Home from '@yotta/web/src/pages/Home'
 
 const Routes = () => (
-  <Router>
-    <Home path="/" />
+  <Router className='router-container'>
+    <Home path='/' />
   </Router>
 )
 

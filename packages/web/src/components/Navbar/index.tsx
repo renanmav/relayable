@@ -2,19 +2,23 @@
 import React from 'react'
 import { createFragmentContainer, graphql, RelayProp } from 'react-relay'
 import { createQueryRendererModern } from '@yotta/web/src/relay'
+import LoginBtn from '@yotta/web/src/components/LoginBtn'
+import YottaLogo from '@yotta/web/src/components/YottaLogo'
 
-import { Navbar, YottaLogo } from './styles'
 import { Navbar_query } from './__generated__/Navbar_query.graphql'
+import { Navbar, NavbarInner } from './styles'
 
 interface NavbarProps {
   query: Navbar_query
   relay: RelayProp
 }
 
-const NavbarComponent: React.FC<NavbarProps> = ({ query: { githubLoginUrl } }) => (
+const NavbarComponent: React.FC<NavbarProps> = () => (
   <Navbar>
-    <YottaLogo src="assets/yotta-logo.svg" />
-    <p>{githubLoginUrl}</p>
+    <NavbarInner>
+      <YottaLogo img='assets/img/yotta-logo.svg' />
+      <LoginBtn>Login with GitHub</LoginBtn>
+    </NavbarInner>
   </Navbar>
 )
 
