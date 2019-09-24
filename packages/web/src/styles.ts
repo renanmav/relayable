@@ -15,7 +15,6 @@ export default createGlobalStyle`
 
   html, body, #app {
     height: 100%;
-    background-color: var(--theme-light-grey);
   }
 
   body {

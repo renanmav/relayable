@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`render correctly 1`] = `
-<img
-  className="sc-bdVaJa dnyVvk"
-  onClick={[Function]}
-  src="https://avatars1.githubusercontent.com/u/42983909?s=400&u=561412bd388c64118b8c0b2a99692853e5197e6e&v=4"
-/>
+<div>
+  <img
+    className="sc-bdVaJa dnyVvk"
+    onClick={[Function]}
+    src="https://avatars1.githubusercontent.com/u/42983909?s=400&u=561412bd388c64118b8c0b2a99692853e5197e6e&v=4"
+  />
+</div>
 `;
