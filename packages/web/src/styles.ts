@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import { createMuiTheme } from '@material-ui/core/styles'
 
 export default createGlobalStyle`
   :root {
@@ -27,3 +28,17 @@ export default createGlobalStyle`
     height: 100%;
   }
 `
+
+export const lightTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#F05B80',
+      contrastText: '#F8F9FA',
+    },
+    secondary: {
+      main: '#4158F0',
+      contrastText: '#F8F9FA',
+    },
+    tonalOffset: 0.05,
+  },
+})
