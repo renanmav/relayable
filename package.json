@@ -13,12 +13,14 @@
     "start": "yarn workspace @yotta/server start:prod",
     "lint:staged": "lint-staged",
     "lint": "yarn eslint --fix ./packages --ext js,ts,tsx",
-    "test": "yarn workspace @yotta/server test"
+    "test": "concurrently \"yarn workspace @yotta/server test\" \"yarn workspace @yotta/web test\"",
+    "relay": "yarn workspace @yotta/web relay"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
+    "concurrently": "^4.1.2",
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-config-standard": "^14.1.0",

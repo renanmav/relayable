@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="660px" viewBox="0 0 1440 660" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>bg decoration</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="3.68861337%" y1="36.6361409%" x2="69.9658147%" y2="58.6067136%" id="linearGradient-1">
+            <stop stop-color="#F05B80" offset="0%"></stop>
+            <stop stop-color="#BB5AA2" offset="45.0049847%"></stop>
+            <stop stop-color="#4158F0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(0.000000, -100.000000)" fill="url(#linearGradient-1)">
+            <g id="Decoration" transform="translate(-1.000000, 100.000000)">
+                <path d="M1.13686838e-13,659.914822 C321.70647,643.601729 572.678278,595.667689 752.915423,516.112703 C1023.27114,396.780225 1260.24072,381.111519 1440,370.682128 L1440.81323,0 L1.13686838e-13,0 L1.13686838e-13,659.914822 Z" id="bg-decoration"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -4,6 +4,12 @@ const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: './src/index.tsx',
+  output: {
+    publicPath: '/',
+  },
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {
@@ -13,6 +19,10 @@ module.exports = {
       {
         test: /\.pug$/,
         loader: ['pug-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg)$/,
+        use: 'file-loader',
       },
     ],
   },

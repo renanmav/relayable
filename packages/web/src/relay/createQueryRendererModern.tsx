@@ -16,7 +16,8 @@ interface Config {
 export default function createQueryRenderer(
   FragmentComponent: React.ComponentType<any>,
   Component: React.ComponentType<any>,
-  config: Config
+  config: Config,
+  LoadingComponent?: React.ComponentType<any>
 ) {
   const { query, queriesParams } = config
 
@@ -42,7 +43,7 @@ export default function createQueryRenderer(
             return <FragmentComponent {...props} query={relayProps} />
           }
 
-          return <div>Loading</div>
+          return LoadingComponent ? <LoadingComponent /> : <div>Loading</div>
         }}
       />
     )

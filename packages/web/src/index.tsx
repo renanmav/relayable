@@ -1,6 +1,13 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import Router from './routes'
+import Routes from './routes'
+import GlobalStyle from './styles'
 
-render(<Router />, document.getElementById('app'))
+render(
+  <>
+    <GlobalStyle />
+    <Routes />
+  </>,
+  document.getElementById('app')
+)
