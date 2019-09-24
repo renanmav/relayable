@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should answer a question if exists 1`] = `
+Object {
+  "data": Object {
+    "CreateAnswer": Object {
+      "answer": Object {
+        "author": Object {
+          "name": "User 1",
+        },
+        "content": "42",
+        "question": Object {
+          "title": "Some question",
+        },
+      },
+      "error": null,
+    },
+  },
+}
+`;

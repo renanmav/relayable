@@ -17,10 +17,12 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
+const gql = String.raw
+
 it('should load User', async () => {
   const user = await createRows.createUser()
 
-  const query = `
+  const query = gql`
     query Q($id: ID!) {
       node(id: $id) {
         ... on User {
@@ -48,7 +50,7 @@ it('should load Question', async () => {
   const question = await createRows.createQuestion({ author: user._id, tags: ['dummy'] })
   await createRows.createAnswer(question, { author: user._id })
 
-  const query = `
+  const query = gql`
     query Q($id: ID!) {
       node(id: $id) {
         ... on Question {

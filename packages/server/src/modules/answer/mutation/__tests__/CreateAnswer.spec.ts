@@ -16,20 +16,15 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
-const query = `
-  mutation createAnswer(
-    $question: ID!
-    $content: String!
-  ) {
-    CreateAnswer(input: {
-      question: $question
-      content: $content
-    }) {
+const gql = String.raw
+
+const query = gql`
+  mutation createAnswer($question: ID!, $content: String!) {
+    CreateAnswer(input: { question: $question, content: $content }) {
       error
       answer {
         content
         question {
-          id
           title
         }
         author {
@@ -51,8 +46,5 @@ it('should answer a question if exists', async () => {
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  expect(result.data!.CreateAnswer.answer.content).toBe(variables.content)
-  expect(result.data!.CreateAnswer.answer.question.id).toBe(variables.question)
-  expect(result.data!.CreateAnswer.answer.question.title).toBe(question.title)
-  expect(result.data!.CreateAnswer.answer.author.name).toBe(user.name)
+  expect(result).toMatchSnapshot()
 })

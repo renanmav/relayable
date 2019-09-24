@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should accept only one answer 1`] = `
+Object {
+  "data": Object {
+    "AcceptAnswer": Object {
+      "answer": Object {
+        "is_accepted": true,
+      },
+      "error": null,
+    },
+  },
+}
+`;
+
+exports[`should not accept the answer if isn't question owner 1`] = `
+Object {
+  "data": Object {
+    "AcceptAnswer": Object {
+      "answer": null,
+      "error": "You don't own this question to accept this answer",
+    },
+  },
+}
+`;

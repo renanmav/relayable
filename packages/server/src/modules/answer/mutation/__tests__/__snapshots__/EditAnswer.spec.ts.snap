@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should edit answer data if he/she is owner 1`] = `
+Object {
+  "data": Object {
+    "EditAnswer": Object {
+      "answer": Object {
+        "content": "Some answer that I've typed wrong",
+      },
+      "error": null,
+    },
+  },
+}
+`;
+
+exports[`should not edit question data if he/she isn't the owner 1`] = `
+Object {
+  "data": Object {
+    "EditAnswer": Object {
+      "answer": null,
+      "error": "You don't own this answer",
+    },
+  },
+}
+`;

@@ -16,18 +16,13 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
-const query = `
-  mutation updateAnswer(
-    $id: ID!
-    $content: String!
-  ) {
-    EditAnswer(input: {
-      id: $id
-      content: $content
-    }) {
+const gql = String.raw
+
+const query = gql`
+  mutation updateAnswer($id: ID!, $content: String!) {
+    EditAnswer(input: { id: $id, content: $content }) {
       error
       answer {
-        id
         content
       }
     }
@@ -48,8 +43,7 @@ it('should edit answer data if he/she is owner', async () => {
 
   const result = await graphql(schema, query, rootValue, context, variables)
 
-  expect(result.data!.EditAnswer.answer.id).toBe(variables.id)
-  expect(result.data!.EditAnswer.answer.content).toBe(variables.content)
+  expect(result).toMatchSnapshot()
 })
 
 it("should not edit question data if he/she isn't the owner", async () => {
@@ -66,6 +60,5 @@ it("should not edit question data if he/she isn't the owner", async () => {
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  expect(result.data!.EditAnswer.error).toBeTruthy()
-  expect(result.data!.EditAnswer.answer).toBeFalsy()
+  expect(result).toMatchSnapshot()
 })

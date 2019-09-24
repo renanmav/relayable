@@ -17,13 +17,11 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
-const query = `
-  mutation acceptAnswer(
-    $id: ID!
-  ) {
-    AcceptAnswer(input: {
-      id: $id
-    }) {
+const gql = String.raw
+
+const query = gql`
+  mutation acceptAnswer($id: ID!) {
+    AcceptAnswer(input: { id: $id }) {
       error
       answer {
         is_accepted
@@ -49,7 +47,7 @@ it("should not accept the answer if isn't question owner", async () => {
 
   const result = await graphql(schema, query, rootValue, context, variables)
 
-  expect(result.data!.AcceptAnswer.error).toBeTruthy()
+  expect(result).toMatchSnapshot()
 })
 
 it('should accept only one answer', async () => {
@@ -74,6 +72,6 @@ it('should accept only one answer', async () => {
 
   const _answer = await AnswerModel.findById(answer._id)
 
-  expect(result.data!.AcceptAnswer.answer.is_accepted).toBe(true)
+  expect(result).toMatchSnapshot()
   expect(_answer!.is_accepted).toBe(false)
 })
