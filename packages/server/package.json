@@ -15,7 +15,6 @@
   "dependencies": {
     "@entria/graphql-mongoose-loader": "^4.2.0",
     "dataloader": "^1.4.0",
-    "date-fns": "^2.2.1",
     "dotenv": "^8.1.0",
     "fast-safe-stringify": "^2.0.6",
     "graphql": "^14.5.4",
