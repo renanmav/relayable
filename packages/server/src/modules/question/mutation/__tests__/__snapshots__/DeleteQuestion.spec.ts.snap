@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should delete question if he/she is owner 1`] = `
+Object {
+  "data": Object {
+    "DeleteQuestion": Object {
+      "error": null,
+    },
+  },
+}
+`;
+
+exports[`should not delete question if he/she isn't the owner 1`] = `
+Object {
+  "data": Object {
+    "DeleteQuestion": Object {
+      "error": "You don't own this question",
+    },
+  },
+}
+`;

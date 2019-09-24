@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not vote if logged off 1`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": "You must be authenticated",
+      "question": null,
+    },
+  },
+}
+`;
+
+exports[`should remove his vote 1`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": null,
+      "question": Object {
+        "downvotes": 0,
+        "upvotes": 0,
+      },
+    },
+  },
+}
+`;
+
+exports[`when votting down should remove up vote if so 1`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": null,
+      "question": Object {
+        "downvotes": 0,
+        "upvotes": 1,
+      },
+    },
+  },
+}
+`;
+
+exports[`when votting down should remove up vote if so 2`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": null,
+      "question": Object {
+        "downvotes": 1,
+        "upvotes": 0,
+      },
+    },
+  },
+}
+`;
+
+exports[`when votting down should vote only once 1`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": null,
+      "question": Object {
+        "downvotes": 1,
+        "upvotes": 0,
+      },
+    },
+  },
+}
+`;
+
+exports[`when votting down should vote only once 2`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": "You already have voted down on this question",
+      "question": null,
+    },
+  },
+}
+`;
+
+exports[`when votting up should remove down vote if so 1`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": null,
+      "question": Object {
+        "downvotes": 1,
+        "upvotes": 0,
+      },
+    },
+  },
+}
+`;
+
+exports[`when votting up should remove down vote if so 2`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": null,
+      "question": Object {
+        "downvotes": 0,
+        "upvotes": 1,
+      },
+    },
+  },
+}
+`;
+
+exports[`when votting up should vote only once 1`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": null,
+      "question": Object {
+        "downvotes": 0,
+        "upvotes": 1,
+      },
+    },
+  },
+}
+`;
+
+exports[`when votting up should vote only once 2`] = `
+Object {
+  "data": Object {
+    "VoteQuestion": Object {
+      "error": "You already have voted up on this question",
+      "question": null,
+    },
+  },
+}
+`;

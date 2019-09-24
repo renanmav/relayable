@@ -1,6 +1,5 @@
 import { graphql } from 'graphql'
 import { toGlobalId } from 'graphql-relay'
-import slugify from 'slugify'
 
 import { schema } from '../../../../schema'
 import {
@@ -32,7 +31,6 @@ const query = `
     }) {
       error
       question {
-        id
         title
         content
         tags
@@ -55,14 +53,7 @@ it('should edit question data if he/she is owner', async () => {
 
   const result = await graphql(schema, query, rootValue, context, variables)
 
-  expect(result.data!.EditQuestion.question.title).toBe(variables.title)
-  expect(result.data!.EditQuestion.question.content).toBe(variables.content)
-  expect(result.data!.EditQuestion.question.tags[0]).toBe(
-    slugify(variables.tags[0], { lower: true })
-  )
-  expect(result.data!.EditQuestion.question.tags[1]).toBe(
-    slugify(variables.tags[1], { lower: true })
-  )
+  expect(result).toMatchSnapshot()
 })
 
 it("should not edit question data if he/she isn't the owner", async () => {
@@ -81,6 +72,5 @@ it("should not edit question data if he/she isn't the owner", async () => {
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  expect(result.data!.EditQuestion.error).toBeTruthy()
-  expect(result.data!.EditQuestion.question).toBeFalsy()
+  expect(result).toMatchSnapshot()
 })

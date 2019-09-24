@@ -49,7 +49,7 @@ it('should not vote if logged off', async () => {
 
   const result = await graphql(schema, query, rootValue, context, variables)
 
-  expect(result.data!.VoteQuestion.error).toBeTruthy()
+  expect(result).toMatchSnapshot()
 })
 
 it('should remove his vote', async () => {
@@ -64,8 +64,7 @@ it('should remove his vote', async () => {
   await graphql(schema, query, rootValue, context, { ...variables, up: true })
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  expect(result.data!.VoteQuestion.question.upvotes).toBe(0)
-  expect(result.data!.VoteQuestion.question.downvotes).toBe(0)
+  expect(result).toMatchSnapshot()
 })
 
 describe('when votting up', () => {
@@ -80,10 +79,10 @@ describe('when votting up', () => {
     }
 
     const result = await graphql(schema, query, rootValue, context, variables)
-    expect(result.data!.VoteQuestion.question.upvotes).toBe(1)
+    expect(result).toMatchSnapshot()
 
     const secondResult = await graphql(schema, query, rootValue, context, variables)
-    expect(secondResult.data!.VoteQuestion.error).toBeTruthy()
+    expect(secondResult).toMatchSnapshot()
   })
 
   it('should remove down vote if so', async () => {
@@ -99,15 +98,13 @@ describe('when votting up', () => {
       ...variables,
       down: true,
     })
-    expect(result.data!.VoteQuestion.question.upvotes).toBe(0)
-    expect(result.data!.VoteQuestion.question.downvotes).toBe(1)
+    expect(result).toMatchSnapshot()
 
     const secondResult = await graphql(schema, query, rootValue, context, {
       ...variables,
       up: true,
     })
-    expect(secondResult.data!.VoteQuestion.question.upvotes).toBe(1)
-    expect(secondResult.data!.VoteQuestion.question.downvotes).toBe(0)
+    expect(secondResult).toMatchSnapshot()
   })
 })
 
@@ -123,10 +120,10 @@ describe('when votting down', () => {
     }
 
     const result = await graphql(schema, query, rootValue, context, variables)
-    expect(result.data!.VoteQuestion.question.downvotes).toBe(1)
+    expect(result).toMatchSnapshot()
 
     const secondResult = await graphql(schema, query, rootValue, context, variables)
-    expect(secondResult.data!.VoteQuestion.error).toBeTruthy()
+    expect(secondResult).toMatchSnapshot()
   })
 
   it('should remove up vote if so', async () => {
@@ -142,14 +139,12 @@ describe('when votting down', () => {
       ...variables,
       up: true,
     })
-    expect(result.data!.VoteQuestion.question.upvotes).toBe(1)
-    expect(result.data!.VoteQuestion.question.downvotes).toBe(0)
+    expect(result).toMatchSnapshot()
 
     const secondResult = await graphql(schema, query, rootValue, context, {
       ...variables,
       down: true,
     })
-    expect(secondResult.data!.VoteQuestion.question.upvotes).toBe(0)
-    expect(secondResult.data!.VoteQuestion.question.downvotes).toBe(1)
+    expect(secondResult).toMatchSnapshot()
   })
 })

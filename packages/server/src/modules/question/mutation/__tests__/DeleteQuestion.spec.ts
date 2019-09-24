@@ -39,7 +39,7 @@ it('should delete question if he/she is owner', async () => {
 
   const result = await graphql(schema, query, rootValue, context, variables)
 
-  expect(result.data!.DeleteQuestion.error).toBeNull()
+  expect(result).toMatchSnapshot()
 })
 
 it("should not delete question if he/she isn't the owner", async () => {
@@ -55,5 +55,5 @@ it("should not delete question if he/she isn't the owner", async () => {
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  expect(result.data!.DeleteQuestion.error).toBeTruthy()
+  expect(result).toMatchSnapshot()
 })

@@ -23,9 +23,11 @@ it('should load User', async () => {
   const query = `
     query Q($id: ID!) {
       node(id: $id) {
-        id
         ... on User {
+          github_id
           name
+          login
+          avatar_url
         }
       }
     }
@@ -38,22 +40,43 @@ it('should load User', async () => {
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  expect(result.data!.node.id).toBe(variables.id)
-  expect(result.data!.node.name).toBe(user.name)
+  expect(result).toMatchSnapshot()
 })
 
 it('should load Question', async () => {
   const user = await createRows.createUser()
-  const question = await createRows.createQuestion({ author: user._id })
+  const question = await createRows.createQuestion({ author: user._id, tags: ['dummy'] })
+  await createRows.createAnswer(question, { author: user._id })
 
   const query = `
     query Q($id: ID!) {
       node(id: $id) {
-        id
         ... on Question {
           title
+          content
+          upvotes
+          downvotes
+          views
+          anonymous_views
+          total_views
+          tags
           author {
+            github_id
             name
+            login
+            avatar_url
+          }
+          answers {
+            content
+            upvotes
+            downvotes
+            is_accepted
+            author {
+              github_id
+              name
+              login
+              avatar_url
+            }
           }
         }
       }
@@ -67,7 +90,5 @@ it('should load Question', async () => {
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  expect(result.data!.node.id).toBe(variables.id)
-  expect(result.data!.node.title).toBe(question.title)
-  expect(result.data!.node.author.name).toBe(user.name)
+  expect(result).toMatchSnapshot()
 })

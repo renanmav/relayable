@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should create a question when authenticated 1`] = `
+Object {
+  "data": Object {
+    "CreateQuestion": Object {
+      "error": null,
+      "question": Object {
+        "anonymous_views": 0,
+        "answers": Array [],
+        "author": Object {
+          "avatar_url": "http://localhost/files/1",
+          "github_id": "1",
+          "login": "user1",
+          "name": "User 1",
+        },
+        "content": "What does the fox say?",
+        "downvotes": 0,
+        "tags": Array [],
+        "title": "A question",
+        "total_views": 0,
+        "upvotes": 0,
+        "views": 0,
+      },
+    },
+  },
+}
+`;
+
+exports[`should not create a question when unauthenticated 1`] = `
+Object {
+  "data": Object {
+    "CreateQuestion": Object {
+      "error": "You must be authenticated",
+      "question": null,
+    },
+  },
+}
+`;

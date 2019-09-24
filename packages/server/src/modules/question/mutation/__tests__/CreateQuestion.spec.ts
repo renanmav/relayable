@@ -27,9 +27,32 @@ const query = `
     }) {
       error
       question {
-        id
         title
         content
+        upvotes
+        downvotes
+        views
+        anonymous_views
+        total_views
+        tags
+        author {
+          github_id
+          name
+          login
+          avatar_url
+        }
+        answers {
+          content
+          upvotes
+          downvotes
+          is_accepted
+          author {
+            github_id
+            name
+            login
+            avatar_url
+          }
+        }
       }
     }
   }
@@ -46,8 +69,7 @@ it('should create a question when authenticated', async () => {
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  expect(result.data!.CreateQuestion.question.title).toBe(variables.title)
-  expect(result.data!.CreateQuestion.question.content).toBe(variables.content)
+  expect(result).toMatchSnapshot()
 })
 
 it('should not create a question when unauthenticated', async () => {
@@ -58,6 +80,5 @@ it('should not create a question when unauthenticated', async () => {
   }
 
   const result = await graphql(schema, query, rootValue, context, variables)
-  expect(result.data!.CreateQuestion.error).toBeTruthy()
-  expect(result.data!.CreateQuestion.question).toBeFalsy()
+  expect(result).toMatchSnapshot()
 })

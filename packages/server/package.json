@@ -10,6 +10,7 @@
     "start:prod": "node dist/index.js",
     "start:dev": "nodemon src/index.ts",
     "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "update-schema": "sucrase-node ./scripts/updateSchema.js"
   },
   "dependencies": {

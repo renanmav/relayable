@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should load Question 1`] = `
+Object {
+  "data": Object {
+    "node": Object {
+      "anonymous_views": 0,
+      "answers": Array [
+        Object {
+          "author": Object {
+            "avatar_url": "http://localhost/files/1",
+            "github_id": "1",
+            "login": "user1",
+            "name": "User 1",
+          },
+          "content": "Some answer",
+          "downvotes": 0,
+          "is_accepted": false,
+          "upvotes": 0,
+        },
+      ],
+      "author": Object {
+        "avatar_url": "http://localhost/files/1",
+        "github_id": "1",
+        "login": "user1",
+        "name": "User 1",
+      },
+      "content": "What is the meaning of life?",
+      "downvotes": 0,
+      "tags": Array [
+        "dummy",
+      ],
+      "title": "Some question",
+      "total_views": 0,
+      "upvotes": 0,
+      "views": 0,
+    },
+  },
+}
+`;
+
+exports[`should load User 1`] = `
+Object {
+  "data": Object {
+    "node": Object {
+      "avatar_url": "http://localhost/files/1",
+      "github_id": null,
+      "login": "user1",
+      "name": "User 1",
+    },
+  },
+}
+`;

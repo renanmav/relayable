@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should increment anonymous views when logged off 1`] = `
+Object {
+  "data": Object {
+    "ViewQuestion": Object {
+      "error": null,
+      "question": Object {
+        "anonymous_views": 1,
+        "views": 0,
+      },
+    },
+  },
+}
+`;
+
+exports[`should view only once 1`] = `
+Object {
+  "data": Object {
+    "ViewQuestion": Object {
+      "error": "You already have seen this question",
+      "question": null,
+    },
+  },
+}
+`;
+
+exports[`should view when logged in 1`] = `
+Object {
+  "data": Object {
+    "ViewQuestion": Object {
+      "error": null,
+      "question": Object {
+        "anonymous_views": 0,
+        "views": 1,
+      },
+    },
+  },
+}
+`;
