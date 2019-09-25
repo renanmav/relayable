@@ -9698,6 +9698,15 @@ relay-runtime@6.0.0, relay-runtime@^6.0.0:
     "@babel/runtime" "^7.0.0"
     fbjs "^1.0.0"
 
+relay-test-utils@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/relay-test-utils/-/relay-test-utils-6.0.0.tgz#d1bce7862793160a8ac9064b2cb4334b5cc0cf89"
+  integrity sha512-Tvkz2AuIXXprGcSW04fPAQDQvmMco2Jc1SdEfIogVmRBBGGBdmjlPKfhViNAA/MJ49OsJUJIRWgVFZ7a+PeLyA==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    fbjs "^1.0.0"
+    relay-runtime "6.0.0"
+
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"

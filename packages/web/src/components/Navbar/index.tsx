@@ -53,7 +53,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({ query: { githubLoginUrl, me } 
   )
 }
 
-const NavbarFragment = createFragmentContainer(NavbarComponent, {
+export const NavbarFragment = createFragmentContainer(NavbarComponent, {
   query: graphql`
     fragment Navbar_query on Query {
       githubLoginUrl

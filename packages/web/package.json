@@ -50,6 +50,7 @@
     "relay-compiler-language-typescript": "^5.0.0",
     "relay-devtools": "^1.4.0",
     "relay-runtime": "^6.0.0",
+    "relay-test-utils": "^6.0.0",
     "ts-jest": "^24.1.0",
     "ts-loader": "^6.1.0",
     "typescript": "3.5.x",
