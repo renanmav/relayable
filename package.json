@@ -13,7 +13,7 @@
     "start": "yarn workspace @yotta/server start:prod",
     "lint:staged": "lint-staged",
     "lint": "yarn eslint --fix ./packages --ext js,ts,tsx",
-    "test": "concurrently \"yarn workspace @yotta/server test\" \"yarn workspace @yotta/web test\"",
+    "test": "yarn relay && concurrently \"yarn workspace @yotta/server test\" \"yarn workspace @yotta/web test\"",
     "relay": "yarn workspace @yotta/web relay"
   },
   "devDependencies": {

@@ -1,13 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import Routes from './routes'
-import GlobalStyle from './styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+
+import Main from './pages/Main'
 
 render(
   <>
-    <GlobalStyle />
-    <Routes />
+    <Main />
+    <CssBaseline />
   </>,
   document.getElementById('app')
 )
