@@ -3,9 +3,7 @@ import {
   Network,
   RecordSource,
   Store,
-  // @ts-ignore
   RelayNetworkLoggerTransaction,
-  // @ts-ignore
   createRelayNetworkLogger,
   commitLocalUpdate,
 } from 'relay-runtime'

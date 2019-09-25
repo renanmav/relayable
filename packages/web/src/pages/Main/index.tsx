@@ -1,13 +1,13 @@
 import React from 'react'
-
-import { ThemeProvider } from '@material-ui/styles'
-
 import { createFragmentContainer, graphql, RelayProp } from 'react-relay'
+
+import ThemeProvider from '@material-ui/styles/ThemeProvider'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 import { createQueryRendererModern } from '@yotta/web/src/relay'
 import Routes from '@yotta/web/src/routes'
-import GlobalStyle, { darkTheme, lightTheme } from '@yotta/web/src/styles'
 
+import { darkTheme, lightTheme } from './styles'
 import { Main_query } from './__generated__/Main_query.graphql'
 
 interface MainProps {
@@ -20,12 +20,10 @@ const Main: React.FC<MainProps> = ({
     settings: { darkTheme: isDark },
   },
 }) => (
-  <>
-    <GlobalStyle />
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <Routes />
-    </ThemeProvider>
-  </>
+  <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+    <Routes />
+    <CssBaseline />
+  </ThemeProvider>
 )
 
 const MainFragment = createFragmentContainer(Main, {
