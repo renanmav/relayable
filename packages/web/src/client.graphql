@@ -1,0 +1,7 @@
+type Settings {
+  darkTheme: Boolean!
+}
+
+extend type Query {
+  settings: Settings!
+}

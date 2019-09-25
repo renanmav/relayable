@@ -94,5 +94,8 @@ export const useStyles = makeStyles((theme: Theme) => {
       height: 54,
       width: 54,
     },
+    theme: {
+      marginRight: theme.spacing(2),
+    },
   })
 })
