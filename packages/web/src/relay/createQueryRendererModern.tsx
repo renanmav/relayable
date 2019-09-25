@@ -1,7 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { GraphQLTaggedNode, Variables } from 'relay-runtime'
 import { QueryRenderer } from 'react-relay'
 import hoistStatics from 'hoist-non-react-statics'
+// @ts-ignore
+import { createMockEnvironment } from 'relay-test-utils'
 
 import { Environment } from '.'
 
@@ -12,6 +14,8 @@ interface Config {
   variables?: Variables
   hideSplash?: boolean
 }
+
+export const env = createMockEnvironment()
 
 export default function createQueryRenderer(
   FragmentComponent: React.ComponentType<any>,
@@ -26,7 +30,7 @@ export default function createQueryRenderer(
 
     return (
       <QueryRenderer
-        environment={Environment}
+        environment={process.env.NODE_ENV === 'test' ? env : Environment}
         query={query}
         variables={variables}
         render={({ error, props: relayProps }) => {
