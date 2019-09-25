@@ -24,6 +24,7 @@ const Auth: React.FC<RouteComponentProps> = ({ location, navigate }) => {
 
         navigate!('/')
       },
+      // eslint-disable-next-line no-console
       error => console.log(error)
     )
   }, [])
