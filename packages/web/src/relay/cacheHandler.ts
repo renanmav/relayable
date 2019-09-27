@@ -1,4 +1,3 @@
-// @ts-ignore
 import RelayQueryResponseCache from 'relay-runtime/lib/network/RelayQueryResponseCache'
 import { FetchFunction } from 'relay-runtime'
 
@@ -19,14 +18,14 @@ const cacheHandler: FetchFunction = async (request, variables, cacheConfig, uplo
     return fetchQuery(request, variables, uploadables!)
   }
 
-  const fromCache = relayResponseCache.get(queryID, variables)
+  const fromCache = relayResponseCache.get(queryID!, variables)
   if (isQuery(request) && fromCache !== null && !forceFetch(cacheConfig)) {
     return fromCache
   }
 
   const fromServer = await fetchQuery(request, variables, uploadables!)
   if (fromServer) {
-    relayResponseCache.set(queryID, variables, fromServer)
+    relayResponseCache.set(queryID!, variables, fromServer)
   }
 
   return fromServer
