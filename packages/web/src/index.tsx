@@ -11,8 +11,8 @@ import Main from './pages/Main'
 
 render(
   <RelayEnvironmentProvider environment={Environment}>
-    <Main />
     <CssBaseline />
+    <Main />
   </RelayEnvironmentProvider>,
   document.getElementById('app')
 )

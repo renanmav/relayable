@@ -11,6 +11,9 @@ export const lightTheme = createMuiTheme({
       contrastText: '#F8F9FA',
     },
     tonalOffset: 0.05,
+    background: {
+      default: '#F8F9FA',
+    },
   },
 })
 
