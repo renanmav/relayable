@@ -1,5 +1,4 @@
 import React from 'react'
-// @ts-ignore
 import { useQuery } from '@entria/relay-experimental'
 import { graphql } from 'react-relay'
 
@@ -8,8 +7,10 @@ import Typography from '@material-ui/core/Typography'
 
 import { useStyles } from './styles'
 
+import { AskHeadlineQuery } from './__generated__/AskHeadlineQuery.graphql'
+
 export default function AskHeadline() {
-  const { questionAvgResponse } = useQuery(
+  const { questionAvgResponse } = useQuery<AskHeadlineQuery>(
     graphql`
       query AskHeadlineQuery {
         questionAvgResponse
