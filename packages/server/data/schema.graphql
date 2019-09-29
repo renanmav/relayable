@@ -9,13 +9,9 @@ type AcceptAnswerPayload {
   clientMutationId: String
 }
 
-"""
-Answer data
-"""
+"""Answer data"""
 type Answer implements Node & Post {
-  """
-  The ID of an object
-  """
+  """The ID of an object"""
   id: ID!
   _id: String
   question: Question
@@ -29,9 +25,7 @@ type Answer implements Node & Post {
 }
 
 input CreateAnswerInput {
-  """
-  ID of the question
-  """
+  """ID of the question"""
   question: ID!
   content: String!
   clientMutationId: String
@@ -106,19 +100,13 @@ type LoginWithGithubPayload {
 type Mutation {
   LoginWithGithub(input: LoginWithGithubInput!): LoginWithGithubPayload
 
-  """
-  Use this mutation to create a question
-  """
+  """Use this mutation to create a question"""
   CreateQuestion(input: CreateQuestionInput!): CreateQuestionPayload
 
-  """
-  Mutation to edit the question if logged in user is the author
-  """
+  """Mutation to edit the question if logged in user is the author"""
   EditQuestion(input: EditQuestionInput!): EditQuestionPayload
 
-  """
-  Use this mutation to delete a question if you owns it
-  """
+  """Use this mutation to delete a question if you owns it"""
   DeleteQuestion(input: DeleteQuestionInput!): DeleteQuestionPayload
 
   """
@@ -129,24 +117,20 @@ type Mutation {
 
   """
   Mutation to up/down vote a question
-
+  
   Each user vote only once (and can change his vote)
   """
   VoteQuestion(input: VoteQuestionInput!): VoteQuestionPayload
 
-  """
-  Use this mutation to answer a question
-  """
+  """Use this mutation to answer a question"""
   CreateAnswer(input: CreateAnswerInput!): CreateAnswerPayload
 
-  """
-  Mutation to edit the answer if logged in user is the author
-  """
+  """Mutation to edit the answer if logged in user is the author"""
   EditAnswer(input: EditAnswerInput!): EditAnswerPayload
 
   """
   Mutation to up/down vote a answer
-
+  
   Each user vote only once (and can change his vote)
   """
   VoteAnswer(input: VoteAnswerInput!): VoteAnswerPayload
@@ -171,44 +155,28 @@ type NewVotePayload {
   edge(token: String!): QuestionEdge
 }
 
-"""
-An object with an ID
-"""
+"""An object with an ID"""
 interface Node {
-  """
-  The id of the object.
-  """
+  """The id of the object."""
   id: ID!
 }
 
-"""
-Information about pagination in a connection.
-"""
+"""Information about pagination in a connection."""
 type PageInfo {
-  """
-  When paginating forwards, are there more items?
-  """
+  """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
 
-  """
-  When paginating backwards, are there more items?
-  """
+  """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
-  """
-  When paginating backwards, the cursor to continue.
-  """
+  """When paginating backwards, the cursor to continue."""
   startCursor: String
 
-  """
-  When paginating forwards, the cursor to continue.
-  """
+  """When paginating forwards, the cursor to continue."""
   endCursor: String
 }
 
-"""
-Post interface to enforce some fields
-"""
+"""Post interface to enforce some fields"""
 interface Post {
   content: String
   upvotes: Int
@@ -218,59 +186,43 @@ interface Post {
   updatedAt: String
 }
 
-"""
-The root of all queries
-"""
+"""The root of all queries"""
 type Query {
-  """
-  Use this query to fetch GitHub login URL
-  """
+  """Use this query to fetch GitHub login URL"""
   githubLoginUrl: String
 
-  """
-  Fetches an object given its ID
-  """
+  """Fetches an object given its ID"""
   node(
-    """
-    The ID of an object
-    """
+    """The ID of an object"""
     id: ID!
   ): Node
 
-  """
-  Get your own data based on provided Authorization token
-  """
+  """Get your own data based on provided Authorization token"""
   me: User
 
-  """
-  Fetch a user by its login
-  """
+  """Fetch a user by its login"""
   user(login: String!): User
 
   """
   Returns a connection with connectionArgs and/or the Author global ID
-
+  
   You can search questions too with the search arg
-
+  
   Search its done by title, content and tags fields
   """
-  questions(
-    after: String
-    first: Int
-    before: String
-    last: Int
-    authorId: ID
-    search: String
-  ): QuestionConnection
+  questions(after: String, first: Int, before: String, last: Int, authorId: ID, search: String): QuestionConnection
+
+  """
+  Returns the average difference between a question creation and its first answer
+  
+  Value returned is in minutes
+  """
+  questionAvgResponse: String
 }
 
-"""
-Question data
-"""
+"""Question data"""
 type Question implements Node & Post {
-  """
-  The ID of an object
-  """
+  """The ID of an object"""
   id: ID!
   _id: String
   title: String
@@ -287,33 +239,21 @@ type Question implements Node & Post {
   updatedAt: String
 }
 
-"""
-A connection to a list of items.
-"""
+"""A connection to a list of items."""
 type QuestionConnection {
-  """
-  Information to aid in pagination.
-  """
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  """
-  A list of edges.
-  """
+  """A list of edges."""
   edges: [QuestionEdge]
 }
 
-"""
-An edge in a connection.
-"""
+"""An edge in a connection."""
 type QuestionEdge {
-  """
-  The item at the end of the edge
-  """
+  """The item at the end of the edge"""
   node: Question
 
-  """
-  A cursor for use in pagination
-  """
+  """A cursor for use in pagination"""
   cursor: String!
 }
 
@@ -323,13 +263,9 @@ type Subscription {
   NewVote: NewVotePayload
 }
 
-"""
-User data
-"""
+"""User data"""
 type User implements Node {
-  """
-  The ID of an object
-  """
+  """The ID of an object"""
   id: ID!
   _id: String
   github_id: String

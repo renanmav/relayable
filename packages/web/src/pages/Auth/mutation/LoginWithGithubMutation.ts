@@ -1,5 +1,6 @@
 import { graphql, commitMutation } from 'react-relay'
-import { Environment } from '@yotta/web/src/relay'
+
+import env from '@yotta/web/src/relay/Environment'
 
 import {
   LoginWithGithubInput,
@@ -28,7 +29,7 @@ function commit(
   onCompleted: (response: LoginWithGithubMutationResponse) => void,
   onError: (error: Error) => void
 ) {
-  return commitMutation<LoginWithGithubMutation>(Environment, {
+  return commitMutation<LoginWithGithubMutation>(env, {
     mutation,
     variables: { input },
     onCompleted,

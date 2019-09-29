@@ -11,7 +11,7 @@
     "start:dev": "nodemon src/index.ts",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "update-schema": "sucrase-node ./scripts/updateSchema.js"
+    "update:schema": "sucrase-node ./scripts/updateSchema.js"
   },
   "dependencies": {
     "@entria/graphql-mongoose-loader": "^4.2.0",
