@@ -1,8 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { env } from '@yotta/web/src/relay/createQueryRendererModern'
-// @ts-ignore
-import { MockPayloadGenerator } from 'relay-test-utils'
 
 // @ts-ignore
 import { RelayEnvironmentProvider } from '@entria/relay-experimental'
@@ -21,18 +19,6 @@ test('Loading state', () => {
       <Ask />
     </Providers>
   )
-
-  expect(component).toMatchSnapshot()
-})
-
-test('Data Render', () => {
-  const component = renderer.create(
-    <Providers>
-      <Ask />
-    </Providers>
-  )
-
-  env.mock.resolveMostRecentOperation((operation: any) => MockPayloadGenerator.generate(operation))
 
   expect(component).toMatchSnapshot()
 })
