@@ -11,7 +11,7 @@ import { useQuery } from '@entria/relay-experimental'
 import { darkTheme, lightTheme } from './styles'
 import { MainQuery } from './__generated__/MainQuery.graphql'
 
-const Main: React.FC<{}> = () => {
+const Main: React.FC = () => {
   const {
     settings: { darkTheme: isDark },
   } = useQuery<MainQuery>(graphql`

@@ -76,7 +76,7 @@ module.exports = {
     'import/no-webpack-loader-syntax': 'warn',
     'import/order': ['error', { 'newlines-between': 'always-and-inside-groups' }],
     'react/prop-types': 'off',
-    'jsx-quotes': ['warn', 'prefer-single'],
+    'jsx-quotes': ['warn', 'prefer-double'],
     'react/jsx-indent': ['warn', 2],
     'react/jsx-indent-props': ['warn', 2],
     'react/jsx-one-expression-per-line': ['warn', { allow: 'single-child' }],
