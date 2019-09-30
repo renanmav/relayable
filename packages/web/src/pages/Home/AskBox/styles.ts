@@ -86,7 +86,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     tagsIcon: {
       marginRight: theme.spacing(1),
-      color: 'rgba(0, 0, 0, 0.54)',
+      color: '#757575',
     },
   })
 )

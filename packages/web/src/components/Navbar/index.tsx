@@ -11,8 +11,8 @@ import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 
 import { createQueryRendererModern } from '@yotta/web/src/relay'
 import YottaLogo from '@yotta/web/src/components/YottaLogo'
-
 import env from '@yotta/web/src/relay/Environment'
+import { yottaDarkTheme } from '@yotta/web/src/utils/contants'
 
 import { Navbar_query } from './__generated__/Navbar_query.graphql'
 import { useStyles } from './styles'
@@ -29,22 +29,25 @@ const NavbarComponent: React.FC<NavbarProps> = ({ query: { githubLoginUrl, me } 
     commitLocalUpdate(env, store => {
       const settings = store.getRoot().getLinkedRecord('settings')
       settings!.setValue(!settings!.getValue('darkTheme'), 'darkTheme')
+
+      const isDarkTheme = settings.getValue('darkTheme')
+      localStorage.setItem(yottaDarkTheme, isDarkTheme)
     })
   }
 
   const classes = useStyles()
 
   return (
-    <AppBar position='static' color='inherit' className={classes.appBar}>
+    <AppBar position="static" color="inherit" className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
-        <YottaLogo img='assets/img/yotta-logo.svg' className={classes.root} />
-        <IconButton onClick={handleThemeChange} edge='start' className={classes.theme}>
-          <EmojiObjectsIcon fontSize='large' />
+        <YottaLogo img="assets/img/yotta-logo.svg" className={classes.root} />
+        <IconButton onClick={handleThemeChange} edge="start" className={classes.theme}>
+          <EmojiObjectsIcon fontSize="large" />
         </IconButton>
         {me ? (
           <Avatar src={me.avatar_url!} alt={me.name!} className={classes.avatar} />
         ) : (
-          <Button className={classes.btn} onClick={navigateToGithub} size='large'>
+          <Button className={classes.btn} onClick={navigateToGithub} size="large">
             Login with GitHub
           </Button>
         )}
