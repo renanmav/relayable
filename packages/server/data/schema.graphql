@@ -38,7 +38,6 @@ type CreateAnswerPayload {
 }
 
 input CreateQuestionInput {
-  title: String!
   content: String!
   tags: [String]
   clientMutationId: String
@@ -74,7 +73,6 @@ type EditAnswerPayload {
 
 input EditQuestionInput {
   id: ID!
-  title: String
   content: String
   tags: [String]
   clientMutationId: String
@@ -225,7 +223,6 @@ type Question implements Node & Post {
   """The ID of an object"""
   id: ID!
   _id: String
-  title: String
   content: String
   upvotes: Int
   downvotes: Int

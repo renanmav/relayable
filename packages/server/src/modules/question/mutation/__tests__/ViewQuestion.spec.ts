@@ -17,13 +17,11 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
-const query = `
-  mutation viewQuestion(
-    $id: ID!
-  ) {
-    ViewQuestion(input: {
-      id: $id
-    }) {
+const gql = String.raw
+
+const query = gql`
+  mutation viewQuestion($id: ID!) {
+    ViewQuestion(input: { id: $id }) {
       error
       question {
         views

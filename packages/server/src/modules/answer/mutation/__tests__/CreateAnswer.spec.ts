@@ -25,7 +25,7 @@ const query = gql`
       answer {
         content
         question {
-          title
+          content
         }
         author {
           name

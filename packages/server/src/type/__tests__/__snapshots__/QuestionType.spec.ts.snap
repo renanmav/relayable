@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return how much time a question takes to get answered 1`] = `
+Object {
+  "data": Object {
+    "CreateAnswer": Object {
+      "error": null,
+    },
+  },
+}
+`;
+
+exports[`should return how much time a question takes to get answered 2`] = `
+Object {
+  "data": Object {
+    "questionAvgResponse": "a few seconds",
+  },
+}
+`;
+
+exports[`when authenticated should retrieve only questions done by user if authorId its provided 1`] = `
+Object {
+  "data": Object {
+    "questions": Object {
+      "edges": Array [
+        Object {
+          "node": Object {
+            "author": Object {
+              "name": "User 1",
+            },
+            "content": "What is the meaning of life?",
+            "tags": Array [],
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`when authenticated should retrieve the Question connection and its data 1`] = `
+Object {
+  "data": Object {
+    "questions": Object {
+      "edges": Array [
+        Object {
+          "node": Object {
+            "author": Object {
+              "name": "User 1",
+            },
+            "content": "What is the meaning of life?",
+            "tags": Array [],
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`when authenticated should search on authorId response 1`] = `
+Object {
+  "data": Object {
+    "questions": Object {
+      "edges": Array [
+        Object {
+          "node": Object {
+            "author": Object {
+              "name": "User 1",
+            },
+            "content": "What is the meaning of life?",
+            "tags": Array [
+              "42",
+            ],
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`when unauthenticated should retrieve the Question connection 1`] = `
+Object {
+  "data": Object {
+    "questions": Object {
+      "edges": Array [
+        Object {
+          "node": Object {
+            "author": Object {
+              "name": "User 1",
+            },
+            "content": "What is the meaning of life?",
+            "tags": Array [],
+          },
+        },
+      ],
+    },
+  },
+}
+`;

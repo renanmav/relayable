@@ -5,10 +5,6 @@ import { IAnswer } from '../answer/AnswerModel'
 
 const questionSchema = new Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
     content: {
       type: String,
       required: true,
@@ -59,7 +55,6 @@ const questionSchema = new Schema(
 )
 
 export interface IQuestion extends Document {
-  title: string
   content: string
   upvotes: IUser[]
   downvotes: IUser[]

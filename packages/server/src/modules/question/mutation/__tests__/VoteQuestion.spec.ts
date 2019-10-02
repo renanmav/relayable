@@ -17,17 +17,11 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
-const query = `
-  mutation voteQuestion(
-    $id: ID!
-    $up: Boolean
-    $down: Boolean
-  ) {
-    VoteQuestion(input: {
-      id: $id
-      up: $up
-      down: $down
-    }) {
+const gql = String.raw
+
+const query = gql`
+  mutation voteQuestion($id: ID!, $up: Boolean, $down: Boolean) {
+    VoteQuestion(input: { id: $id, up: $up, down: $down }) {
       error
       question {
         upvotes
