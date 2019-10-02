@@ -7,15 +7,31 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 
 import { useStyles, QuestionField, TagsField, AskButton } from './styles'
 
+import CreateQuestion from './mutation/CreateQuestionMutation'
+
 const AskBox: React.FC = () => {
   const [question, setQuestion] = useState('')
   const [tags, setTags] = useState('')
 
   const classes = useStyles()
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    CreateQuestion.commit(
+      {
+        title: question,
+        content: question,
+        tags: tags.split(' '),
+      },
+      _response => {},
+      // @ts-ignore
+      ({ errors }) => errors.map(error => console.log(error.message))
+    )
+  }
+
   return (
     <Container maxWidth="sm">
-      <form noValidate autoComplete="off">
+      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <QuestionField
           value={question}
           onChange={e => setQuestion(e.target.value)}
