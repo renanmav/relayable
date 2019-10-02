@@ -32,6 +32,7 @@
     "@types/react-relay": "^6.0.0",
     "@types/react-test-renderer": "^16.9.0",
     "@types/relay-runtime": "^6.0.3",
+    "@types/relay-test-utils": "^6.0.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-relay": "^6.0.0",
