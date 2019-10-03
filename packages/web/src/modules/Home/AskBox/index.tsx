@@ -23,13 +23,12 @@ const AskBox: React.FC = () => {
         tags: tags.split(' '),
       },
       _response => {},
-      // @ts-ignore
-      ({ errors }) => errors.map(error => console.log(error.message))
+      ({ message }) => console.log(message)
     )
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" id="ask-something">
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <QuestionField
           value={question}

@@ -21,11 +21,11 @@ export const darkTheme = createMuiTheme({
   palette: {
     primary: {
       main: '#F05B80',
-      contrastText: '#F8F9FA',
+      contrastText: '#303030',
     },
     secondary: {
       main: '#4158F0',
-      contrastText: '#F8F9FA',
+      contrastText: '#303030',
     },
     tonalOffset: 0.05,
     type: 'dark',
