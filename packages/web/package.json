@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --mode development",
-    "build": "webpack --production",
+    "build": "webpack --mode production",
     "relay": "relay-compiler --src ./src --schema ../server/data/schema.graphql --language typescript",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
@@ -39,6 +39,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "dotenv-webpack": "^1.7.0",
     "file-loader": "^4.2.0",
