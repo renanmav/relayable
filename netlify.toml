@@ -1,5 +1,5 @@
 [build]
-  base = "packages/web/"
+  base = "/"
   publish = "packages/web/dist/"
   command = "yarn relay && yarn workspace @yotta/web build"
 
