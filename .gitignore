@@ -7,3 +7,6 @@ coverage
 yarn-error.log
 test-results
 __generated__
+
+# Local Netlify folder
+.netlify

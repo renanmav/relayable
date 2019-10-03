@@ -1,0 +1,9 @@
+[build]
+  base = "packages/web/"
+  publish = "packages/web/dist/"
+  command = "yarn relay && yarn workspace @yotta/web build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

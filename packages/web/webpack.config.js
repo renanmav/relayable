@@ -6,15 +6,11 @@ const CopyPlugin = require('copy-webpack-plugin')
 module.exports = {
   entry: './src/index.tsx',
   output: {
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
   devServer: {
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -51,10 +47,5 @@ module.exports = {
   ],
   node: {
     fs: 'empty',
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
   },
 }
