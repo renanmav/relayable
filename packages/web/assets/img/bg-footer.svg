@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="287px" viewBox="0 0 1440 287" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>footer bg</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-page" transform="translate(0.000000, -1761.000000)" fill="#FFFFFF">
+            <g id="footer" transform="translate(0.000000, 1761.622852)">
+                <path d="M0,1.70530257e-13 C305.333333,38.6416249 591.815189,45.1644633 859.445567,19.5685152 C1127.07594,-6.02743295 1320.53183,-6.02743295 1439.81323,19.5685152 L1440,286.377148 L0,286.377148 L0,1.70530257e-13 Z" id="footer-bg"></path>
+            </g>
+        </g>
+    </g>
+</svg>

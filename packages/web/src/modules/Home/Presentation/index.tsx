@@ -4,11 +4,6 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 
-// @ts-ignore
-import bg from '@yotta/web/assets/img/bg-decoration.svg'
-// @ts-ignore
-import conversation from '@yotta/web/assets/img/conversation.svg'
-
 import { useStyles } from './styles'
 
 const Presentation = () => {
@@ -16,7 +11,11 @@ const Presentation = () => {
 
   return (
     <Box className={classes.root}>
-      <img src={bg} alt="gradient shape from pink to blue" className={classes.bg} />
+      <img
+        src="assets/img/bg-decoration.svg"
+        alt="gradient shape from pink to blue"
+        className={classes.bg}
+      />
       <Container className={classes.container}>
         <Box className={classes.textBox}>
           <Typography variant="h3" className={classes.intro}>
@@ -32,7 +31,11 @@ const Presentation = () => {
             </Typography>
           </a>
           <Box className={classes.conversation}>
-            <img src={conversation} alt="two people having a conversation" width={600} />
+            <img
+              src="assets/img/conversation.svg"
+              alt="two people having a conversation"
+              width={600}
+            />
           </Box>
         </Box>
       </Container>

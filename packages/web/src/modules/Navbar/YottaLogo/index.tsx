@@ -7,17 +7,17 @@ interface IProps {
   img: string
 }
 
-const YottaLogoComponent: React.ComponentType<IProps & HTMLAttributes<HTMLDivElement>> = props => {
+const YottaLogoComponent: React.ComponentType<HTMLAttributes<HTMLDivElement>> = props => {
   const classes = useStyles()
 
-  const { className, img } = props
+  const { className } = props
 
   return (
     <Location>
       {({ navigate }) => (
         <div className={className}>
           <img
-            src={img}
+            src="assets/img/yotta-logo.svg"
             alt="Relayable logo"
             onClick={() => navigate('/')}
             className={classes.root}

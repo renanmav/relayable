@@ -42,7 +42,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({ query: { githubLoginUrl, me } 
   return (
     <AppBar position="static" color="inherit" className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
-        <YottaLogo img="assets/img/yotta-logo.svg" className={classes.root} />
+        <YottaLogo className={classes.root} />
         <IconButton onClick={handleThemeChange} edge="start" className={classes.theme}>
           <EmojiObjectsIcon fontSize="large" />
         </IconButton>
