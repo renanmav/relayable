@@ -1146,6 +1146,14 @@
   dependencies:
     "@types/node" "*"
 
+"@types/entria__relay-experimental@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@types/entria__relay-experimental/-/entria__relay-experimental-6.0.0.tgz#beee72891c702fd710b29e09043cdf5cbecdf6ac"
+  integrity sha512-gQE9lPFPWiX4YdKHMb6sQsc2N7hVd3uHZ2Zo05wmq41YXtykC66FFbu1FYmKWDqPxrqVJSQgf82zLkG3kTHFYQ==
+  dependencies:
+    "@types/react" "*"
+    "@types/relay-runtime" "*"
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"

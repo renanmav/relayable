@@ -1,5 +1,4 @@
 import React from 'react'
-// @ts-ignore
 import { useQuery } from '@entria/relay-experimental'
 import { graphql } from 'react-relay'
 

@@ -3,7 +3,6 @@ import { render } from 'react-dom'
 
 import './reset.css'
 
-// @ts-ignore
 import { RelayEnvironmentProvider } from '@entria/relay-experimental'
 import { Environment } from '@yotta/web/src/relay'
 
