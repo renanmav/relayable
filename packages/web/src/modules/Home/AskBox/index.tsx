@@ -19,7 +19,6 @@ const AskBox: React.FC = () => {
     e.preventDefault()
     CreateQuestion.commit(
       {
-        title: question,
         content: question,
         tags: tags.split(' '),
       },
