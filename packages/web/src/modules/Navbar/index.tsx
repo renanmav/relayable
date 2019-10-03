@@ -10,9 +10,11 @@ import IconButton from '@material-ui/core/IconButton'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 
 import { createQueryRendererModern } from '@yotta/web/src/relay'
-import YottaLogo from '@yotta/web/src/components/YottaLogo'
+
 import env from '@yotta/web/src/relay/Environment'
 import { yottaDarkTheme } from '@yotta/web/src/utils/contants'
+
+import YottaLogo from './YottaLogo'
 
 import { Navbar_query } from './__generated__/Navbar_query.graphql'
 import { useStyles } from './styles'

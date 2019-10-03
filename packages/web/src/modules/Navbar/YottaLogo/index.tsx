@@ -18,7 +18,7 @@ const YottaLogoComponent: React.ComponentType<IProps & HTMLAttributes<HTMLDivEle
         <div className={className}>
           <img
             src={img}
-            alt='Relayable logo'
+            alt="Relayable logo"
             onClick={() => navigate('/')}
             className={classes.root}
           />

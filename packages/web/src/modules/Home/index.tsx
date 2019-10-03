@@ -1,7 +1,7 @@
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
 
-import Navbar from '@yotta/web/src/components/Navbar'
+import Navbar from '@yotta/web/src/modules/Navbar'
 
 import AskHeadline from './AskHeadline'
 import AskBox from './AskBox'

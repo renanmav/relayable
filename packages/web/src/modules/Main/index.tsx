@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Routes from '@yotta/web/src/routes'
 
+// @ts-ignore
 import { useQuery } from '@entria/relay-experimental'
 
 import { darkTheme, lightTheme } from './styles'
