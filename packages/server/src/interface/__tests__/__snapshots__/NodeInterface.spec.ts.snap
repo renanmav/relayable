@@ -2,9 +2,39 @@
 
 exports[`should load Question 1`] = `
 Object {
-  "errors": Array [
-    [GraphQLError: Cannot query field "title" on type "Question".],
-  ],
+  "data": Object {
+    "node": Object {
+      "anonymous_views": 0,
+      "answers": Array [
+        Object {
+          "author": Object {
+            "avatar_url": "http://localhost/files/1",
+            "github_id": "1",
+            "login": "user1",
+            "name": "User 1",
+          },
+          "content": "Some answer",
+          "downvotes": 0,
+          "is_accepted": false,
+          "upvotes": 0,
+        },
+      ],
+      "author": Object {
+        "avatar_url": "http://localhost/files/1",
+        "github_id": "1",
+        "login": "user1",
+        "name": "User 1",
+      },
+      "content": "What is the meaning of life?",
+      "downvotes": 0,
+      "tags": Array [
+        "dummy",
+      ],
+      "total_views": 0,
+      "upvotes": 0,
+      "views": 0,
+    },
+  },
 }
 `;
 

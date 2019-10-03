@@ -2,18 +2,28 @@
 
 exports[`should edit question data if he/she is owner 1`] = `
 Object {
-  "errors": Array [
-    [GraphQLError: Field "title" is not defined by type EditQuestionInput.],
-    [GraphQLError: Cannot query field "title" on type "Question".],
-  ],
+  "data": Object {
+    "EditQuestion": Object {
+      "error": null,
+      "question": Object {
+        "content": "What does the fox say again?",
+        "tags": Array [
+          "fox",
+          "old-meme",
+        ],
+      },
+    },
+  },
 }
 `;
 
 exports[`should not edit question data if he/she isn't the owner 1`] = `
 Object {
-  "errors": Array [
-    [GraphQLError: Field "title" is not defined by type EditQuestionInput.],
-    [GraphQLError: Cannot query field "title" on type "Question".],
-  ],
+  "data": Object {
+    "EditQuestion": Object {
+      "error": "You don't own this question",
+      "question": null,
+    },
+  },
 }
 `;
