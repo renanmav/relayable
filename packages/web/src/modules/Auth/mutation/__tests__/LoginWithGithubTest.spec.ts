@@ -8,7 +8,7 @@ it('should get token and user', () => {
   const onCompleted = jest.fn()
   const onError = jest.fn()
 
-  // Fix: overlap RelayMockEnvironment and RelayModernEnvironment
+  // Fix relay-test-utils: overlap RelayMockEnvironment and RelayModernEnvironment (check https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38831)
   commitMutation((env as unknown) as RelayModernEnvironment, {
     mutation: graphql`
       mutation LoginWithGithubTestMutation {
@@ -32,6 +32,8 @@ it('should get token and user', () => {
 
   const operation = env.mock.getMostRecentOperation()
 
+  // Fix relay-test-utils: remove void return from generate function (check https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38831)
+  // @ts-ignore
   env.mock.resolve(operation, MockPayloadGenerator.generate(operation))
 
   expect(onCompleted).toBeCalled()
