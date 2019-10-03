@@ -6,7 +6,7 @@ import { getRequestBody, getHeaders, handleData, isMutation } from './helpers'
 import fetchWithRetries from './fetchWithRetries'
 
 // eslint-disable-next-line prefer-destructuring
-export const GRAPHQL_URL = process.env.GRAPHQL_URL || 'http://localhost:5000/graphql'
+export const GRAPHQL_URL = process.env.GRAPHQL_URL || 'https://relayable.herokuapp.com/graphql'
 
 const fetchQuery = async (
   request: RequestParameters,
