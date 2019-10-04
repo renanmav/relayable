@@ -50,7 +50,6 @@
     "jest-cli": "^24.9.0",
     "pug": "^2.0.4",
     "pug-loader": "^2.4.0",
-    "react-test-renderer": "^16.9.0",
     "relay-compiler": "^6.0.0",
     "relay-compiler-language-typescript": "^5.0.0",
     "relay-devtools": "^1.4.0",

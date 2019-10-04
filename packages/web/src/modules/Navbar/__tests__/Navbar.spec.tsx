@@ -1,28 +1,28 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { render } from '@testing-library/react'
 import { MockPayloadGenerator } from 'relay-test-utils'
 import { env } from '@yotta/web/src/relay/createQueryRendererModern'
 
 import Navbar from '../index'
 
 test('Loading state', () => {
-  const component = renderer.create(<Navbar />)
+  const component = render(<Navbar />)
 
-  expect(component).toMatchSnapshot()
+  expect(component.container).toMatchSnapshot()
 })
 
 test('Data render', () => {
-  const component = renderer.create(<Navbar />)
+  const component = render(<Navbar />)
 
   env.mock.resolveMostRecentOperation(operation => MockPayloadGenerator.generate(operation))
 
-  expect(component).toMatchSnapshot()
+  expect(component.container).toMatchSnapshot()
 })
 
 test('Error state', () => {
-  const component = renderer.create(<Navbar />)
+  const component = render(<Navbar />)
 
   env.mock.rejectMostRecentOperation(new Error())
 
-  expect(component).toMatchSnapshot()
+  expect(component.container).toMatchSnapshot()
 })

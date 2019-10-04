@@ -1,12 +1,10 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { render } from '@testing-library/react'
 
 import YottaLogoComponent from '../../YottaLogo'
 
 it('render correctly', () => {
-  const component = renderer.create(<YottaLogoComponent />)
+  const component = render(<YottaLogoComponent />)
 
-  const tree = component.toJSON()
-
-  expect(tree).toMatchSnapshot()
+  expect(component.container).toMatchSnapshot()
 })

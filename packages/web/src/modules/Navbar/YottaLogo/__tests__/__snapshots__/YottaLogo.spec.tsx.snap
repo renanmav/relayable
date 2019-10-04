@@ -2,11 +2,12 @@
 
 exports[`render correctly 1`] = `
 <div>
-  <img
-    alt="Relayable logo"
-    className="makeStyles-root-1"
-    onClick={[Function]}
-    src="assets/img/yotta-logo.svg"
-  />
+  <div>
+    <img
+      alt="Relayable logo"
+      class="makeStyles-root-1"
+      src="assets/img/yotta-logo.svg"
+    />
+  </div>
 </div>
 `;
