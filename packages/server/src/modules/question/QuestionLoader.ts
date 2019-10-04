@@ -95,7 +95,7 @@ export const loadQuestions = async (context: GraphQLContext, args: QuestionArgs)
       : (where = { author: fromGlobalId(authorId).id })
   }
 
-  const questions = QuestionModel.find(where)
+  const questions = QuestionModel.find(where).sort({ createdAt: -1 })
 
   return connectionFromMongoCursor({
     cursor: questions,
