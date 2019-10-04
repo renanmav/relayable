@@ -29,7 +29,6 @@ export default function createQueryRenderer(
 
     return (
       <QueryRenderer
-        // @ts-ignore
         environment={process.env.NODE_ENV === 'test' ? env : Environment}
         query={query}
         variables={variables}
