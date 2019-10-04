@@ -1,11 +1,14 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { render } from '@testing-library/react'
 import { env } from '@yotta/web/src/relay/createQueryRendererModern'
 
-// @ts-ignore
 import { RelayEnvironmentProvider } from '@entria/relay-experimental'
 
+import { MockPayloadGenerator } from 'relay-test-utils'
+
 import Ask from '../index'
+
+const delay = (value: any) => new Promise(resolve => setTimeout(() => resolve(), value))
 
 const Providers: React.FC = ({ children }) => (
   <RelayEnvironmentProvider environment={env}>
@@ -14,11 +17,25 @@ const Providers: React.FC = ({ children }) => (
 )
 
 test('Loading state', () => {
-  const component = renderer.create(
+  const { queryByText } = render(
     <Providers>
       <Ask />
     </Providers>
   )
 
-  expect(component).toMatchSnapshot()
+  expect(queryByText('Loading...')).toBeDefined()
+})
+
+test('Data loaded', async () => {
+  const { queryByText } = render(
+    <Providers>
+      <Ask />
+    </Providers>
+  )
+
+  env.mock.resolveMostRecentOperation(operation => MockPayloadGenerator.generate(operation))
+
+  await delay(1000)
+
+  expect(queryByText('Loading...')).toBeNull()
 })
