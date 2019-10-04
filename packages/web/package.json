@@ -16,6 +16,7 @@
     "@material-ui/icons": "^4.4.3",
     "@reach/router": "^1.2.1",
     "hoist-non-react-statics": "^3.3.0",
+    "moment": "^2.24.0",
     "query-string": "^6.8.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

@@ -98,7 +98,6 @@ module.exports = {
     'react/no-danger': 'warn',
     'react/no-unsafe': ['warn', { checkAliases: true }],
     'react/no-typos': 'warn',
-    'react/destructuring-assignment': ['warn'],
     'react/no-is-mounted': 'warn',
     'react/no-string-refs': ['warn', { noTemplateLiterals: true }],
     'react/no-multi-comp': ['warn', { ignoreStateless: true }],
