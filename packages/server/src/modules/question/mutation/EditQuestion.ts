@@ -11,7 +11,6 @@ export default mutationWithClientMutationId({
   description: 'Mutation to edit the question if logged in user is the author',
   inputFields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
-    title: { type: GraphQLString },
     content: { type: GraphQLString },
     tags: { type: GraphQLList(GraphQLString) },
   },
@@ -28,9 +27,8 @@ export default mutationWithClientMutationId({
       return { error: "You don't own this question" }
     }
 
-    const { title, content } = data
+    const { content } = data
 
-    if (title) question.title = title
     if (content) question.content = content
 
     const _tags = data.tags as string[]

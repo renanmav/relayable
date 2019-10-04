@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render correctly 1`] = `
+<div>
+  <div>
+    <img
+      alt="Relayable logo"
+      class="makeStyles-root-1"
+      src="assets/img/yotta-logo.svg"
+    />
+  </div>
+</div>
+`;

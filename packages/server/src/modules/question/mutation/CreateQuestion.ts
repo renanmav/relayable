@@ -11,7 +11,6 @@ export default mutationWithClientMutationId({
   name: 'CreateQuestion',
   description: 'Use this mutation to create a question',
   inputFields: {
-    title: { type: new GraphQLNonNull(GraphQLString) },
     content: { type: new GraphQLNonNull(GraphQLString) },
     tags: { type: GraphQLList(GraphQLString) },
   },

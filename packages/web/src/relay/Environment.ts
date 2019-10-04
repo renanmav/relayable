@@ -10,6 +10,8 @@ import {
 // @ts-ignore
 import { installRelayDevTools } from 'relay-devtools'
 
+import { yottaDarkTheme } from '../utils/contants'
+
 import cacheHandler from './cacheHandler'
 
 const RelayNetworkLogger = createRelayNetworkLogger(RelayNetworkLoggerTransaction)
@@ -37,7 +39,9 @@ commitLocalUpdate(env, proxyStore => {
   const dataID = `client:${__typename}`
   const record = proxyStore.create(dataID, __typename)
 
-  record.setValue(false, 'darkTheme')
+  const darkTheme = localStorage.getItem(yottaDarkTheme) === 'true'
+
+  record.setValue(darkTheme, 'darkTheme')
 
   env.retain({
     dataID,

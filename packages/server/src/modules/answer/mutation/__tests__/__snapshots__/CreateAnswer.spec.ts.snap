@@ -10,7 +10,7 @@ Object {
         },
         "content": "42",
         "question": Object {
-          "title": "Some question",
+          "content": "What is the meaning of life?",
         },
       },
       "error": null,

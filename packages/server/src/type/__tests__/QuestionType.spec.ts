@@ -16,18 +16,14 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
-const query = `
-  query QuestionConnection(
-    $authorId: ID
-    $search: String
-  ) {
-    questions(
-      authorId: $authorId
-      search: $search
-    ) {
+const gql = String.raw
+
+const query = gql`
+  query QuestionConnection($authorId: ID, $search: String) {
+    questions(authorId: $authorId, search: $search) {
       edges {
         node {
-          title
+          content
           tags
           author {
             name
@@ -43,14 +39,13 @@ const rootValue = {}
 describe('when authenticated', () => {
   it('should retrieve the Question connection and its data', async () => {
     const user = await createRows.createUser()
-    const question = await createRows.createQuestion({ author: user._id })
+    await createRows.createQuestion({ author: user._id })
 
     const context = getContext({ user })
 
     const result = await graphql(schema, query, rootValue, context)
 
-    expect(result.data!.questions.edges[0].node.title).toBe(question.title)
-    expect(result.data!.questions.edges[0].node.author.name).toBe(user.name)
+    expect(result).toMatchSnapshot()
   })
 
   it('should retrieve only questions done by user if authorId its provided', async () => {
@@ -68,8 +63,7 @@ describe('when authenticated', () => {
 
     const result = await graphql(schema, query, rootValue, context, variables)
 
-    expect(result.data!.questions.edges[0].node.author.name).toBe(userA.name)
-    expect(result.data!.questions.edges[1]).toBeUndefined()
+    expect(result).toMatchSnapshot()
   })
 
   it('should search on authorId response', async () => {
@@ -90,24 +84,20 @@ describe('when authenticated', () => {
 
     const result = await graphql(schema, query, rootValue, context, variables)
 
-    expect(result.data!.questions.edges[0].node.author.name).toBe(userA.name)
-    expect(result.data!.questions.edges[0].node.tags[0]).toBe('42')
-    expect(result.data!.questions.edges[1]).toBeUndefined()
-    expect(result.data!.questions.edges[2]).toBeUndefined()
+    expect(result).toMatchSnapshot()
   })
 })
 
 describe('when unauthenticated', () => {
   it('should retrieve the Question connection', async () => {
     const user = await createRows.createUser()
-    const question = await createRows.createQuestion({ author: user._id })
+    await createRows.createQuestion({ author: user._id })
 
     const context = getContext()
 
     const result = await graphql(schema, query, rootValue, context)
 
-    expect(result.data!.questions.edges[0].node.title).toBe(question.title)
-    expect(result.data!.questions.edges[0].node.author.name).toBe(user.name)
+    expect(result).toMatchSnapshot()
   })
 })
 
@@ -117,14 +107,9 @@ it('should return how much time a question takes to get answered', async () => {
 
   const context = getContext({ user })
 
-  const answerQuery = `
-    mutation AnswerQuery(
-      $question: ID!
-    ) {
-      CreateAnswer(input: {
-        question: $question
-        content: "Something"
-      }) {
+  const answerQuery = gql`
+    mutation AnswerQuery($question: ID!) {
+      CreateAnswer(input: { question: $question, content: "Something" }) {
         error
       }
     }
@@ -135,9 +120,9 @@ it('should return how much time a question takes to get answered', async () => {
 
   const answerResponse = await graphql(schema, answerQuery, rootValue, context, variables)
 
-  expect(answerResponse.data!.CreateAnswer.error).toBeNull()
+  expect(answerResponse).toMatchSnapshot()
 
-  const avgResponseQuery = `
+  const avgResponseQuery = gql`
     query {
       questionAvgResponse
     }
@@ -145,5 +130,5 @@ it('should return how much time a question takes to get answered', async () => {
 
   const avgResponse = await graphql(schema, avgResponseQuery, rootValue, context)
 
-  expect(avgResponse.data!.questionAvgResponse).toBeTruthy()
+  expect(avgResponse).toMatchSnapshot()
 })

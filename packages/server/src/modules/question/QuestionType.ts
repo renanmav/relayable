@@ -21,10 +21,6 @@ const QuestionType = registerType(
         type: GraphQLString,
         resolve: q => q._id,
       },
-      title: {
-        type: GraphQLString,
-        resolve: q => q.title,
-      },
       content: {
         type: GraphQLString,
         resolve: q => q.content,

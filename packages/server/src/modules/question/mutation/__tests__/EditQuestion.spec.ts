@@ -16,22 +16,13 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
-const query = `
-  mutation updateQuestion(
-    $id: ID!
-    $title: String
-    $content: String
-    $tags: [String!]
-  ) {
-    EditQuestion(input: {
-      id: $id
-      title: $title
-      content: $content
-      tags: $tags
-    }) {
+const gql = String.raw
+
+const query = gql`
+  mutation updateQuestion($id: ID!, $content: String, $tags: [String!]) {
+    EditQuestion(input: { id: $id, content: $content, tags: $tags }) {
       error
       question {
-        title
         content
         tags
       }
@@ -46,7 +37,6 @@ it('should edit question data if he/she is owner', async () => {
   const context = getContext({ user })
   const variables = {
     id: toGlobalId('Question', question._id),
-    title: 'Some other question',
     content: 'What does the fox say again?',
     tags: ['fox', 'Old meme'],
   }
@@ -66,7 +56,6 @@ it("should not edit question data if he/she isn't the owner", async () => {
 
   const variables = {
     id: toGlobalId('Question', question._id),
-    title: 'Some other question',
     content: 'What does the fox say again?',
     tags: ['fox', 'Old meme'],
   }

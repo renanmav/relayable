@@ -16,13 +16,11 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
-const query = `
-  mutation deleteQuestion(
-    $id: ID!
-  ) {
-    DeleteQuestion(input: {
-      id: $id
-    }) {
+const gql = String.raw
+
+const query = gql`
+  mutation deleteQuestion($id: ID!) {
+    DeleteQuestion(input: { id: $id }) {
       error
     }
   }

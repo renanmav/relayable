@@ -16,18 +16,13 @@ beforeEach(clearDbAndRestartCounters)
 
 afterAll(disconnectMongoose)
 
-const query = `
-  mutation createQuestion(
-    $title: String!
-    $content: String!
-  ) {
-    CreateQuestion(input: {
-      title: $title
-      content: $content
-    }) {
+const gql = String.raw
+
+const query = gql`
+  mutation createQuestion($content: String!) {
+    CreateQuestion(input: { content: $content }) {
       error
       question {
-        title
         content
         upvotes
         downvotes
@@ -64,7 +59,6 @@ it('should create a question when authenticated', async () => {
   const pubSub = new PubSub()
   const context = getContext({ user, pubSub })
   const variables = {
-    title: 'A question',
     content: 'What does the fox say?',
   }
 
@@ -75,7 +69,6 @@ it('should create a question when authenticated', async () => {
 it('should not create a question when unauthenticated', async () => {
   const context = getContext()
   const variables = {
-    title: 'Test',
     content: 'Some question',
   }
 

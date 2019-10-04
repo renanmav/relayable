@@ -54,7 +54,6 @@ it('should load Question', async () => {
     query Q($id: ID!) {
       node(id: $id) {
         ... on Question {
-          title
           content
           upvotes
           downvotes

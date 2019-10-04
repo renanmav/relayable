@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { GraphQLTaggedNode, Variables } from 'relay-runtime'
 import { QueryRenderer } from 'react-relay'
 import hoistStatics from 'hoist-non-react-statics'
-// @ts-ignore
 import { createMockEnvironment } from 'relay-test-utils'
 
 import { Environment } from '.'
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 interface Config {
   query?: GraphQLTaggedNode
   queriesParams?: (props: Object) => Object

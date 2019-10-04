@@ -15,7 +15,6 @@ import { GraphQLContext } from 'server/src/TypeDefinitions'
 export default class Question {
   id: string
   _id: string
-  title: string
   content: string
   upvotes: IUser[]
   downvotes: IUser[]
@@ -30,7 +29,6 @@ export default class Question {
   constructor(data: Partial<IQuestion>) {
     this.id = data.id
     this._id = data._id
-    this.title = data.title!
     this.content = data.content!
     this.upvotes = data.upvotes || []
     this.downvotes = data.downvotes || []
