@@ -2,7 +2,7 @@ import React from 'react'
 import { Router } from '@reach/router'
 
 import Home from './modules/home/Home'
-import AuthGithub from './modules/qualquercoisa/Github'
+import AuthGithub from './modules/auth/Github'
 import Feed from './modules/feed/Feed'
 
 const Routes = () => (
