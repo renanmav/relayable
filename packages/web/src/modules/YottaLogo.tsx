@@ -1,11 +1,7 @@
 import React, { HTMLAttributes } from 'react'
 import { Location } from '@reach/router'
 
-import { useStyles } from './styles'
-
-interface IProps {
-  img: string
-}
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 const YottaLogoComponent: React.ComponentType<HTMLAttributes<HTMLDivElement>> = props => {
   const classes = useStyles()
@@ -29,3 +25,9 @@ const YottaLogoComponent: React.ComponentType<HTMLAttributes<HTMLDivElement>> = 
 }
 
 export default YottaLogoComponent
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: { padding: `${theme.spacing(2)}px 0px`, cursor: 'pointer' },
+  })
+)

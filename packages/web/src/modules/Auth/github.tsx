@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { RouteComponentProps } from '@reach/router'
 import { parse } from 'query-string'
-import { yottaToken, yottaUser } from '@yotta/web/src/utils/contants'
+
+import { yottaToken, yottaUser } from '../../utils/contants'
 
 import LoginWithGithubMutation from './mutation/LoginWithGithubMutation'
 
-const Auth: React.FC<RouteComponentProps> = ({ location, navigate }) => {
+const AuthGithub: React.FC<RouteComponentProps> = ({ location, navigate }) => {
   const { code } = parse(location!.search)
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const Auth: React.FC<RouteComponentProps> = ({ location, navigate }) => {
     )
   }, [])
 
-  return <p>Carregando...</p>
+  return <p>Loading</p>
 }
 
-export default Auth
+export default AuthGithub

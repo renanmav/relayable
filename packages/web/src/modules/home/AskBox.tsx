@@ -1,9 +1,67 @@
-import { withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles'
+import React, { useState } from 'react'
 
+import { withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
+import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
-export const QuestionField = withStyles(theme => ({
+import CreateQuestion from './mutation/CreateQuestionMutation'
+
+const AskBox: React.FC = () => {
+  const [question, setQuestion] = useState('')
+  const [tags, setTags] = useState('')
+
+  const classes = useStyles()
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    CreateQuestion.commit(
+      {
+        content: question,
+        tags: tags.split(' '),
+      },
+      _response => {},
+      () => {}
+    )
+  }
+
+  return (
+    <Container maxWidth="sm" id="ask-something">
+      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <QuestionField
+          value={question}
+          onChange={e => setQuestion(e.target.value)}
+          variant="outlined"
+          margin="normal"
+          placeholder="What’s the answer to life, the universe and everything?"
+          multiline
+          fullWidth
+        />
+        <Box className={classes.footer}>
+          <TagsField
+            variant="outlined"
+            margin="normal"
+            className={classes.tags}
+            InputProps={{ startAdornment: <LocalOfferIcon className={classes.tagsIcon} /> }}
+            value={tags}
+            onChange={e => setTags(e.target.value)}
+          />
+          <AskButton type="submit">
+            <QuestionAnswerIcon className={classes.questionIcon} />
+            ASK
+          </AskButton>
+        </Box>
+      </form>
+    </Container>
+  )
+}
+
+export default AskBox
+
+const QuestionField = withStyles(theme => ({
   root: {
     marginBottom: 0,
     '& .MuiOutlinedInput-root': {
@@ -31,7 +89,7 @@ export const QuestionField = withStyles(theme => ({
   },
 }))(TextField)
 
-export const TagsField = withStyles(theme => ({
+const TagsField = withStyles(theme => ({
   root: {
     margin: 0,
     marginTop: -1,
@@ -55,7 +113,7 @@ export const TagsField = withStyles(theme => ({
   },
 }))(TextField)
 
-export const AskButton = withStyles(theme => ({
+const AskButton = withStyles(theme => ({
   root: {
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.secondary.contrastText,
@@ -72,7 +130,7 @@ export const AskButton = withStyles(theme => ({
   },
 }))(Button)
 
-export const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     footer: {
       display: 'flex',

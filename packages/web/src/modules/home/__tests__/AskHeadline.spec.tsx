@@ -6,7 +6,7 @@ import { RelayEnvironmentProvider } from '@entria/relay-experimental'
 
 import { MockPayloadGenerator } from 'relay-test-utils'
 
-import Ask from '../index'
+import Ask from '../AskHeadline'
 
 const delay = (value: any) => new Promise(resolve => setTimeout(() => resolve(), value))
 

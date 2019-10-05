@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import { MockPayloadGenerator } from 'relay-test-utils'
 import { env } from '@yotta/web/src/relay/createQueryRendererModern'
 
-import Navbar from '../index'
+import Navbar from '../Navbar'
 
 test('Loading state', () => {
   const component = render(<Navbar />)

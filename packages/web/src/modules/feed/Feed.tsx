@@ -7,9 +7,10 @@ import { Container, Typography } from '@material-ui/core'
 
 import Navbar from '../Navbar'
 
-import { FeedQuery } from './__generated__/FeedQuery.graphql'
 import Question from './Question'
-import { QuestionFragment } from './Question/__generated__/QuestionFragment.graphql'
+
+import { FeedQuery } from './__generated__/FeedQuery.graphql'
+import { QuestionFragment } from './__generated__/QuestionFragment.graphql'
 
 const Feed: React.FC<RouteComponentProps> = () => {
   const { questions } = useQuery<FeedQuery>(

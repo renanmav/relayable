@@ -2,6 +2,7 @@ import React from 'react'
 import { createFragmentContainer, graphql, RelayProp, commitLocalUpdate } from 'react-relay'
 import { navigate } from '@reach/router'
 
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
@@ -10,14 +11,12 @@ import IconButton from '@material-ui/core/IconButton'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 
 import { createQueryRendererModern } from '@yotta/web/src/relay'
-
 import env from '@yotta/web/src/relay/Environment'
 import { yottaDarkTheme } from '@yotta/web/src/utils/contants'
 
 import YottaLogo from './YottaLogo'
 
 import { Navbar_query } from './__generated__/Navbar_query.graphql'
-import { useStyles } from './styles'
 
 interface NavbarProps {
   query: Navbar_query
@@ -76,4 +75,32 @@ export default createQueryRendererModern(NavbarFragment, NavbarComponent, {
       ...Navbar_query
     }
   `,
+})
+
+const useStyles = makeStyles((theme: Theme) => {
+  const { primary } = theme.palette
+  return createStyles({
+    root: { flexGrow: 1 },
+    appBar: { display: 'flex', flexDirection: 'row', justifyContent: 'center' },
+    toolBar: { maxWidth: 1000, flex: 1 },
+    btn: {
+      background: primary.main,
+      border: 0,
+      borderRadius: 3,
+      color: 'white',
+      height: 48,
+      padding: '0 30px',
+      boxShadow: '0px 3px 4px rgba(0, 0, 0, 0.2)',
+      '&:hover': {
+        background: primary.dark,
+      },
+    },
+    avatar: {
+      height: 54,
+      width: 54,
+    },
+    theme: {
+      marginRight: theme.spacing(2),
+    },
+  })
 })

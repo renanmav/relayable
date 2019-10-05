@@ -110,6 +110,7 @@ module.exports = {
         html: true,
       },
     ],
+    '@typescript-eslint/no-use-before-define': 'off',
   },
   settings: {
     'import/parsers': {
