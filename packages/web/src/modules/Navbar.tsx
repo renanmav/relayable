@@ -1,6 +1,7 @@
 import React from 'react'
-import { createFragmentContainer, graphql, RelayProp, commitLocalUpdate } from 'react-relay'
+import { graphql, commitLocalUpdate } from 'react-relay'
 import { navigate } from '@reach/router'
+import { useQuery } from '@entria/relay-experimental'
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -10,20 +11,24 @@ import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 
-import { createQueryRendererModern } from '@yotta/web/src/relay'
 import env from '@yotta/web/src/relay/Environment'
 import { yottaDarkTheme } from '@yotta/web/src/utils/contants'
 
 import YottaLogo from './YottaLogo'
 
-import { Navbar_query } from './__generated__/Navbar_query.graphql'
+import { NavbarQuery } from './__generated__/NavbarQuery.graphql'
 
-interface NavbarProps {
-  query: Navbar_query
-  relay: RelayProp
-}
+const Navbar: React.FC<{}> = () => {
+  const { githubLoginUrl, me } = useQuery<NavbarQuery>(graphql`
+    query NavbarQuery {
+      githubLoginUrl
+      me {
+        avatar_url
+        name
+      }
+    }
+  `)
 
-const NavbarComponent: React.FC<NavbarProps> = ({ query: { githubLoginUrl, me } }) => {
   const navigateToGithub = () => navigate(githubLoginUrl!)
 
   const handleThemeChange = () => {
@@ -57,25 +62,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({ query: { githubLoginUrl, me } 
   )
 }
 
-export const NavbarFragment = createFragmentContainer(NavbarComponent, {
-  query: graphql`
-    fragment Navbar_query on Query {
-      githubLoginUrl
-      me {
-        avatar_url
-        name
-      }
-    }
-  `,
-})
-
-export default createQueryRendererModern(NavbarFragment, NavbarComponent, {
-  query: graphql`
-    query NavbarQuery {
-      ...Navbar_query
-    }
-  `,
-})
+export default Navbar
 
 const useStyles = makeStyles((theme: Theme) => {
   const { primary } = theme.palette
