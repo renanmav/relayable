@@ -1,17 +1,16 @@
 import React from 'react'
-import { useFragment } from '@entria/relay-experimental'
-import { graphql } from 'react-relay'
+import { useFragment, graphql } from 'react-relay/hooks'
 import moment from 'moment'
 
 import { Avatar, Typography, Box, Paper, Container } from '@material-ui/core'
 
-import { QuestionFragment } from './__generated__/QuestionFragment.graphql'
+import { QuestionFragment$key } from './__generated__/QuestionFragment.graphql'
 
-interface QuestionProps {
-  question: QuestionFragment
+interface Props {
+  question: QuestionFragment$key
 }
 
-const Question: React.FC<QuestionProps> = props => {
+const Question = (props: Props) => {
   const { author, createdAt, views, content } = useFragment(
     graphql`
       fragment QuestionFragment on Question {
@@ -25,7 +24,7 @@ const Question: React.FC<QuestionProps> = props => {
         createdAt
       }
     `,
-    props.question
+    props.question,
   )
 
   return (

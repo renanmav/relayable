@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, commitLocalUpdate } from 'react-relay'
 import { navigate } from '@reach/router'
-import { useQuery } from '@entria/relay-experimental'
+import { useLazyLoadQuery, useRelayEnvironment } from 'react-relay/hooks'
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -11,7 +11,6 @@ import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 
-import env from '@relayable/web/src/relay/Environment'
 import { yottaDarkTheme } from '@relayable/web/src/utils/contants'
 
 import YottaLogo from './YottaLogo'
@@ -19,25 +18,30 @@ import YottaLogo from './YottaLogo'
 import { NavbarQuery } from './__generated__/NavbarQuery.graphql'
 
 const Navbar: React.FC<{}> = () => {
-  const { githubLoginUrl, me } = useQuery<NavbarQuery>(graphql`
-    query NavbarQuery {
-      githubLoginUrl
-      me {
-        avatar_url
-        name
+  const environment = useRelayEnvironment()
+
+  const { githubLoginUrl, me } = useLazyLoadQuery<NavbarQuery>(
+    graphql`
+      query NavbarQuery {
+        githubLoginUrl
+        me {
+          avatar_url
+          name
+        }
       }
-    }
-  `)
+    `,
+    {},
+  )
 
   const navigateToGithub = () => navigate(githubLoginUrl!)
 
   const handleThemeChange = () => {
-    commitLocalUpdate(env, store => {
+    commitLocalUpdate(environment, store => {
       const settings = store.getRoot().getLinkedRecord('settings')
       settings!.setValue(!settings!.getValue('darkTheme'), 'darkTheme')
 
-      const isDarkTheme = settings.getValue('darkTheme')
-      localStorage.setItem(yottaDarkTheme, isDarkTheme)
+      const isDarkTheme = settings!.getValue('darkTheme')
+      localStorage.setItem(yottaDarkTheme, isDarkTheme! as string)
     })
   }
 

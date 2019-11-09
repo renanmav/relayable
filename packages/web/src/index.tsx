@@ -1,17 +1,16 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
+import { RelayEnvironmentProvider } from 'react-relay/hooks'
 
 import './reset.css'
-
-import { RelayEnvironmentProvider } from '@entria/relay-experimental'
 
 import { Environment } from '@relayable/web/src/relay'
 
 import Main from './modules/Main'
 
-render(
+ReactDOM.render(
   <RelayEnvironmentProvider environment={Environment}>
     <Main />
   </RelayEnvironmentProvider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 )

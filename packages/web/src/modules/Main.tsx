@@ -1,6 +1,5 @@
 import React from 'react'
-import { graphql } from 'react-relay'
-import { useQuery } from '@entria/relay-experimental'
+import { useLazyLoadQuery, graphql } from 'react-relay/hooks'
 
 import ThemeProvider from '@material-ui/styles/ThemeProvider'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -45,14 +44,17 @@ export const darkTheme = createMuiTheme({
 const Main: React.FC = () => {
   const {
     settings: { darkTheme: isDark },
-  } = useQuery<MainQuery>(graphql`
-    query MainQuery {
-      __typename
-      settings {
-        darkTheme
+  } = useLazyLoadQuery<MainQuery>(
+    graphql`
+      query MainQuery {
+        __typename
+        settings {
+          darkTheme
+        }
       }
-    }
-  `)
+    `,
+    {},
+  )
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>

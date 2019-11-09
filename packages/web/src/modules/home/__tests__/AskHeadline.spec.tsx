@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { env } from '@relayable/web/src/relay/createQueryRendererModern'
 
-import { RelayEnvironmentProvider } from '@entria/relay-experimental'
+import { RelayEnvironmentProvider } from 'react-relay/hooks'
 
 import { MockPayloadGenerator } from 'relay-test-utils'
 
@@ -20,7 +20,7 @@ test('Loading state', () => {
   const { queryByText } = render(
     <Providers>
       <Ask />
-    </Providers>
+    </Providers>,
   )
 
   expect(queryByText('Loading...')).toBeDefined()
@@ -30,7 +30,7 @@ test('Data loaded', async () => {
   const { queryByText } = render(
     <Providers>
       <Ask />
-    </Providers>
+    </Providers>,
   )
 
   env.mock.resolveMostRecentOperation(operation => MockPayloadGenerator.generate(operation))

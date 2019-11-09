@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery } from '@entria/relay-experimental'
+import { useLazyLoadQuery } from 'react-relay/hooks'
 import { graphql } from 'react-relay'
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
@@ -9,12 +9,13 @@ import Typography from '@material-ui/core/Typography'
 import { AskHeadlineQuery } from './__generated__/AskHeadlineQuery.graphql'
 
 export default function AskHeadline() {
-  const { questionAvgResponse } = useQuery<AskHeadlineQuery>(
+  const { questionAvgResponse } = useLazyLoadQuery<AskHeadlineQuery>(
     graphql`
       query AskHeadlineQuery {
         questionAvgResponse
       }
-    `
+    `,
+    {},
   )
 
   const classes = useStyles()
@@ -47,5 +48,5 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 300,
       color: theme.palette.grey[600],
     },
-  })
+  }),
 )

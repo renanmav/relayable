@@ -1,12 +1,4 @@
-import {
-  Environment,
-  Network,
-  RecordSource,
-  Store,
-  RelayNetworkLoggerTransaction,
-  createRelayNetworkLogger,
-  commitLocalUpdate,
-} from 'relay-runtime'
+import { Environment, Network, RecordSource, Store, commitLocalUpdate } from 'relay-runtime'
 // @ts-ignore
 import { installRelayDevTools } from 'relay-devtools'
 
@@ -14,15 +6,11 @@ import { yottaDarkTheme } from '../utils/contants'
 
 import cacheHandler from './cacheHandler'
 
-const RelayNetworkLogger = createRelayNetworkLogger(RelayNetworkLoggerTransaction)
-
 if (process.env.NODE_ENV === 'development') {
   installRelayDevTools()
 }
 
-const network = Network.create(
-  process.env.NODE_ENV === 'development' ? RelayNetworkLogger.wrapFetch(cacheHandler) : cacheHandler
-)
+const network = Network.create(cacheHandler)
 
 const source = new RecordSource()
 const store = new Store(source)

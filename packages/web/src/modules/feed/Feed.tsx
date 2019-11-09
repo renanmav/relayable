@@ -1,7 +1,6 @@
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
-import { useQuery } from '@entria/relay-experimental'
-import { graphql } from 'react-relay'
+import { useLazyLoadQuery, graphql } from 'react-relay/hooks'
 
 import { Container, Typography } from '@material-ui/core'
 
@@ -10,10 +9,9 @@ import Navbar from '../Navbar'
 import Question from './Question'
 
 import { FeedQuery } from './__generated__/FeedQuery.graphql'
-import { QuestionFragment } from './__generated__/QuestionFragment.graphql'
 
 const Feed: React.FC<RouteComponentProps> = () => {
-  const { questions } = useQuery<FeedQuery>(
+  const { questions } = useLazyLoadQuery<FeedQuery>(
     graphql`
       query FeedQuery {
         questions {
@@ -25,7 +23,8 @@ const Feed: React.FC<RouteComponentProps> = () => {
           }
         }
       }
-    `
+    `,
+    {},
   )
 
   const { edges } = questions!
@@ -37,10 +36,7 @@ const Feed: React.FC<RouteComponentProps> = () => {
         <Typography variant="h4" style={{ padding: '20px 0' }}>
           Feed page
         </Typography>
-        {edges &&
-          edges.map(edge => (
-            <Question key={edge!.node!.id} question={(edge!.node as unknown) as QuestionFragment} />
-          ))}
+        {edges && edges.map(edge => <Question key={edge!.node!.id} question={edge!.node!} />)}
       </Container>
     </>
   )
