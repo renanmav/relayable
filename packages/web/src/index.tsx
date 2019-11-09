@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import './reset.css'
 
 import { RelayEnvironmentProvider } from '@entria/relay-experimental'
-import { Environment } from '@yotta/web/src/relay'
+import { Environment } from '@relayable/web/src/relay'
 
 import Main from './modules/Main'
 

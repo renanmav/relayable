@@ -11,8 +11,8 @@ import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 
-import env from '@yotta/web/src/relay/Environment'
-import { yottaDarkTheme } from '@yotta/web/src/utils/contants'
+import env from '@relayable/web/src/relay/Environment'
+import { yottaDarkTheme } from '@relayable/web/src/utils/contants'
 
 import YottaLogo from './YottaLogo'
 

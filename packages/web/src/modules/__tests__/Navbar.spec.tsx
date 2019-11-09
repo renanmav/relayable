@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { MockPayloadGenerator } from 'relay-test-utils'
-import { env } from '@yotta/web/src/relay/createQueryRendererModern'
+import { env } from '@relayable/web/src/relay/createQueryRendererModern'
 
 import Navbar from '../Navbar'
 

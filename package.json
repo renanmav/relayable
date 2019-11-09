@@ -1,5 +1,5 @@
 {
-  "name": "@yotta/relayable",
+  "name": "@relayable/relayable",
   "version": "1.0.0",
   "description": "Yotta's Q&A created with Relay and GraphQL",
   "main": "index.js",
@@ -7,14 +7,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start:web": "yarn workspace @yotta/web start",
-    "start:server": "yarn workspace @yotta/server start:dev",
-    "build": "yarn workspace @yotta/server build",
-    "start": "yarn workspace @yotta/server start:prod",
+    "start:web": "yarn workspace @relayable/web start",
+    "start:server": "yarn workspace @relayable/server start:dev",
+    "build": "yarn workspace @relayable/server build",
+    "start": "yarn workspace @relayable/server start:prod",
     "lint:staged": "lint-staged",
     "lint": "yarn eslint --fix ./packages --ext js,ts,tsx",
-    "test": "yarn relay && concurrently \"yarn workspace @yotta/server test\" \"yarn workspace @yotta/web test\"",
-    "relay": "yarn workspace @yotta/web relay"
+    "test": "yarn relay && concurrently \"yarn workspace @relayable/server test\" \"yarn workspace @relayable/web test\"",
+    "relay": "yarn workspace @relayable/web relay"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",

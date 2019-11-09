@@ -1,6 +1,6 @@
 /* eslint-disable no-multi-assign */
-import { IQuestion } from '@yotta/server/src/modules/question/QuestionModel'
-import { IAnswer } from '@yotta/server/src/modules/answer/AnswerModel'
+import { IQuestion } from '@relayable/server/src/modules/question/QuestionModel'
+import { IAnswer } from '@relayable/server/src/modules/answer/AnswerModel'
 
 import { User, Question, Answer } from '../src/model'
 

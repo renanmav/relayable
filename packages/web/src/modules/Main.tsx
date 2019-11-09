@@ -6,7 +6,7 @@ import ThemeProvider from '@material-ui/styles/ThemeProvider'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme } from '@material-ui/core/styles'
 
-import Routes from '@yotta/web/src/routes'
+import Routes from '@relayable/web/src/routes'
 
 import { MainQuery } from './__generated__/MainQuery.graphql'
 

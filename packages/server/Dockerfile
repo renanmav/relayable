@@ -1,6 +1,6 @@
 FROM node:alpine
 
-LABEL maintainer="yotta.dev<team@yotta.dev>"
+LABEL maintainer="yotta.dev<team@relayable.dev>"
 
 RUN mkdir /app
 WORKDIR /app

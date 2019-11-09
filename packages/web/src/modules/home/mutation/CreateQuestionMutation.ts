@@ -1,6 +1,6 @@
 import { graphql, commitMutation } from 'react-relay'
 
-import env from '@yotta/web/src/relay/Environment'
+import env from '@relayable/web/src/relay/Environment'
 
 import {
   CreateQuestionInput,

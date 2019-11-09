@@ -1,7 +1,7 @@
 [build]
   base = "/"
   publish = "packages/web/dist/"
-  command = "yarn relay && yarn workspace @yotta/web build"
+  command = "yarn relay && yarn workspace @relayable/web build"
 
 [[redirects]]
   from = "/*"

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { env } from '@yotta/web/src/relay/createQueryRendererModern'
+import { env } from '@relayable/web/src/relay/createQueryRendererModern'
 
 import { RelayEnvironmentProvider } from '@entria/relay-experimental'
 

@@ -1,7 +1,7 @@
 import { commitMutation, graphql } from 'react-relay'
 import { MockPayloadGenerator } from 'relay-test-utils'
 
-import { env } from '@yotta/web/src/relay/createQueryRendererModern'
+import { env } from '@relayable/web/src/relay/createQueryRendererModern'
 
 it('should get token and user', () => {
   const onCompleted = jest.fn()

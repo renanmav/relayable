@@ -34,7 +34,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@yotta/web': path.resolve(__dirname),
+      '@relayable/web': path.resolve(__dirname),
     },
     extensions: ['.js', '.ts', '.tsx'],
   },
